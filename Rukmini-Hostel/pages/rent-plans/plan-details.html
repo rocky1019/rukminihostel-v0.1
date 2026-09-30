@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plan Details - Rukmini Hostel</title>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f8f7;
+            color: #202020;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 82px;
+            background: #006b60;
+            color: white;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 16px;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+
+        .back-btn,
+        .delete-btn {
+            width: 45px;
+            height: 45px;
+
+            border: none;
+            background: transparent;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+        }
+
+        .back-btn i {
+            width: 29px;
+            height: 29px;
+            stroke-width: 2.5;
+        }
+
+        .delete-btn {
+            margin-left: auto;
+        }
+
+        .delete-btn i {
+            width: 23px;
+            height: 23px;
+        }
+
+        .header-title {
+            font-size: 25px;
+            font-weight: 600;
+            margin-left: 14px;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            max-width: 650px;
+            margin: auto;
+            padding: 18px 14px 40px;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            background: white;
+            border-radius: 10px;
+
+            margin-bottom: 14px;
+
+            padding: 18px 15px;
+
+            border-left: 4px solid #008b7d;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.09);
+        }
+
+        /* ================= PLAN HEADER ================= */
+
+        .plan-header {
+            text-align: center;
+            padding: 22px 15px 18px;
+        }
+
+        .plan-name {
+            font-size: 29px;
+            font-weight: 700;
+            color: #151515;
+            margin-bottom: 18px;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .outline-btn {
+            min-height: 42px;
+
+            padding: 0 17px;
+
+            border-radius: 22px;
+
+            border: 1.5px solid #74a9a2;
+
+            background: white;
+
+            color: #006b60;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            cursor: pointer;
+        }
+
+        .outline-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .outline-btn:active {
+            background: #eef8f6;
+        }
+
+        /* ================= SECTION TITLE ================= */
+
+        .section-title {
+            color: #e39a26;
+            font-size: 21px;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        /* ================= PLAN PRICE ================= */
+
+        .price-label {
+            font-size: 19px;
+            margin-bottom: 25px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+
+            font-size: 20px;
+
+            margin-bottom: 20px;
+        }
+
+        .price-row .rate-word {
+            font-weight: 500;
+        }
+
+        .dash {
+            color: #555;
+        }
+
+        .price {
+            font-size: 23px;
+            font-weight: 600;
+        }
+
+        .price-action {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* ================= GST ================= */
+
+        .gst-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+        .gst-value {
+            font-size: 20px;
+        }
+
+        /* ================= DELETE ================= */
+
+        .delete-modal-overlay {
+            display: none;
+
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0,0,0,0.55);
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 100;
+        }
+
+        .delete-modal-overlay.show {
+            display: flex;
+        }
+
+        .delete-modal {
+            width: 100%;
+            max-width: 390px;
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+        }
+
+        .delete-modal h3 {
+            font-size: 21px;
+            color: #006b60;
+
+            margin-bottom: 10px;
+        }
+
+        .delete-modal p {
+            color: #666;
+            line-height: 1.5;
+
+            margin-bottom: 22px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+
+            height: 45px;
+
+            border: none;
+            border-radius: 9px;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .cancel {
+            background: #eeeeee;
+        }
+
+        .delete-confirm {
+            background: #d94141;
+            color: white;
+        }
+
+        /* ================= EDIT MODAL ================= */
+
+        .edit-overlay {
+            display: none;
+
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0,0,0,0.55);
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 90;
+        }
+
+        .edit-overlay.show {
+            display: flex;
+        }
+
+        .edit-modal {
+            width: 100%;
+            max-width: 420px;
+
+            background: white;
+
+            border-radius: 16px;
+
+            padding: 24px;
+        }
+
+        .edit-modal h3 {
+            color: #006b60;
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .edit-field {
+            margin-bottom: 17px;
+        }
+
+        .edit-field label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 7px;
+        }
+
+        .edit-field input,
+        .edit-field select {
+            width: 100%;
+            height: 50px;
+
+            border: 1.5px solid #aeb9b6;
+            border-radius: 8px;
+
+            padding: 0 13px;
+
+            font-size: 17px;
+        }
+
+        .edit-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .edit-buttons button {
+            flex: 1;
+            height: 45px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .edit-cancel {
+            background: #eee;
+        }
+
+        .edit-save {
+            background: #008b7d;
+            color: white;
+        }
+
+        @media (min-width: 700px) {
+
+            .header {
+                padding-left: calc((100% - 650px) / 2);
+                padding-right: calc((100% - 650px) / 2);
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<header class="header">
+
+    <button class="back-btn" onclick="goBack()">
+        <i data-lucide="arrow-left"></i>
+    </button>
+
+    <div class="header-title">
+        Plan Detail
+    </div>
+
+    <button class="delete-btn" onclick="openDeleteModal()">
+        <i data-lucide="trash-2"></i>
+    </button>
+
+</header>
+
+
+<main class="content">
+
+
+    <!-- PLAN NAME -->
+
+    <section class="card plan-header">
+
+        <div class="plan-name" id="planName">
+            Rent Plan
+        </div>
+
+        <button class="outline-btn" onclick="openDetailsEdit()">
+            <i data-lucide="pencil"></i>
+            Edit Details
+        </button>
+
+    </section>
+
+
+    <!-- PLAN PRICE -->
+
+    <section class="card">
+
+        <div class="section-title">
+            Plan Price
+        </div>
+
+        <div class="price-label">
+            Plan Price
+        </div>
+
+        <div class="price-row">
+
+            <span class="rate-word">
+                RATE
+            </span>
+
+            <span class="dash">
+                -
+            </span>
+
+            <span class="price" id="planRate">
+                ₹0
+            </span>
+
+        </div>
+
+        <div class="price-action">
+
+            <button
+                class="outline-btn"
+                onclick="openPricingEdit()"
+            >
+                <i data-lucide="indian-rupee"></i>
+                Edit Plan Pricing
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- GST -->
+
+    <section class="card">
+
+        <div class="section-title">
+            GST Detail
+        </div>
+
+        <div class="gst-row">
+
+            <span class="gst-value" id="gstValue">
+                0%
+            </span>
+
+            <button
+                class="outline-btn"
+                onclick="openGstEdit()"
+            >
+                <span>%</span>
+                Change GST
+            </button>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- DELETE MODAL -->
+
+<div class="delete-modal-overlay" id="deleteModal">
+
+    <div class="delete-modal">
+
+        <h3>Delete Rent Plan?</h3>
+
+        <p>
+            This will permanently remove this rent plan.
+            This action cannot be undone.
+        </p>
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel"
+                onclick="closeDeleteModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="delete-confirm"
+                onclick="deletePlan()"
+            >
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- EDIT DETAILS MODAL -->
+
+<div class="edit-overlay" id="detailsModal">
+
+    <div class="edit-modal">
+
+        <h3>Edit Plan Details</h3>
+
+        <div class="edit-field">
+
+            <label>
+                Plan Name
+            </label>
+
+            <input
+                type="text"
+                id="editName"
+            >
+
+        </div>
+
+        <div class="edit-buttons">
+
+            <button
+                class="edit-cancel"
+                onclick="closeDetailsEdit()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="edit-save"
+                onclick="saveDetailsEdit()"
+            >
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PRICING MODAL -->
+
+<div class="edit-overlay" id="pricingModal">
+
+    <div class="edit-modal">
+
+        <h3>Edit Plan Pricing</h3>
+
+        <div class="edit-field">
+
+            <label>
+                Rate
+            </label>
+
+            <input
+                type="number"
+                id="editRate"
+                min="0"
+            >
+
+        </div>
+
+        <div class="edit-buttons">
+
+            <button
+                class="edit-cancel"
+                onclick="closePricingEdit()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="edit-save"
+                onclick="savePricingEdit()"
+            >
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- GST MODAL -->
+
+<div class="edit-overlay" id="gstModal">
+
+    <div class="edit-modal">
+
+        <h3>Change GST</h3>
+
+        <div class="edit-field">
+
+            <label>
+                Total GST Percentage
+            </label>
+
+            <select id="editGst">
+
+                <option value="0">0%</option>
+                <option value="1">1%</option>
+                <option value="2">2%</option>
+                <option value="3">3%</option>
+                <option value="5">5%</option>
+                <option value="8">8%</option>
+                <option value="10">10%</option>
+                <option value="12">12%</option>
+                <option value="18">18%</option>
+                <option value="28">28%</option>
+
+            </select>
+
+        </div>
+
+        <div class="edit-buttons">
+
+            <button
+                class="edit-cancel"
+                onclick="closeGstEdit()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="edit-save"
+                onclick="saveGstEdit()"
+            >
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    lucide.createIcons();
+
+
+    /* ================= LOAD PLAN ================= */
+
+    const params = new URLSearchParams(window.location.search);
+
+    const planId = Number(params.get("id"));
+
+    let plans =
+        JSON.parse(
+            localStorage.getItem("rukminiRentPlans") || "[]"
+        );
+
+    let plan =
+        plans.find(item => item.id === planId);
+
+    /*
+        If the page is opened directly without an ID,
+        use the newest plan.
+    */
+
+    if (!plan && plans.length > 0) {
+        plan = plans[plans.length - 1];
+    }
+
+    if (!plan) {
+
+        plan = {
+            id: Date.now(),
+            name: "Rent Plan",
+            rate: 0,
+            gst: 0
+        };
+
+    }
+
+
+    function renderPlan() {
+
+        document.getElementById("planName").textContent =
+            plan.name;
+
+        document.getElementById("planRate").textContent =
+            "₹" + Number(plan.rate).toLocaleString("en-IN");
+
+        document.getElementById("gstValue").textContent =
+            plan.gst + "%";
+
+    }
+
+    renderPlan();
+
+
+    /* ================= SAVE ================= */
+
+    function savePlans() {
+
+        const index =
+            plans.findIndex(item => item.id === plan.id);
+
+        if (index !== -1) {
+            plans[index] = plan;
+        } else {
+            plans.push(plan);
+        }
+
+        localStorage.setItem(
+            "rukminiRentPlans",
+            JSON.stringify(plans)
+        );
+
+    }
+
+
+    /* ================= DETAILS ================= */
+
+    function openDetailsEdit() {
+
+        document.getElementById("editName").value =
+            plan.name;
+
+        document
+            .getElementById("detailsModal")
+            .classList.add("show");
+
+    }
+
+    function closeDetailsEdit() {
+
+        document
+            .getElementById("detailsModal")
+            .classList.remove("show");
+
+    }
+
+    function saveDetailsEdit() {
+
+        const name =
+            document.getElementById("editName").value.trim();
+
+        if (!name) return;
+
+        plan.name = name;
+
+        savePlans();
+        renderPlan();
+
+        closeDetailsEdit();
+
+    }
+
+
+    /* ================= PRICING ================= */
+
+    function openPricingEdit() {
+
+        document.getElementById("editRate").value =
+            plan.rate;
+
+        document
+            .getElementById("pricingModal")
+            .classList.add("show");
+
+    }
+
+    function closePricingEdit() {
+
+        document
+            .getElementById("pricingModal")
+            .classList.remove("show");
+
+    }
+
+    function savePricingEdit() {
+
+        plan.rate =
+            Number(
+                document.getElementById("editRate").value
+            ) || 0;
+
+        savePlans();
+        renderPlan();
+
+        closePricingEdit();
+
+    }
+
+
+    /* ================= GST ================= */
+
+    function openGstEdit() {
+
+        document.getElementById("editGst").value =
+            plan.gst;
+
+        document
+            .getElementById("gstModal")
+            .classList.add("show");
+
+    }
+
+    function closeGstEdit() {
+
+        document
+            .getElementById("gstModal")
+            .classList.remove("show");
+
+    }
+
+    function saveGstEdit() {
+
+        plan.gst =
+            Number(
+                document.getElementById("editGst").value
+            );
+
+        savePlans();
+        renderPlan();
+
+        closeGstEdit();
+
+    }
+
+
+    /* ================= DELETE ================= */
+
+    function openDeleteModal() {
+
+        document
+            .getElementById("deleteModal")
+            .classList.add("show");
+
+    }
+
+    function closeDeleteModal() {
+
+        document
+            .getElementById("deleteModal")
+            .classList.remove("show");
+
+    }
+
+    function deletePlan() {
+
+        plans =
+            plans.filter(item => item.id !== plan.id);
+
+        localStorage.setItem(
+            "rukminiRentPlans",
+            JSON.stringify(plans)
+        );
+
+        window.location.href = "../main/rent-plans.html";
+
+    }
+
+
+    /* ================= BACK ================= */
+
+    function goBack() {
+        window.history.back();
+    }
+
+</script>
+
+</body>
+</html>

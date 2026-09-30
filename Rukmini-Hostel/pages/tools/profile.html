@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - Rukmini Hostel</title>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#F5F7F6;
+    color:#263238;
+    padding-bottom:84px
+}
+
+button,
+input,
+select{
+    font:inherit
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    height:72px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#00695C;
+    border-bottom:1px solid #00574D;
+    position:sticky;
+    top:0;
+    z-index:20
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:9px
+}
+
+.back-button{
+    width:34px;
+    height:34px;
+    border:0;
+    background:transparent;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer
+}
+
+.back-button svg{
+    width:21px;
+    height:21px;
+    stroke-width:2.5
+}
+
+.header-logo{
+    width:43px;
+    height:43px;
+    border-radius:12px;
+    object-fit:cover;
+    background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.12)
+}
+
+.header-title{
+    display:flex;
+    flex-direction:column;
+    gap:3px
+}
+
+.header-title strong{
+    font-size:17px;
+    line-height:1;
+    font-weight:700;
+    color:#fff
+}
+
+.header-title span{
+    font-size:11px;
+    color:#B2DFDB
+}
+
+.profile-button{
+    width:40px;
+    height:40px;
+    border:1px solid #4DB6AC;
+    border-radius:50%;
+    background:#087D70;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer
+}
+
+.profile-button svg{
+    width:19px;
+    height:19px
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+    max-width:600px;
+    margin:auto;
+    padding:14px
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.09);
+    margin-bottom:12px;
+    overflow:hidden
+}
+
+.profile-card{
+    padding:20px;
+    text-align:center
+}
+
+.avatar{
+    width:78px;
+    height:78px;
+    margin:0 auto 11px;
+    border-radius:50%;
+    background:#E0F2F1;
+    color:#00695C;
+    display:flex;
+    align-items:center;
+    justify-content:center
+}
+
+.avatar svg{
+    width:34px;
+    height:34px
+}
+
+.business-name{
+    font-size:21px;
+    font-weight:700
+}
+
+.business-sub{
+    font-size:12px;
+    color:#777;
+    margin-top:5px
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section-title{
+    color:#00695C;
+    font-size:17px;
+    font-weight:700;
+    padding:14px 15px 11px;
+    border-bottom:1px solid #E4EAEA
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form{
+    padding:14px
+}
+
+.field{
+    margin-bottom:12px
+}
+
+.field:last-child{
+    margin-bottom:0
+}
+
+label{
+    display:block;
+    font-size:12px;
+    color:#666;
+    margin-bottom:6px
+}
+
+input,
+select{
+    width:100%;
+    border:1px solid #CFDDDB;
+    border-radius:8px;
+    background:#fff;
+    color:#222;
+    padding:12px 11px;
+    outline:none
+}
+
+input:focus,
+select:focus{
+    border-color:#00897B
+}
+
+input:disabled{
+    background:#F3F5F5;
+    color:#607D7A;
+    cursor:not-allowed
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.primary{
+    width:100%;
+    border:0;
+    border-radius:9px;
+    background:#00695C;
+    color:#fff;
+    padding:13px;
+    font-weight:700;
+    cursor:pointer
+}
+
+.primary:disabled{
+    opacity:.65;
+    cursor:wait
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    display:none;
+    margin:0 14px 12px;
+    padding:11px 12px;
+    border-radius:8px;
+    font-size:12px;
+    line-height:1.4
+}
+
+.message.success{
+    display:block;
+    background:#E8F5E9;
+    color:#2E7D32
+}
+
+.message.error{
+    display:block;
+    background:#FFEBEE;
+    color:#C62828
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu-row{
+    padding:14px 15px;
+    border-bottom:1px solid #EEF1F0;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer
+}
+
+.menu-row:last-child{
+    border-bottom:0
+}
+
+.menu-icon{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    background:#E6F4F2;
+    color:#00695C;
+    display:flex;
+    align-items:center;
+    justify-content:center
+}
+
+.menu-icon svg{
+    width:19px
+}
+
+.menu-main{
+    flex:1
+}
+
+.menu-title{
+    font-size:14px;
+    font-weight:700
+}
+
+.menu-meta{
+    font-size:11px;
+    color:#777;
+    margin-top:4px
+}
+
+.chevron{
+    color:#9AA9A7
+}
+
+.chevron svg{
+    width:17px
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+.logout{
+    width:100%;
+    border:1px solid #D7E5E3;
+    background:#fff;
+    color:#B3261E;
+    border-radius:9px;
+    padding:13px;
+    font-weight:700;
+    cursor:pointer
+}
+
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:600px;
+    height:72px;
+    background:#00695C;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:8px 8px 10px;
+    z-index:50;
+    box-shadow:0 -4px 15px rgba(0,77,70,.12)
+}
+
+.nav-item{
+    border:0;
+    background:transparent;
+    color:#B2DFDB;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    font-size:10px;
+    font-weight:500;
+    cursor:pointer
+}
+
+.nav-icon{
+    width:36px;
+    height:30px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center
+}
+
+.nav-icon svg{
+    width:18px;
+    height:18px;
+    stroke-width:2.6
+}
+
+.nav-item.active{
+    color:#fff;
+    font-weight:700
+}
+
+.nav-item.active .nav-icon{
+    background:#80CBC4;
+    color:#004D40
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:420px){
+
+    .header{
+        padding:0 16px
+    }
+
+    .page{
+        padding:12px
+    }
+
+    .form-grid{
+        grid-template-columns:1fr
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="header-left">
+
+        <button
+            class="back-button"
+            onclick="history.back()"
+        >
+            <i data-lucide="arrow-left"></i>
+        </button>
+
+
+        <img
+            src="../../assets/rukminilogo.png"
+            class="header-logo"
+            alt="Rukmini Hostel"
+        >
+
+
+        <div class="header-title">
+
+            <strong>
+                Profile
+            </strong>
+
+            <span>
+                Hostel Management
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <button class="profile-button">
+
+        <i data-lucide="user-round"></i>
+
+    </button>
+
+</header>
+
+
+
+<!-- =========================
+     PAGE
+========================= -->
+
+<main class="page">
+
+
+    <!-- =========================
+         PROFILE CARD
+    ========================== -->
+
+    <section class="card profile-card">
+
+        <div class="avatar">
+
+            <i data-lucide="building-2"></i>
+
+        </div>
+
+
+        <div
+            class="business-name"
+            id="businessName"
+        >
+            Loading...
+        </div>
+
+
+        <div class="business-sub">
+
+            Hostel Management Account
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         BUSINESS INFORMATION
+    ========================== -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            Business Information
+
+        </div>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <div class="form">
+
+
+            <!-- HOSTEL NAME -->
+
+            <div class="field">
+
+                <label for="name">
+                    Business / Hostel Name
+                </label>
+
+                <input
+                    id="name"
+                    type="text"
+                    value=""
+                    placeholder="Rukmini Hostel"
+                    disabled
+                >
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="field">
+
+                <label for="phone">
+                    Mobile Number
+                </label>
+
+                <input
+                    id="phone"
+                    type="tel"
+                    placeholder="Enter mobile number"
+                    maxlength="10"
+                    disabled
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="field">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Enter email address"
+                    disabled
+                >
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="field">
+
+                <label for="address">
+                    Address
+                </label>
+
+                <input
+                    id="address"
+                    type="text"
+                    placeholder="Hostel address"
+                    disabled
+                >
+
+            </div>
+
+
+            <!-- SAVE -->
+
+            <button
+                class="primary"
+                id="saveButton"
+                onclick="saveProfile()"
+                disabled
+            >
+                Save Changes
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ACCOUNT SETTINGS
+    ========================== -->
+
+    <section class="card">
+
+        <div class="section-title">
+
+            Account Settings
+
+        </div>
+
+
+        <div
+            class="menu-row"
+            onclick="alert('Password change will be connected to Firebase Authentication.')"
+        >
+
+            <div class="menu-icon">
+
+                <i data-lucide="lock-keyhole"></i>
+
+            </div>
+
+
+            <div class="menu-main">
+
+                <div class="menu-title">
+                    Change Password
+                </div>
+
+                <div class="menu-meta">
+                    Update your account password
+                </div>
+
+            </div>
+
+
+            <div class="chevron">
+
+                <i data-lucide="chevron-right"></i>
+
+            </div>
+
+        </div>
+
+
+
+        <div
+            class="menu-row"
+            onclick="alert('Notification settings will be connected later.')"
+        >
+
+            <div class="menu-icon">
+
+                <i data-lucide="bell"></i>
+
+            </div>
+
+
+            <div class="menu-main">
+
+                <div class="menu-title">
+                    Notifications
+                </div>
+
+                <div class="menu-meta">
+                    Manage app notifications
+                </div>
+
+            </div>
+
+
+            <div class="chevron">
+
+                <i data-lucide="chevron-right"></i>
+
+            </div>
+
+        </div>
+
+
+
+        <div
+            class="menu-row"
+            onclick="alert('Data backup will be connected to Firebase later.')"
+        >
+
+            <div class="menu-icon">
+
+                <i data-lucide="cloud"></i>
+
+            </div>
+
+
+            <div class="menu-main">
+
+                <div class="menu-title">
+                    Data & Backup
+                </div>
+
+                <div class="menu-meta">
+                    Manage your app data
+                </div>
+
+            </div>
+
+
+            <div class="chevron">
+
+                <i data-lucide="chevron-right"></i>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         LOGOUT
+    ========================== -->
+
+    <section
+        class="card"
+        style="padding:13px"
+    >
+
+        <button
+            class="logout"
+            onclick="logout()"
+        >
+            Log Out
+        </button>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-item"
+        onclick="goTo('rent-plans')"
+    >
+
+        <span class="nav-icon">
+            <i data-lucide="receipt-text"></i>
+        </span>
+
+        <span>
+            Rent Plan
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="goTo('tenants')"
+    >
+
+        <span class="nav-icon">
+            <i data-lucide="users-round"></i>
+        </span>
+
+        <span>
+            Tenant
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        onclick="goTo('summary')"
+    >
+
+        <span class="nav-icon">
+            <i data-lucide="chart-no-axes-combined"></i>
+        </span>
+
+        <span>
+            Summary
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item active"
+        onclick="goTo('action')"
+    >
+
+        <span class="nav-icon">
+            <i data-lucide="menu"></i>
+        </span>
+
+        <span>
+            Action
+        </span>
+
+    </button>
+
+</nav>
+
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script type="module">
+
+
+/* ==========================================
+   FIREBASE IMPORTS
+========================================== */
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+import {
+    doc,
+    getDoc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+import {
+    auth,
+    db
+} from "../js/firebase-config.js";
+
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const businessName =
+    document.getElementById("businessName");
+
+
+const nameInput =
+    document.getElementById("name");
+
+
+const phoneInput =
+    document.getElementById("phone");
+
+
+const emailInput =
+    document.getElementById("email");
+
+
+const addressInput =
+    document.getElementById("address");
+
+
+const saveButton =
+    document.getElementById("saveButton");
+
+
+const message =
+    document.getElementById("message");
+
+
+
+/* ==========================================
+   CURRENT USER
+========================================== */
+
+let currentUser = null;
+
+
+
+/* ==========================================
+   AUTH STATE
+========================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user) {
+
+        if (!user) {
+
+            window.location.href =
+                "../auth/login.html";
+
+            return;
+
+        }
+
+
+        currentUser = user;
+
+
+        /*
+            Firebase Authentication provides
+            the email directly.
+        */
+
+        emailInput.value =
+            user.email || "";
+
+
+        try {
+
+            await loadProfile();
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "Profile loading error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to load your profile.",
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+
+/* ==========================================
+   LOAD PROFILE
+========================================== */
+
+async function loadProfile() {
+
+    if (!currentUser) {
+        return;
+    }
+
+
+    const userRef =
+        doc(
+            db,
+            "users",
+            currentUser.uid
+        );
+
+
+    const snapshot =
+        await getDoc(userRef);
+
+
+    if (snapshot.exists()) {
+
+        const data =
+            snapshot.data();
+
+
+        /*
+            Hostel name
+        */
+
+        const hostelName =
+            data.hostelName ||
+            "Rukmini Hostel";
+
+
+        nameInput.value =
+            hostelName;
+
+
+        businessName.textContent =
+            hostelName;
+
+
+        /*
+            Contact number
+        */
+
+        phoneInput.value =
+            data.contactNumber || "";
+
+
+        /*
+            Address
+
+            Account Setup stores address,
+            city and state separately.
+
+            Profile keeps its existing single
+            Address field, so we display them
+            together without deleting the
+            original Firestore fields.
+        */
+
+        let displayAddress =
+            data.address || "";
+
+
+        if (data.city) {
+
+            if (displayAddress) {
+                displayAddress += ", ";
+            }
+
+            displayAddress += data.city;
+
+        }
+
+
+        if (data.state) {
+
+            if (displayAddress) {
+                displayAddress += ", ";
+            }
+
+            displayAddress += data.state;
+
+        }
+
+
+        addressInput.value =
+            displayAddress;
+
+    }
+
+    else {
+
+        /*
+            No profile document yet.
+
+            This shouldn't normally happen because
+            Account Setup creates it, but keeping
+            this fallback makes Profile safe.
+        */
+
+        nameInput.value =
+            "Rukmini Hostel";
+
+
+        businessName.textContent =
+            "Rukmini Hostel";
+
+    }
+
+
+    /*
+        Enable editing after data loads.
+    */
+
+    nameInput.disabled = false;
+
+    phoneInput.disabled = false;
+
+    addressInput.disabled = false;
+
+    /*
+        Email comes from Firebase Authentication,
+        so it remains read-only here.
+    */
+
+    emailInput.disabled = true;
+
+    saveButton.disabled = false;
+
+}
+
+
+
+/* ==========================================
+   SAVE PROFILE
+========================================== */
+
+window.saveProfile =
+    async function() {
+
+        if (!currentUser) {
+
+            showMessage(
+                "You are not logged in.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const hostelName =
+            nameInput.value.trim();
+
+
+        const phone =
+            phoneInput.value.trim();
+
+
+        const fullAddress =
+            addressInput.value.trim();
+
+
+        /* ==============================
+           VALIDATION
+        ============================== */
+
+        if (!hostelName) {
+
+            showMessage(
+                "Please enter your hostel name.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            phone &&
+            !/^[0-9]{10}$/.test(phone)
+        ) {
+
+            showMessage(
+                "Please enter a valid 10-digit mobile number.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try {
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    currentUser.uid
+                );
+
+
+            /*
+                IMPORTANT:
+
+                merge:true means we only update
+                the profile fields here.
+
+                Existing fields such as:
+                city
+                state
+                roomCount
+                setupCompleted
+                createdAt
+
+                are NOT deleted.
+            */
+
+            await setDoc(
+
+                userRef,
+
+                {
+
+                    hostelName:
+                        hostelName,
+
+
+                    contactNumber:
+                        phone,
+
+
+                    address:
+                        fullAddress,
+
+
+                    email:
+                        currentUser.email || "",
+
+
+                    updatedAt:
+                        new Date()
+
+                },
+
+                {
+                    merge: true
+                }
+
+            );
+
+
+            /*
+                Update visible profile immediately.
+            */
+
+            businessName.textContent =
+                hostelName;
+
+
+            showMessage(
+                "Profile changes saved successfully.",
+                "success"
+            );
+
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "Profile save error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to save your changes. Please try again.",
+                "error"
+            );
+
+        }
+
+
+        saveButton.disabled = false;
+
+        saveButton.textContent =
+            "Save Changes";
+
+    };
+
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+window.logout =
+    async function() {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to log out?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            await signOut(auth);
+
+
+            /*
+                Remove the temporary compatibility
+                flag we used before Firebase Auth
+                became the real authentication source.
+            */
+
+            localStorage.removeItem(
+                "rukmini_logged_in"
+            );
+
+
+            localStorage.removeItem(
+                "rukmini_user_uid"
+            );
+
+
+            window.location.href =
+                "../auth/login.html";
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            alert(
+                "Unable to log out. Please try again."
+            );
+
+        }
+
+    };
+
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message " + type;
+
+
+    /*
+        Automatically hide the message
+        after a few seconds.
+    */
+
+    setTimeout(
+        function() {
+
+            message.className =
+                "message";
+
+        },
+        3500
+    );
+
+}
+
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+window.goTo =
+    function(page) {
+
+        if (page === "rent-plans") {
+
+            window.location.href =
+                "../main/rent-plans.html";
+
+        }
+
+
+        if (page === "tenants") {
+
+            window.location.href =
+                "../main/tenants.html";
+
+        }
+
+
+        if (page === "summary") {
+
+            window.location.href =
+                "../main/summary.html";
+
+        }
+
+
+        if (page === "action") {
+
+            window.location.href =
+                "../main/action.html";
+
+        }
+
+    };
+
+
+
+/* ==========================================
+   LUCIDE
+========================================== */
+
+lucide.createIcons();
+
+
+</script>
+
+</body>
+</html>

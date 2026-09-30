@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#00695C">
+
+    <title>Rent Plans - Rukmini Hostel</title>
+
+
+    <!-- =====================================================
+         LUCIDE ICONS
+         ===================================================== -->
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <style>
+
+        /* =====================================================
+           RUKMINI HOSTEL
+           MASTER APP UI
+           RENT PLANS
+           ===================================================== */
+
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #E9EEEE;
+
+            color: #263238;
+
+            overflow-x: hidden;
+        }
+
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        button {
+            -webkit-appearance: none;
+        }
+
+
+        /* =====================================================
+           APP
+           ===================================================== */
+
+        .app {
+
+            width: 100%;
+            max-width: 600px;
+
+            min-height: 100vh;
+
+            margin: 0 auto;
+
+            background: #F5F7F7;
+
+            position: relative;
+
+            box-shadow:
+                0 0 35px rgba(0, 0, 0, 0.04);
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+
+            height: 72px;
+
+            padding: 0 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #00695C;
+
+            border-bottom: 1px solid #00574D;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 20;
+        }
+
+
+        .header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        /* =====================================================
+           LOGO
+           ===================================================== */
+
+        .header-logo {
+
+            width: 43px;
+            height: 43px;
+
+            border-radius: 12px;
+
+            object-fit: cover;
+
+            display: block;
+
+            background: #FFFFFF;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =====================================================
+           HEADER TEXT
+           ===================================================== */
+
+        .header-title {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+
+        .header-title strong {
+
+            font-size: 17px;
+
+            line-height: 1;
+
+            font-weight: 700;
+
+            color: #FFFFFF;
+        }
+
+
+        .header-title span {
+
+            font-size: 11px;
+
+            color: #B2DFDB;
+        }
+
+
+        /* =====================================================
+           PROFILE BUTTON
+           ===================================================== */
+
+        .profile-button {
+
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid #4DB6AC;
+
+            border-radius: 50%;
+
+            background: #087D70;
+
+            color: #FFFFFF;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: 0.15s ease;
+        }
+
+
+        .profile-button svg {
+
+            width: 19px;
+            height: 19px;
+
+            stroke-width: 2.6;
+        }
+
+
+        .profile-button:active {
+
+            transform: scale(0.94);
+        }
+
+
+        /* =====================================================
+           CONTENT
+           ===================================================== */
+
+        .content {
+
+            padding: 24px 18px 105px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADING
+           ===================================================== */
+
+        .page-heading {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+        }
+
+
+        .heading-text h1 {
+
+            font-size: 25px;
+
+            line-height: 1.15;
+
+            font-weight: 700;
+
+            color: #263238;
+
+            letter-spacing: -0.3px;
+        }
+
+
+        .heading-text p {
+
+            margin-top: 7px;
+
+            font-size: 13px;
+
+            color: #78909C;
+
+            line-height: 1.4;
+        }
+
+
+        /* =====================================================
+           ADD BUTTON
+           ===================================================== */
+
+        .add-button {
+
+            width: 44px;
+            height: 44px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background: #00695C;
+
+            color: #FFFFFF;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 15px rgba(0, 105, 92, 0.20);
+
+            transition: 0.15s ease;
+        }
+
+
+        .add-button svg {
+
+            width: 22px;
+            height: 22px;
+
+            stroke-width: 2.8;
+        }
+
+
+        .add-button:active {
+
+            transform: scale(0.93);
+        }
+
+
+        /* =====================================================
+           SEARCH
+           ===================================================== */
+
+        .search-box {
+
+            width: 100%;
+            height: 50px;
+
+            background: #FFFFFF;
+
+            border: 1px solid #E0E7E7;
+
+            border-radius: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 0 14px;
+
+            margin-bottom: 18px;
+
+            transition: 0.2s ease;
+        }
+
+
+        .search-box:focus-within {
+
+            border-color: #80CBC4;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 137, 123, 0.08);
+        }
+
+
+        .search-icon {
+
+            color: #90A4AE;
+
+            display: flex;
+
+            align-items: center;
+
+            margin-right: 10px;
+        }
+
+
+        .search-icon svg {
+
+            width: 18px;
+            height: 18px;
+
+            stroke-width: 2.5;
+        }
+
+
+        .search-input {
+
+            width: 100%;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            font-size: 14px;
+
+            color: #263238;
+        }
+
+
+        .search-input::placeholder {
+
+            color: #B0BEC5;
+        }
+
+
+        /* =====================================================
+           SUMMARY CARD
+           ===================================================== */
+
+        .summary-card {
+
+            background: #E0F2F1;
+
+            border-radius: 16px;
+
+            padding: 17px 18px;
+
+            margin-bottom: 23px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .summary-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .summary-info span {
+
+            font-size: 12px;
+
+            color: #51736F;
+        }
+
+
+        .summary-info strong {
+
+            font-size: 23px;
+
+            line-height: 1;
+
+            color: #00695C;
+
+            font-weight: 700;
+        }
+
+
+        .summary-icon {
+
+            width: 44px;
+            height: 44px;
+
+            border-radius: 13px;
+
+            background: #FFFFFF;
+
+            color: #00695C;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .summary-icon svg {
+
+            width: 21px;
+            height: 21px;
+
+            stroke-width: 2.5;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+           ===================================================== */
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 11px;
+        }
+
+
+        .section-title strong {
+
+            font-size: 14px;
+
+            color: #455A64;
+        }
+
+
+        .section-title span {
+
+            font-size: 12px;
+
+            color: #90A4AE;
+        }
+
+
+        /* =====================================================
+           PLAN CARD
+           
+           KEPT FOR FUTURE FIREBASE DYNAMIC PLANS
+           ===================================================== */
+
+        .plan-card {
+
+            background: #FFFFFF;
+
+            border: 1px solid #E4EAEA;
+
+            border-radius: 17px;
+
+            padding: 18px;
+
+            margin-bottom: 12px;
+
+            box-shadow:
+                0 3px 10px rgba(38, 50, 56, 0.035);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+
+        .plan-card:active {
+
+            transform: scale(0.985);
+
+            box-shadow:
+                0 2px 6px rgba(38, 50, 56, 0.04);
+        }
+
+
+        .plan-top {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-bottom: 17px;
+        }
+
+
+        .plan-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .plan-icon {
+
+            width: 45px;
+            height: 45px;
+
+            flex-shrink: 0;
+
+            border-radius: 13px;
+
+            background: #F1F8F7;
+
+            color: #00695C;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .plan-icon svg {
+
+            width: 21px;
+            height: 21px;
+
+            stroke-width: 2.5;
+        }
+
+
+        .plan-name {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .plan-name strong {
+
+            font-size: 15px;
+
+            color: #263238;
+        }
+
+
+        .plan-name span {
+
+            font-size: 11px;
+
+            color: #90A4AE;
+        }
+
+
+        /* =====================================================
+           MORE BUTTON
+           ===================================================== */
+
+        .menu-button {
+
+            width: 33px;
+            height: 33px;
+
+            border: none;
+
+            background: #F7F9F9;
+
+            border-radius: 9px;
+
+            color: #78909C;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+        }
+
+
+        .menu-button svg {
+
+            width: 18px;
+            height: 18px;
+
+            stroke-width: 2.5;
+        }
+
+
+        /* =====================================================
+           PLAN DETAILS
+           ===================================================== */
+
+        .plan-details {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            border-top: 1px solid #EDF0F0;
+
+            padding-top: 15px;
+        }
+
+
+        .detail {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+            padding-left: 10px;
+
+            border-left: 1px solid #EDF0F0;
+        }
+
+
+        .detail:first-child {
+
+            border-left: none;
+
+            padding-left: 0;
+        }
+
+
+        .detail span {
+
+            font-size: 10px;
+
+            color: #90A4AE;
+        }
+
+
+        .detail strong {
+
+            font-size: 14px;
+
+            color: #455A64;
+        }
+
+
+        .detail .gst {
+
+            color: #00796B;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .empty-state {
+
+            background: #FFFFFF;
+
+            border: 1px dashed #D5DEDE;
+
+            border-radius: 17px;
+
+            padding: 42px 20px;
+
+            text-align: center;
+        }
+
+
+        .empty-icon {
+
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 17px;
+
+            background: #E0F2F1;
+
+            color: #00695C;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .empty-icon svg {
+
+            width: 25px;
+            height: 25px;
+
+            stroke-width: 2.5;
+        }
+
+
+        .empty-state h3 {
+
+            font-size: 16px;
+
+            margin-bottom: 6px;
+
+            color: #455A64;
+        }
+
+
+        .empty-state p {
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            color: #90A4AE;
+
+            max-width: 260px;
+
+            margin: 0 auto 18px;
+        }
+
+
+        .empty-add {
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #00695C;
+
+            color: #FFFFFF;
+
+            padding: 11px 18px;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           BOTTOM NAVIGATION
+           ===================================================== */
+
+        .bottom-nav {
+
+            position: fixed;
+
+            bottom: 0;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 100%;
+
+            max-width: 600px;
+
+            height: 76px;
+
+            background: #00695C;
+
+            border-top: 1px solid #00574D;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            padding: 8px 8px 10px;
+
+            z-index: 50;
+
+            box-shadow:
+                0 -4px 15px rgba(0, 77, 70, 0.12);
+        }
+
+
+        .nav-item {
+
+            border: none;
+
+            background: transparent;
+
+            color: #B2DFDB;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 4px;
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+        }
+
+
+        .nav-icon {
+
+            width: 36px;
+            height: 30px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: 0.15s ease;
+        }
+
+
+        .nav-icon svg {
+
+            width: 18px;
+            height: 18px;
+
+            stroke-width: 2.6;
+        }
+
+
+        /* -----------------------------------------------------
+           ACTIVE NAV ITEM
+           ----------------------------------------------------- */
+
+        .nav-item.active {
+
+            color: #FFFFFF;
+
+            font-weight: 700;
+        }
+
+
+        .nav-item.active .nav-icon {
+
+            background: #80CBC4;
+
+            color: #004D40;
+
+        }
+
+
+        /* =====================================================
+           TOAST
+           ===================================================== */
+
+        .toast {
+
+            position: fixed;
+
+            left: 50%;
+
+            bottom: 92px;
+
+            transform:
+                translate(-50%, 20px);
+
+            background: #263238;
+
+            color: #FFFFFF;
+
+            padding: 11px 17px;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: 0.25s ease;
+
+            z-index: 100;
+
+            white-space: nowrap;
+        }
+
+
+        .toast.show {
+
+            opacity: 1;
+
+            transform:
+                translate(-50%, 0);
+        }
+
+
+        /* =====================================================
+           DESKTOP
+           ===================================================== */
+
+        @media (min-width: 601px) {
+
+            body {
+
+                background: #E9EEEE;
+            }
+
+
+            .app {
+
+                min-height: 100vh;
+
+                box-shadow:
+                    0 0 35px rgba(0, 0, 0, 0.07);
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+           ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .content {
+
+                padding-left: 14px;
+
+                padding-right: 14px;
+            }
+
+
+            .header {
+
+                padding: 0 15px;
+            }
+
+
+            .header-title strong {
+
+                font-size: 15px;
+            }
+
+
+            .plan-details {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+
+            .detail strong {
+
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <img
+                src="../../assets/rukminilogo.png"
+                alt="Rukmini Hostel"
+                class="header-logo"
+            >
+
+
+            <div class="header-title">
+
+                <strong>
+                    Rukmini Hostel
+                </strong>
+
+                <span>
+                    Rent Management
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="profile-button"
+            onclick="openProfile()"
+            aria-label="Profile"
+        >
+
+            <i data-lucide="user-round"></i>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         CONTENT
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <section class="page-heading">
+
+            <div class="heading-text">
+
+                <h1>
+                    Rent Plans
+                </h1>
+
+                <p>
+                    Manage your hostel rent plans
+                </p>
+
+            </div>
+
+
+            <button
+                class="add-button"
+                onclick="addRentPlan()"
+                aria-label="Add rent plan"
+            >
+
+                <i data-lucide="plus"></i>
+
+            </button>
+
+        </section>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <span class="search-icon">
+
+                <i data-lucide="search"></i>
+
+            </span>
+
+
+            <input
+                type="search"
+                id="searchInput"
+                class="search-input"
+                placeholder="Search rent plans..."
+                oninput="searchPlans()"
+            >
+
+        </div>
+
+
+
+        <!-- SUMMARY -->
+
+        <section class="summary-card">
+
+            <div class="summary-info">
+
+                <span>
+                    Total Rent Plans
+                </span>
+
+                <!-- Firebase will update this later -->
+
+                <strong id="planCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-icon">
+
+                <i data-lucide="receipt-text"></i>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SECTION TITLE -->
+
+        <div class="section-title">
+
+            <strong>
+                Your Plans
+            </strong>
+
+            <span id="planLabel">
+                0 plans
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DYNAMIC PLANS WILL BE INSERTED HERE
+             
+             Firebase JavaScript will generate:
+
+             <article class="plan-card">
+                 ...
+             </article>
+
+             DO NOT REMOVE THIS CONTAINER.
+             ================================================= -->
+
+        <div id="plansContainer">
+
+
+            <!-- =================================================
+                 EMPTY STATE
+                 ================================================= -->
+
+            <section
+                class="empty-state"
+                id="emptyState"
+            >
+
+                <div class="empty-icon">
+
+                    <i data-lucide="file-plus-2"></i>
+
+                </div>
+
+
+                <h3>
+                    No rent plans yet
+                </h3>
+
+
+                <p>
+                    Create your first rent plan to start
+                    managing hostel billing.
+                </p>
+
+
+                <button
+                    class="empty-add"
+                    onclick="addRentPlan()"
+                >
+                    Add Rent Plan
+                </button>
+
+            </section>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+         ===================================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- RENT PLANS -->
+
+        <button
+            class="nav-item active"
+            onclick="goTo('rent-plans')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="receipt-text"></i>
+
+            </span>
+
+            <span>
+                Rent Plan
+            </span>
+
+        </button>
+
+
+
+        <!-- TENANTS -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('tenants')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="users-round"></i>
+
+            </span>
+
+            <span>
+                Tenant
+            </span>
+
+        </button>
+
+
+
+        <!-- SUMMARY -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('summary')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="chart-no-axes-combined"></i>
+
+            </span>
+
+            <span>
+                Summary
+            </span>
+
+        </button>
+
+
+
+        <!-- ACTION -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('action')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="menu"></i>
+
+            </span>
+
+            <span>
+                Action
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+
+<script>
+
+    /* =====================================================
+       INITIALIZE LUCIDE
+       ===================================================== */
+
+    lucide.createIcons();
+
+
+
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    function goTo(page) {
+
+        if (page === "rent-plans") {
+
+            return;
+
+        }
+
+
+        if (page === "tenants") {
+
+            window.location.href =
+                "tenants.html";
+
+            return;
+
+        }
+
+
+        if (page === "summary") {
+
+            window.location.href =
+                "summary.html";
+
+            return;
+
+        }
+
+
+        if (page === "action") {
+
+            window.location.href =
+                "action.html";
+
+            return;
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       ADD RENT PLAN
+       ===================================================== */
+
+    function addRentPlan() {
+
+        window.location.href =
+            "../rent-plans/add-rent-plan.html";
+
+    }
+
+
+
+    /* =====================================================
+       OPEN PLAN
+       ===================================================== */
+
+    function openPlan(planId) {
+
+        window.location.href =
+            "../rent-plans/plan-details.html?plan="
+            + encodeURIComponent(planId);
+
+    }
+
+
+
+    /* =====================================================
+       PLAN MENU
+       ===================================================== */
+
+    function openPlanMenu(planId) {
+
+        showToast(
+            "Plan options will be available here."
+        );
+
+    }
+
+
+
+    /* =====================================================
+       PROFILE
+       ===================================================== */
+
+    function openProfile() {
+
+        window.location.href =
+            "../tools/profile.html";
+
+    }
+
+
+
+    /* =====================================================
+       SEARCH
+       ===================================================== */
+
+    function searchPlans() {
+
+        const query =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const cards =
+            document.querySelectorAll(
+                ".plan-card"
+            );
+
+
+        let visible = 0;
+
+
+        cards.forEach(function(card) {
+
+            const name =
+                card
+                    .getAttribute("data-name")
+                    .toLowerCase();
+
+
+            if (name.includes(query)) {
+
+                card.style.display =
+                    "block";
+
+                visible++;
+
+            } else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        });
+
+
+        const emptyState =
+            document.getElementById(
+                "emptyState"
+            );
+
+
+        if (cards.length === 0) {
+
+            emptyState.style.display =
+                "block";
+
+        }
+
+        else if (visible === 0) {
+
+            emptyState.style.display =
+                "block";
+
+        }
+
+        else {
+
+            emptyState.style.display =
+                "none";
+
+        }
+
+
+        document
+            .getElementById("planLabel")
+            .textContent =
+                visible +
+                (visible === 1
+                    ? " plan"
+                    : " plans");
+
+    }
+
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        setTimeout(function() {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 2200);
+
+    }
+
+
+
+    /* =====================================================
+       FUTURE FIREBASE FUNCTION
+       
+       Later database.js will:
+       
+       1. Read rent plans
+       2. Create .plan-card elements
+       3. Insert them into #plansContainer
+       4. Update #planCount
+       5. Update #planLabel
+       
+       The UI above does not need to change.
+       ===================================================== */
+
+</script>
+
+
+</body>
+
+</html>

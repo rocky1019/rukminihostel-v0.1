@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search - Rukmini Hostel</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F5F7F6;color:#263238;padding-bottom:84px}
+button,input{font:inherit}
+.header{height:72px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;background:#00695C;border-bottom:1px solid #00574D;position:sticky;top:0;z-index:20}
+.header-left{display:flex;align-items:center;gap:9px}.back-button{width:34px;height:34px;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}.back-button svg{width:21px;height:21px;stroke-width:2.5}
+.header-logo{width:43px;height:43px;border-radius:12px;object-fit:cover;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.header-title{display:flex;flex-direction:column;gap:3px}.header-title strong{font-size:17px;line-height:1;font-weight:700;color:#fff}.header-title span{font-size:11px;color:#B2DFDB}
+.profile-button{width:40px;height:40px;border:1px solid #4DB6AC;border-radius:50%;background:#087D70;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}.profile-button svg{width:19px;height:19px}
+.page{max-width:600px;margin:auto;padding:14px}
+.card{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.09);margin-bottom:12px;overflow:hidden}
+.search-box{padding:15px}.search-wrap{display:flex;align-items:center;gap:9px;border:1px solid #CFDDDB;border-radius:10px;background:#fff;padding:0 12px}.search-wrap:focus-within{border-color:#00897B}.search-wrap svg{width:20px;color:#00695C;flex:none}.search-wrap input{width:100%;border:0;outline:0;padding:13px 0;background:transparent;color:#222}
+.filters{display:flex;gap:7px;padding:0 15px 14px;overflow-x:auto}.filter{white-space:nowrap;border:1px solid #C7DEDB;background:#fff;color:#00695C;border-radius:20px;padding:7px 12px;font-size:11px;cursor:pointer}.filter.active{background:#00695C;color:#fff;border-color:#00695C}
+.section-title{color:#00695C;font-size:17px;font-weight:700;padding:14px 15px 11px;border-bottom:1px solid #E4EAEA}
+.result{padding:14px 15px;border-bottom:1px solid #EEF1F0;display:flex;align-items:center;gap:11px;cursor:pointer}.result:last-child{border-bottom:0}.result-icon{width:42px;height:42px;border-radius:10px;background:#E6F4F2;color:#00695C;display:flex;align-items:center;justify-content:center;flex:none}.result-icon svg{width:20px}.result-main{flex:1}.result-title{font-size:14px;font-weight:700}.result-meta{font-size:11px;color:#777;margin-top:4px}.result-arrow{color:#9AA9A7}.result-arrow svg{width:17px}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px}.quick{border:1px solid #D7E5E3;background:#fff;border-radius:9px;padding:13px 10px;color:#00695C;cursor:pointer;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}.quick svg{width:19px}
+.empty{padding:28px 15px;text-align:center;color:#777;font-size:13px}.empty svg{width:31px;height:31px;color:#80CBC4;margin-bottom:8px}
+.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:600px;height:72px;background:#00695C;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px 10px;z-index:50;box-shadow:0 -4px 15px rgba(0,77,70,.12)}
+.nav-item{border:0;background:transparent;color:#B2DFDB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:500;cursor:pointer}.nav-icon{width:36px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center}.nav-icon svg{width:18px;height:18px;stroke-width:2.6}.nav-item.active{color:#fff;font-weight:700}.nav-item.active .nav-icon{background:#80CBC4;color:#004D40}
+@media(max-width:420px){.header{padding:0 16px}.page{padding:12px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+<div class="header-left">
+<button class="back-button" onclick="history.back()"><i data-lucide="arrow-left"></i></button>
+<img src="../../assets/rukminilogo.png" class="header-logo" alt="Rukmini Hostel">
+<div class="header-title"><strong>Search</strong><span>Hostel Management</span></div>
+</div>
+<button class="profile-button" onclick="openProfile()"><i data-lucide="user-round"></i></button>
+</header>
+
+<main class="page">
+
+<section class="card">
+<div class="search-box">
+<div class="search-wrap">
+<i data-lucide="search"></i>
+<input id="searchInput" type="search" placeholder="Search tenants, plans, payments..." oninput="searchItems()">
+</div>
+</div>
+<div class="filters">
+<button class="filter active" onclick="setFilter(this,'all')">All</button>
+<button class="filter" onclick="setFilter(this,'tenant')">Tenants</button>
+<button class="filter" onclick="setFilter(this,'plan')">Rent Plans</button>
+<button class="filter" onclick="setFilter(this,'payment')">Payments</button>
+</div>
+</section>
+
+<section class="card">
+<div class="section-title">Search Results</div>
+<div id="results">
+<div class="result" data-type="tenant" data-search="tenant tenant name room">
+<div class="result-icon"><i data-lucide="user-round"></i></div>
+<div class="result-main"><div class="result-title">Tenant records</div><div class="result-meta">Search and manage hostel tenants</div></div>
+<div class="result-arrow"><i data-lucide="chevron-right"></i></div>
+</div>
+<div class="result" data-type="plan" data-search="rent plan plans">
+<div class="result-icon"><i data-lucide="receipt-text"></i></div>
+<div class="result-main"><div class="result-title">Rent Plans</div><div class="result-meta">Find saved rent plans and details</div></div>
+<div class="result-arrow"><i data-lucide="chevron-right"></i></div>
+</div>
+<div class="result" data-type="payment" data-search="payment payments paid due">
+<div class="result-icon"><i data-lucide="indian-rupee"></i></div>
+<div class="result-main"><div class="result-title">Payments</div><div class="result-meta">Find tenant payment records</div></div>
+<div class="result-arrow"><i data-lucide="chevron-right"></i></div>
+</div>
+</div>
+<div id="empty" class="empty" style="display:none"><i data-lucide="search-x"></i><div>No matching results found.</div></div>
+</section>
+
+<section class="card">
+<div class="section-title">Quick Access</div>
+<div class="quick-grid">
+<button class="quick" onclick="goTo('tenants')"><i data-lucide="users-round"></i>Tenants</button>
+<button class="quick" onclick="goTo('rent-plans')"><i data-lucide="receipt-text"></i>Rent Plans</button>
+<button class="quick" onclick="goTo('summary')"><i data-lucide="chart-no-axes-combined"></i>Summary</button>
+<button class="quick" onclick="goTo('action')"><i data-lucide="menu"></i>Actions</button>
+</div>
+</section>
+
+</main>
+
+<nav class="bottom-nav">
+<button class="nav-item" onclick="goTo('rent-plans')"><span class="nav-icon"><i data-lucide="receipt-text"></i></span><span>Rent Plan</span></button>
+<button class="nav-item" onclick="goTo('tenants')"><span class="nav-icon"><i data-lucide="users-round"></i></span><span>Tenant</span></button>
+<button class="nav-item" onclick="goTo('summary')"><span class="nav-icon"><i data-lucide="chart-no-axes-combined"></i></span><span>Summary</span></button>
+<button class="nav-item active" onclick="goTo('action')"><span class="nav-icon"><i data-lucide="menu"></i></span><span>Action</span></button>
+</nav>
+
+<script>
+lucide.createIcons();
+let currentFilter='all';
+function setFilter(btn,type){
+document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+btn.classList.add('active');currentFilter=type;searchItems();
+}
+function searchItems(){
+const q=document.getElementById('searchInput').value.toLowerCase().trim();
+let shown=0;
+document.querySelectorAll('.result').forEach(item=>{
+const matchesFilter=currentFilter==='all'||item.dataset.type===currentFilter;
+const matchesText=!q||item.dataset.search.includes(q);
+item.style.display=matchesFilter&&matchesText?'flex':'none';
+if(matchesFilter&&matchesText)shown++;
+});
+document.getElementById('empty').style.display=shown?'none':'block';
+}
+function goTo(page){if(page==="rent-plans")window.location.href="../main/rent-plans.html";if(page==="tenants")window.location.href="../main/tenants.html";if(page==="summary")window.location.href="../main/summary.html";if(page==="action")window.location.href="../main/action.html";}
+function openProfile(){window.location.href="profile.html";}
+</script>
+</body>
+</html>

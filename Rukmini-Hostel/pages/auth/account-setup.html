@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#00695C">
+
+    <title>Set Up Hostel - Rukmini Hostel</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #F7F9F9;
+
+            color: #263238;
+        }
+
+
+        /* ==========================================
+           PAGE
+           ========================================== */
+
+        .page {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            min-height: 100vh;
+
+            padding: 35px 24px 28px;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* ==========================================
+           TOP
+           ========================================== */
+
+        .top-bar {
+
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .step {
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            color: #90A4AE;
+
+        }
+
+
+        /* ==========================================
+           BRAND
+           ========================================== */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .brand-logo {
+
+            width: 45px;
+
+            height: 45px;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            background: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 4px 12px rgba(0, 105, 92, 0.10);
+
+        }
+
+
+        .brand-logo img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+        .brand-text strong {
+
+            display: block;
+
+            font-size: 15px;
+
+            color: #173F3A;
+
+        }
+
+
+        .brand-text span {
+
+            display: block;
+
+            margin-top: 2px;
+
+            font-size: 11px;
+
+            color: #78909C;
+
+        }
+
+
+        /* ==========================================
+           HEADING
+           ========================================== */
+
+        .heading {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .heading h1 {
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            color: #263238;
+
+        }
+
+
+        .heading p {
+
+            margin-top: 8px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            color: #78909C;
+
+        }
+
+
+        /* ==========================================
+           ERROR
+           ========================================== */
+
+        .message {
+
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+
+            line-height: 1.4;
+
+        }
+
+
+        .message.error {
+
+            background: #FFEBEE;
+
+            color: #C62828;
+
+        }
+
+
+        .message.success {
+
+            background: #E8F5E9;
+
+            color: #2E7D32;
+
+        }
+
+
+        /* ==========================================
+           FORM
+           ========================================== */
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #455A64;
+
+        }
+
+
+        .input {
+
+            width: 100%;
+
+            height: 53px;
+
+            border: 1px solid #D6DEDF;
+
+            border-radius: 12px;
+
+            background: white;
+
+            padding: 0 15px;
+
+            font-size: 15px;
+
+            color: #263238;
+
+            outline: none;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        textarea.input {
+
+            height: 88px;
+
+            padding-top: 15px;
+
+            padding-bottom: 15px;
+
+            resize: none;
+
+        }
+
+
+        .input:focus {
+
+            border-color: #00897B;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 137, 123, 0.10);
+
+        }
+
+
+        .input::placeholder {
+
+            color: #B0BEC5;
+
+        }
+
+
+        /* ==========================================
+           TWO COLUMN
+           ========================================== */
+
+        .two-column {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+        }
+
+
+        /* ==========================================
+           BUTTON
+           ========================================== */
+
+        .continue-button {
+
+            width: 100%;
+
+            height: 54px;
+
+            margin-top: 7px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background: #00695C;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(0, 105, 92, 0.20);
+
+            transition: 0.15s ease;
+
+        }
+
+
+        .continue-button:active {
+
+            transform: scale(0.98);
+
+        }
+
+
+        .continue-button:disabled {
+
+            opacity: 0.65;
+
+            cursor: wait;
+
+        }
+
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+
+        .footer {
+
+            margin-top: auto;
+
+            padding-top: 30px;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            color: #B0BEC5;
+
+        }
+
+
+        /* ==========================================
+           MOBILE
+           ========================================== */
+
+        @media (max-width: 360px) {
+
+            .container {
+
+                padding-left: 18px;
+
+                padding-right: 18px;
+
+            }
+
+
+            .heading h1 {
+
+                font-size: 24px;
+
+            }
+
+        }
+
+
+        @media (max-height: 650px) {
+
+            .container {
+
+                padding-top: 20px;
+
+            }
+
+
+            .brand {
+
+                margin-bottom: 20px;
+
+            }
+
+
+            .heading {
+
+                margin-bottom: 18px;
+
+            }
+
+
+            .form-group {
+
+                margin-bottom: 13px;
+
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+    <main class="container">
+
+
+        <!-- ==========================================
+             TOP
+             ========================================== -->
+
+        <div class="top-bar">
+
+            <span class="step">
+                Almost there
+            </span>
+
+        </div>
+
+
+        <!-- ==========================================
+             BRAND
+             ========================================== -->
+
+        <section class="brand">
+
+            <div class="brand-logo">
+
+                <img
+                    src="../../assets/rukminilogo.png"
+                    alt="Rukmini Hostel"
+                >
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <strong>
+                    Rukmini Hostel
+                </strong>
+
+                <span>
+                    Hostel Management
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             HEADING
+             ========================================== -->
+
+        <section class="heading">
+
+            <h1>
+                Set up your hostel
+            </h1>
+
+            <p>
+                Tell us a little about your hostel.
+                This information will be used throughout
+                your Rukmini Hostel dashboard.
+            </p>
+
+        </section>
+
+
+        <!-- ==========================================
+             MESSAGE
+             ========================================== -->
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <!-- ==========================================
+             FORM
+             ========================================== -->
+
+        <form id="setupForm">
+
+
+            <!-- OWNER NAME -->
+
+            <div class="form-group">
+
+                <label for="ownerName">
+                    Your Name
+                </label>
+
+                <input
+                    type="text"
+                    id="ownerName"
+                    class="input"
+                    placeholder="Enter your name"
+                    autocomplete="name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- HOSTEL NAME -->
+
+            <div class="form-group">
+
+                <label for="hostelName">
+                    Hostel Name
+                </label>
+
+                <input
+                    type="text"
+                    id="hostelName"
+                    class="input"
+                    value="Rukmini Hostel"
+                    placeholder="Enter hostel name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="form-group">
+
+                <label for="address">
+                    Hostel Address
+                </label>
+
+                <textarea
+                    id="address"
+                    class="input"
+                    placeholder="Enter hostel address"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- CITY + STATE -->
+
+            <div class="two-column">
+
+
+                <div class="form-group">
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        class="input"
+                        placeholder="City"
+                        autocomplete="address-level2"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="state">
+                        State
+                    </label>
+
+                    <input
+                        type="text"
+                        id="state"
+                        class="input"
+                        value="Maharashtra"
+                        placeholder="State"
+                        autocomplete="address-level1"
+                        required
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CONTACT + ROOMS -->
+
+            <div class="two-column">
+
+
+                <div class="form-group">
+
+                    <label for="contactNumber">
+                        Contact Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="contactNumber"
+                        class="input"
+                        placeholder="Optional"
+                        maxlength="10"
+                        autocomplete="tel"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="roomCount">
+                        Total Rooms
+                    </label>
+
+                    <input
+                        type="number"
+                        id="roomCount"
+                        class="input"
+                        placeholder="Optional"
+                        min="0"
+                        inputmode="numeric"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CONTINUE -->
+
+            <button
+                type="submit"
+                class="continue-button"
+                id="continueButton"
+            >
+                Continue to Dashboard
+            </button>
+
+
+        </form>
+
+
+        <!-- ==========================================
+             FOOTER
+             ========================================== -->
+
+        <div class="footer">
+
+            Your information is securely stored.
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<script type="module">
+
+
+    /* ==========================================
+       FIREBASE
+       ========================================== */
+
+    import {
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+
+    import {
+        getFirestore,
+        doc,
+        setDoc,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+    import { auth }
+         from "../js/firebase-config.js";
+
+
+    /*
+        We initialize Firestore here for now.
+
+        Later we can move `db` into firebase-config.js
+        once we start using Firestore throughout the
+        entire application.
+    */
+
+    const db =
+        getFirestore();
+
+
+    /* ==========================================
+       ELEMENTS
+       ========================================== */
+
+    const form =
+        document.getElementById("setupForm");
+
+
+    const button =
+        document.getElementById("continueButton");
+
+
+    const message =
+        document.getElementById("message");
+
+
+    let currentUser = null;
+
+
+    /* ==========================================
+       AUTH CHECK
+       ========================================== */
+
+    onAuthStateChanged(
+        auth,
+        function(user) {
+
+            if (!user) {
+
+                /*
+                    Someone reached account setup
+                    without being authenticated.
+
+                    Send them back to login.
+                */
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            currentUser = user;
+
+        }
+    );
+
+
+    /* ==========================================
+       FORM SUBMIT
+       ========================================== */
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            /* ==============================
+               MAKE SURE AUTH EXISTS
+               ============================== */
+
+            if (!currentUser) {
+
+                showMessage(
+                    "Your session is not ready. Please try again.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ==============================
+               GET VALUES
+               ============================== */
+
+            const ownerName =
+                document
+                    .getElementById("ownerName")
+                    .value
+                    .trim();
+
+
+            const hostelName =
+                document
+                    .getElementById("hostelName")
+                    .value
+                    .trim();
+
+
+            const address =
+                document
+                    .getElementById("address")
+                    .value
+                    .trim();
+
+
+            const city =
+                document
+                    .getElementById("city")
+                    .value
+                    .trim();
+
+
+            const state =
+                document
+                    .getElementById("state")
+                    .value
+                    .trim();
+
+
+            const contactNumber =
+                document
+                    .getElementById("contactNumber")
+                    .value
+                    .trim();
+
+
+            const roomCountValue =
+                document
+                    .getElementById("roomCount")
+                    .value
+                    .trim();
+
+
+            const roomCount =
+                roomCountValue === ""
+                    ? 0
+                    : Number(roomCountValue);
+
+
+            /* ==============================
+               VALIDATION
+               ============================== */
+
+            if (
+                !ownerName ||
+                !hostelName ||
+                !address ||
+                !city ||
+                !state
+            ) {
+
+                showMessage(
+                    "Please complete all required fields.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                contactNumber &&
+                !/^[0-9]{10}$/.test(contactNumber)
+            ) {
+
+                showMessage(
+                    "Please enter a valid 10-digit contact number.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                Number.isNaN(roomCount) ||
+                roomCount < 0
+            ) {
+
+                showMessage(
+                    "Please enter a valid room count.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ==============================
+               BUTTON
+               ============================== */
+
+            button.disabled = true;
+
+            button.textContent =
+                "Saving your details...";
+
+
+            try {
+
+
+                /* ==================================
+                   USER PROFILE DOCUMENT
+                   ==================================
+
+                   users/{Firebase UID}
+
+                   This becomes the main identity
+                   document for the entire application.
+                */
+
+                await setDoc(
+
+                    doc(
+                        db,
+                        "users",
+                        currentUser.uid
+                    ),
+
+                    {
+
+                        uid:
+                            currentUser.uid,
+
+
+                        email:
+                            currentUser.email || "",
+
+
+                        name:
+                            ownerName,
+
+
+                        hostelName:
+                            hostelName,
+
+
+                        address:
+                            address,
+
+
+                        city:
+                            city,
+
+
+                        state:
+                            state,
+
+
+                        contactNumber:
+                            contactNumber,
+
+
+                        roomCount:
+                            roomCount,
+
+
+                        setupCompleted:
+                            true,
+
+
+                        createdAt:
+                            serverTimestamp(),
+
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    },
+
+                    {
+                        merge: true
+                    }
+
+                );
+
+
+                /* ==================================
+                   LOCAL FLAG
+                   ==================================
+
+                   This is only for compatibility
+                   with our current frontend.
+
+                   Firebase Auth remains the actual
+                   authentication source.
+                */
+
+                localStorage.setItem(
+                    "rukmini_logged_in",
+                    "true"
+                );
+
+
+                localStorage.setItem(
+                    "rukmini_user_uid",
+                    currentUser.uid
+                );
+
+
+                /* ==================================
+                   SUCCESS
+                   ================================== */
+
+                showMessage(
+                    "Hostel setup completed!",
+                    "success"
+                );
+
+
+                button.textContent =
+                    "Opening Dashboard...";
+
+
+                /*
+                    Small delay so the success state
+                    is actually visible.
+                */
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "../main/dashboard.html";
+
+                    },
+                    600
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Account setup error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Unable to save your hostel details. Please try again.",
+                    "error"
+                );
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Continue to Dashboard";
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       MESSAGE
+       ========================================== */
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        message.textContent =
+            text;
+
+
+        message.className =
+            "message " + type;
+
+
+        message.style.display =
+            "block";
+
+    }
+
+
+</script>
+
+
+</body>
+</html>

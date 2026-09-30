@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#00695C">
+
+    <title>Create Account - Rukmini Hostel</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #F7F9F9;
+
+            color: #263238;
+        }
+
+
+        /* ==========================================
+           PAGE
+           ========================================== */
+
+        .page {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            min-height: 100vh;
+
+            padding: 35px 24px 28px;
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* ==========================================
+           BACK BUTTON
+           ========================================== */
+
+        .top-bar {
+
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .back-button {
+
+            width: 40px;
+            height: 40px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: transparent;
+
+            font-size: 25px;
+
+            color: #455A64;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .back-button:active {
+
+            background: #E8EFEE;
+
+        }
+
+
+        /* ==========================================
+           HEADING
+           ========================================== */
+
+        .heading {
+
+            margin-top: 12px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .heading h1 {
+
+            font-size: 27px;
+
+            font-weight: 700;
+
+            color: #263238;
+
+        }
+
+
+        .heading p {
+
+            margin-top: 8px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            color: #78909C;
+
+        }
+
+
+        /* ==========================================
+           FORM
+           ========================================== */
+
+        .form-group {
+
+            margin-bottom: 19px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #455A64;
+
+        }
+
+
+        .input {
+
+            width: 100%;
+
+            height: 53px;
+
+            border: 1px solid #D6DEDF;
+
+            border-radius: 12px;
+
+            background: white;
+
+            padding: 0 15px;
+
+            font-size: 15px;
+
+            color: #263238;
+
+            outline: none;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .input:focus {
+
+            border-color: #00897B;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 137, 123, 0.10);
+
+        }
+
+
+        .input::placeholder {
+
+            color: #B0BEC5;
+
+        }
+
+
+        /* ==========================================
+           PASSWORD
+           ========================================== */
+
+        .password-wrapper {
+
+            position: relative;
+
+        }
+
+
+        .password-input {
+
+            padding-right: 55px;
+
+        }
+
+
+        .show-password {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #78909C;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+        /* ==========================================
+           TERMS
+           ========================================== */
+
+        .terms {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin: 5px 0 24px;
+
+        }
+
+
+        .terms input {
+
+            width: 17px;
+
+            height: 17px;
+
+            margin-top: 2px;
+
+            accent-color: #00695C;
+
+        }
+
+
+        .terms label {
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            color: #78909C;
+
+        }
+
+
+        .terms a {
+
+            color: #00796B;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+        }
+
+
+        /* ==========================================
+           CREATE ACCOUNT
+           ========================================== */
+
+        .create-button {
+
+            width: 100%;
+
+            height: 54px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background: #00695C;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(0, 105, 92, 0.20);
+
+            transition: 0.15s ease;
+
+        }
+
+
+        .create-button:active {
+
+            transform: scale(0.98);
+
+        }
+
+
+        /* ==========================================
+           LOGIN
+           ========================================== */
+
+        .login-row {
+
+            text-align: center;
+
+            margin-top: 27px;
+
+            font-size: 14px;
+
+            color: #78909C;
+
+        }
+
+
+        .login-link {
+
+            border: none;
+
+            background: none;
+
+            color: #00796B;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        /* ==========================================
+           ERROR
+           ========================================== */
+
+        .error-message {
+
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            background: #FFEBEE;
+
+            color: #C62828;
+
+            font-size: 13px;
+
+            line-height: 1.4;
+
+        }
+
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+
+        .footer {
+
+            margin-top: auto;
+
+            padding-top: 30px;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            color: #B0BEC5;
+
+        }
+
+
+        @media (max-height: 650px) {
+
+            .container {
+
+                padding-top: 20px;
+
+            }
+
+
+            .heading {
+
+                margin-bottom: 20px;
+
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+    <main class="container">
+
+
+        <!-- BACK -->
+
+        <div class="top-bar">
+
+            <button
+                class="back-button"
+                onclick="goBack()"
+                aria-label="Go back"
+            >
+                ←
+            </button>
+
+        </div>
+
+
+        <!-- HEADING -->
+
+        <section class="heading">
+
+            <h1>Create your account</h1>
+
+            <p>
+                Create an account to start managing
+                Rukmini Hostel.
+            </p>
+
+        </section>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="error-message"
+            id="errorMessage"
+        ></div>
+
+
+        <!-- FORM -->
+
+        <form id="signupForm">
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    class="input"
+                    placeholder="Enter your email address"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="password"
+                        class="input password-input"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword('password', this)"
+                    >
+                        SHOW
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="confirmPassword">
+                    Confirm Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        class="input password-input"
+                        placeholder="Enter password again"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword('confirmPassword', this)"
+                    >
+                        SHOW
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TERMS -->
+
+            <div class="terms">
+
+                <input
+                    type="checkbox"
+                    id="terms"
+                >
+
+                <label for="terms">
+
+                    I agree to the
+                    <a href="#" onclick="return false;">
+                        Terms of Service
+                    </a>
+                    and
+                    <a href="#" onclick="return false;">
+                        Privacy Policy
+                    </a>.
+
+                </label>
+
+            </div>
+
+
+            <!-- CREATE -->
+
+            <button
+                type="submit"
+                class="create-button"
+            >
+                Create Account
+            </button>
+
+
+        </form>
+
+
+        <!-- LOGIN -->
+
+        <div class="login-row">
+
+            Already have an account?
+
+            <button
+                class="login-link"
+                onclick="goToLogin()"
+            >
+                Login
+            </button>
+
+        </div>
+
+
+        <div class="footer">
+
+            © 2026 Rukmini Hostel
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<script type="module">
+
+    /* ==========================================
+       FIREBASE AUTH
+       ========================================== */
+
+    import {
+        createUserWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+    import { auth }  from "../js/firebase-config.js";
+
+
+    /* ==========================================
+       PASSWORD VISIBILITY
+       ========================================== */
+
+    function togglePassword(id, button) {
+
+        const input =
+            document.getElementById(id);
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            button.textContent = "HIDE";
+
+        } else {
+
+            input.type = "password";
+
+            button.textContent = "SHOW";
+
+        }
+
+    }
+
+    window.togglePassword = togglePassword;
+
+
+    /* ==========================================
+       NAVIGATION
+       ========================================== */
+
+    function goBack() {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+    window.goBack = goBack;
+
+
+    function goToLogin() {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+    window.goToLogin = goToLogin;
+
+
+    /* ==========================================
+       SIGNUP
+       ========================================== */
+
+    document
+        .getElementById("signupForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+
+            const email =
+                document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("password")
+                    .value;
+
+            const confirmPassword =
+                document
+                    .getElementById("confirmPassword")
+                    .value;
+
+            const terms =
+                document
+                    .getElementById("terms")
+                    .checked;
+
+
+            /* ======================================
+               VALIDATION
+               ====================================== */
+
+            if (!email) {
+
+                showError(
+                    "Please enter your email address."
+                );
+
+                return;
+
+            }
+
+
+            if (password.length < 6) {
+
+                showError(
+                    "Password must contain at least 6 characters."
+                );
+
+                return;
+
+            }
+
+
+            if (password !== confirmPassword) {
+
+                showError(
+                    "Passwords do not match."
+                );
+
+                return;
+
+            }
+
+
+            if (!terms) {
+
+                showError(
+                    "Please accept the Terms of Service and Privacy Policy."
+                );
+
+                return;
+
+            }
+
+
+            /* ======================================
+               CREATE FIREBASE ACCOUNT
+               ====================================== */
+
+            const button =
+                document.querySelector(".create-button");
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Creating Account...";
+
+
+            try {
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                /*
+                    Save the authenticated user's UID
+                    temporarily so the account setup page
+                    knows which Firebase account was created.
+                */
+
+                localStorage.setItem(
+                    "rukmini_user_uid",
+                    user.uid
+                );
+
+
+                /*
+                    Account creation succeeded.
+
+                    Next page:
+                    account-setup.html
+                */
+
+                window.location.href =
+                    "account-setup.html";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Firebase signup error:",
+                    error
+                );
+
+
+                let message =
+                    "Unable to create your account. Please try again.";
+
+
+                if (
+                    error.code ===
+                    "auth/email-already-in-use"
+                ) {
+
+                    message =
+                        "An account with this email already exists.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/invalid-email"
+                ) {
+
+                    message =
+                        "Please enter a valid email address.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/weak-password"
+                ) {
+
+                    message =
+                        "Password must contain at least 6 characters.";
+
+                }
+
+                else if (
+                    error.code ===
+                    "auth/operation-not-allowed"
+                ) {
+
+                    message =
+                        "Email and password sign-up is not enabled in Firebase.";
+
+                }
+
+
+                showError(message);
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Create Account";
+
+            }
+
+        });
+
+
+    /* ==========================================
+       ERROR
+       ========================================== */
+
+    function showError(message) {
+
+        const error =
+            document.getElementById("errorMessage");
+
+        error.textContent =
+            message;
+
+        error.style.display =
+            "block";
+
+    }
+
+</script>
+
+
+</body>
+</html>

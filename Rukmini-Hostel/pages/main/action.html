@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#00695C">
+
+    <title>Action - Rukmini Hostel</title>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <style>
+
+        /* =====================================================
+           RUKMINI HOSTEL
+           MASTER APP UI
+           ACTION
+           ===================================================== */
+
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #E9EEEE;
+
+            color: #263238;
+
+            overflow-x: hidden;
+        }
+
+
+        button {
+            font-family: inherit;
+            -webkit-appearance: none;
+        }
+
+
+        /* =====================================================
+           APP
+           ===================================================== */
+
+        .app {
+
+            width: 100%;
+            max-width: 600px;
+
+            min-height: 100vh;
+
+            margin: 0 auto;
+
+            background: #F5F7F7;
+
+            position: relative;
+
+            box-shadow:
+                0 0 35px rgba(0, 0, 0, 0.04);
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+
+            height: 72px;
+
+            padding: 0 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            background: #00695C;
+
+            border-bottom: 1px solid #00574D;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 20;
+        }
+
+
+        .header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .header-logo {
+
+            width: 43px;
+            height: 43px;
+
+            border-radius: 12px;
+
+            object-fit: cover;
+
+            display: block;
+
+            background: #FFFFFF;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+
+        .header-title {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+
+        .header-title strong {
+
+            font-size: 17px;
+
+            line-height: 1;
+
+            font-weight: 700;
+
+            color: #FFFFFF;
+        }
+
+
+        .header-title span {
+
+            font-size: 11px;
+
+            color: #B2DFDB;
+        }
+
+
+        /* =====================================================
+           PROFILE BUTTON
+           ===================================================== */
+
+        .profile-button {
+
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid #4DB6AC;
+
+            border-radius: 50%;
+
+            background: #087D70;
+
+            color: #FFFFFF;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: 0.15s ease;
+        }
+
+
+        .profile-button svg {
+
+            width: 19px;
+            height: 19px;
+
+            stroke-width: 2.6;
+        }
+
+
+        .profile-button:active {
+
+            transform: scale(0.94);
+        }
+
+
+        /* =====================================================
+           CONTENT
+           ===================================================== */
+
+        .content {
+
+            padding: 24px 18px 105px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADING
+           ===================================================== */
+
+        .page-heading {
+
+            margin-bottom: 23px;
+        }
+
+
+        .page-heading h1 {
+
+            font-size: 25px;
+
+            line-height: 1.15;
+
+            font-weight: 700;
+
+            color: #263238;
+
+            letter-spacing: -0.3px;
+        }
+
+
+        .page-heading p {
+
+            margin-top: 7px;
+
+            font-size: 13px;
+
+            color: #78909C;
+
+            line-height: 1.4;
+        }
+
+
+        /* =====================================================
+           QUICK ACTION
+           ===================================================== */
+
+        .quick-action {
+
+            width: 100%;
+
+            background: #E0F2F1;
+
+            border: none;
+
+            border-radius: 17px;
+
+            padding: 17px;
+
+            margin-bottom: 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition: 0.15s ease;
+        }
+
+
+        .quick-action:active {
+
+            transform: scale(0.985);
+        }
+
+
+        .quick-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .quick-icon {
+
+            width: 45px;
+            height: 45px;
+
+            flex-shrink: 0;
+
+            border-radius: 13px;
+
+            background: #FFFFFF;
+
+            color: #00695C;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .quick-icon svg {
+
+            width: 21px;
+            height: 21px;
+
+            stroke-width: 2.5;
+        }
+
+
+        .quick-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .quick-text strong {
+
+            font-size: 14px;
+
+            color: #263238;
+        }
+
+
+        .quick-text span {
+
+            font-size: 11px;
+
+            color: #607D8B;
+        }
+
+
+        .quick-arrow {
+
+            color: #00695C;
+
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        .quick-arrow svg {
+
+            width: 18px;
+            height: 18px;
+
+            stroke-width: 2.6;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+           ===================================================== */
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 11px;
+        }
+
+
+        .section-title strong {
+
+            font-size: 14px;
+
+            color: #455A64;
+        }
+
+
+        .section-title span {
+
+            font-size: 12px;
+
+            color: #90A4AE;
+        }
+
+
+        /* =====================================================
+           ACTION GRID
+           ===================================================== */
+
+        .action-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 11px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .action-card {
+
+            min-height: 137px;
+
+            background: #FFFFFF;
+
+            border: 1px solid #E4EAEA;
+
+            border-radius: 17px;
+
+            padding: 16px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            box-shadow:
+                0 3px 10px rgba(38, 50, 56, 0.035);
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+
+        .action-card:active {
+
+            transform: scale(0.975);
+
+            box-shadow:
+                0 2px 6px rgba(38, 50, 56, 0.04);
+        }
+
+
+        .action-icon {
+
+            width: 39px;
+            height: 39px;
+
+            border-radius: 12px;
+
+            background: #E0F2F1;
+
+            color: #00695C;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .action-icon svg {
+
+            width: 19px;
+            height: 19px;
+
+            stroke-width: 2.5;
+        }
+
+
+        .action-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .action-text strong {
+
+            font-size: 13px;
+
+            color: #455A64;
+        }
+
+
+        .action-text span {
+
+            font-size: 10px;
+
+            line-height: 1.35;
+
+            color: #90A4AE;
+        }
+
+
+        /* =====================================================
+           SECONDARY LIST
+           ===================================================== */
+
+        .list-card {
+
+            background: #FFFFFF;
+
+            border: 1px solid #E4EAEA;
+
+            border-radius: 17px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 3px 10px rgba(38, 50, 56, 0.035);
+        }
+
+
+        .list-item {
+
+            width: 100%;
+
+            border: none;
+
+            background: #FFFFFF;
+
+            padding: 15px 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            text-align: left;
+
+            cursor: pointer;
+        }
+
+
+        .list-item + .list-item {
+
+            border-top: 1px solid #EDF0F0;
+        }
+
+
+        .list-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .list-icon {
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 11px;
+
+            background: #F1F8F7;
+
+            color: #00695C;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .list-icon svg {
+
+            width: 18px;
+            height: 18px;
+
+            stroke-width: 2.5;
+        }
+
+
+        .list-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+
+        .list-text strong {
+
+            font-size: 13px;
+
+            color: #455A64;
+        }
+
+
+        .list-text span {
+
+            font-size: 10px;
+
+            color: #90A4AE;
+        }
+
+
+        .list-arrow {
+
+            color: #90A4AE;
+
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        .list-arrow svg {
+
+            width: 17px;
+            height: 17px;
+
+            stroke-width: 2.4;
+        }
+
+
+        /* =====================================================
+           BOTTOM NAVIGATION
+           ===================================================== */
+
+        .bottom-nav {
+
+            position: fixed;
+
+            bottom: 0;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 100%;
+
+            max-width: 600px;
+
+            height: 76px;
+
+            background: #00695C;
+
+            border-top: 1px solid #00574D;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            padding: 8px 8px 10px;
+
+            z-index: 50;
+
+            box-shadow:
+                0 -4px 15px rgba(0, 77, 70, 0.12);
+        }
+
+
+        .nav-item {
+
+            border: none;
+
+            background: transparent;
+
+            color: #B2DFDB;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 4px;
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+        }
+
+
+        .nav-icon {
+
+            width: 36px;
+            height: 30px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: 0.15s ease;
+        }
+
+
+        .nav-icon svg {
+
+            width: 18px;
+            height: 18px;
+
+            stroke-width: 2.6;
+        }
+
+
+        .nav-item.active {
+
+            color: #FFFFFF;
+
+            font-weight: 700;
+        }
+
+
+        .nav-item.active .nav-icon {
+
+            background: #80CBC4;
+
+            color: #004D40;
+        }
+
+
+        /* =====================================================
+           TOAST
+           ===================================================== */
+
+        .toast {
+
+            position: fixed;
+
+            left: 50%;
+
+            bottom: 92px;
+
+            transform:
+                translate(-50%, 20px);
+
+            background: #263238;
+
+            color: #FFFFFF;
+
+            padding: 11px 17px;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: 0.25s ease;
+
+            z-index: 100;
+
+            white-space: nowrap;
+        }
+
+
+        .toast.show {
+
+            opacity: 1;
+
+            transform:
+                translate(-50%, 0);
+        }
+
+
+        /* =====================================================
+           DESKTOP
+           ===================================================== */
+
+        @media (min-width: 601px) {
+
+            body {
+
+                background: #E9EEEE;
+            }
+
+
+            .app {
+
+                min-height: 100vh;
+
+                box-shadow:
+                    0 0 35px rgba(0, 0, 0, 0.07);
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+           ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .content {
+
+                padding-left: 14px;
+
+                padding-right: 14px;
+            }
+
+
+            .header {
+
+                padding: 0 15px;
+            }
+
+
+            .header-title strong {
+
+                font-size: 15px;
+            }
+
+
+            .action-card {
+
+                min-height: 130px;
+
+                padding: 14px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <img
+                src="../../assets/rukminilogo.png"
+                alt="Rukmini Hostel"
+                class="header-logo"
+            >
+
+
+            <div class="header-title">
+
+                <strong>
+                    Rukmini Hostel
+                </strong>
+
+                <span>
+                    Rent Management
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="profile-button"
+            onclick="openProfile()"
+            aria-label="Profile"
+        >
+
+            <i data-lucide="user-round"></i>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         CONTENT
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <section class="page-heading">
+
+            <h1>
+                Action
+            </h1>
+
+            <p>
+                Tools and settings for your hostel
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACTION
+             ================================================= -->
+
+        <button
+            class="quick-action"
+            onclick="openSearch()"
+        >
+
+            <div class="quick-left">
+
+                <div class="quick-icon">
+
+                    <i data-lucide="search"></i>
+
+                </div>
+
+
+                <div class="quick-text">
+
+                    <strong>
+                        Search Everything
+                    </strong>
+
+                    <span>
+                        Quickly find tenants, plans and records
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-arrow">
+
+                <i data-lucide="chevron-right"></i>
+
+            </div>
+
+        </button>
+
+
+
+        <!-- =================================================
+             MANAGEMENT TOOLS
+             ================================================= -->
+
+        <div class="section-title">
+
+            <strong>
+                Management Tools
+            </strong>
+
+            <span>
+                Tools
+            </span>
+
+        </div>
+
+
+        <section class="action-grid">
+
+
+            <!-- EXPENSES -->
+
+            <button
+                class="action-card"
+                onclick="openPage('../tools/expenses.html')"
+            >
+
+                <div class="action-icon">
+
+                    <i data-lucide="wallet-cards"></i>
+
+                </div>
+
+
+                <div class="action-text">
+
+                    <strong>
+                        Expenses
+                    </strong>
+
+                    <span>
+                        Track hostel expenses
+                    </span>
+
+                </div>
+
+            </button>
+
+
+
+            <!-- BANK ACCOUNT -->
+
+            <button
+                class="action-card"
+                onclick="openPage('../tools/bank-account.html')"
+            >
+
+                <div class="action-icon">
+
+                    <i data-lucide="landmark"></i>
+
+                </div>
+
+
+                <div class="action-text">
+
+                    <strong>
+                        Bank Account
+                    </strong>
+
+                    <span>
+                        Manage payment accounts
+                    </span>
+
+                </div>
+
+            </button>
+
+
+
+            <!-- NOTIFICATIONS -->
+
+            <button
+                class="action-card"
+                onclick="openPage('../tools/notifications.html')"
+            >
+
+                <div class="action-icon">
+
+                    <i data-lucide="bell"></i>
+
+                </div>
+
+
+                <div class="action-text">
+
+                    <strong>
+                        Notifications
+                    </strong>
+
+                    <span>
+                        View important reminders
+                    </span>
+
+                </div>
+
+            </button>
+
+
+
+            <!-- PROFILE -->
+
+            <button
+                class="action-card"
+                onclick="openProfile()"
+            >
+
+                <div class="action-icon">
+
+                    <i data-lucide="user-round-cog"></i>
+
+                </div>
+
+
+                <div class="action-text">
+
+                    <strong>
+                        Profile
+                    </strong>
+
+                    <span>
+                        Manage hostel account
+                    </span>
+
+                </div>
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACCOUNT & OTHER
+             ================================================= -->
+
+        <div class="section-title">
+
+            <strong>
+                Account & More
+            </strong>
+
+        </div>
+
+
+        <section class="list-card">
+
+
+            <!-- SEARCH -->
+
+            <button
+                class="list-item"
+                onclick="openSearch()"
+            >
+
+                <div class="list-left">
+
+                    <div class="list-icon">
+
+                        <i data-lucide="search"></i>
+
+                    </div>
+
+
+                    <div class="list-text">
+
+                        <strong>
+                            Search
+                        </strong>
+
+                        <span>
+                            Find records across the app
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="list-arrow">
+
+                    <i data-lucide="chevron-right"></i>
+
+                </div>
+
+            </button>
+
+
+
+            <!-- NOTIFICATIONS -->
+
+            <button
+                class="list-item"
+                onclick="openPage('../tools/notifications.html')"
+            >
+
+                <div class="list-left">
+
+                    <div class="list-icon">
+
+                        <i data-lucide="bell"></i>
+
+                    </div>
+
+
+                    <div class="list-text">
+
+                        <strong>
+                            Notification Settings
+                        </strong>
+
+                        <span>
+                            Manage alerts and reminders
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="list-arrow">
+
+                    <i data-lucide="chevron-right"></i>
+
+                </div>
+
+            </button>
+
+
+
+            <!-- PROFILE -->
+
+            <button
+                class="list-item"
+                onclick="openProfile()"
+            >
+
+                <div class="list-left">
+
+                    <div class="list-icon">
+
+                        <i data-lucide="settings"></i>
+
+                    </div>
+
+
+                    <div class="list-text">
+
+                        <strong>
+                            Account Settings
+                        </strong>
+
+                        <span>
+                            Manage your Rukmini Hostel account
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="list-arrow">
+
+                    <i data-lucide="chevron-right"></i>
+
+                </div>
+
+            </button>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+         ===================================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- RENT PLANS -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('rent-plans')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="receipt-text"></i>
+
+            </span>
+
+            <span>
+                Rent Plan
+            </span>
+
+        </button>
+
+
+
+        <!-- TENANTS -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('tenants')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="users-round"></i>
+
+            </span>
+
+            <span>
+                Tenant
+            </span>
+
+        </button>
+
+
+
+        <!-- SUMMARY -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('summary')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="chart-no-axes-combined"></i>
+
+            </span>
+
+            <span>
+                Summary
+            </span>
+
+        </button>
+
+
+
+        <!-- ACTION - ACTIVE -->
+
+        <button
+            class="nav-item active"
+            onclick="goTo('action')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="menu"></i>
+
+            </span>
+
+            <span>
+                Action
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+
+<script>
+
+    /* =====================================================
+       INITIALIZE LUCIDE
+       ===================================================== */
+
+    lucide.createIcons();
+
+
+
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    function goTo(page) {
+
+        if (page === "rent-plans") {
+
+            window.location.href =
+                "rent-plans.html";
+
+            return;
+        }
+
+
+        if (page === "tenants") {
+
+            window.location.href =
+                "tenants.html";
+
+            return;
+        }
+
+
+        if (page === "summary") {
+
+            window.location.href =
+                "summary.html";
+
+            return;
+        }
+
+
+        if (page === "action") {
+
+            return;
+        }
+
+    }
+
+
+
+    /* =====================================================
+       OPEN PROFILE
+       ===================================================== */
+
+    function openProfile() {
+
+        window.location.href =
+            "../tools/profile.html";
+
+    }
+
+
+
+    /* =====================================================
+       OPEN SEARCH
+       ===================================================== */
+
+    function openSearch() {
+
+        window.location.href =
+            "../tools/search.html";
+
+    }
+
+
+
+    /* =====================================================
+       OPEN TOOL PAGE
+       ===================================================== */
+
+    function openPage(page) {
+
+        window.location.href = page;
+
+    }
+
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add("show");
+
+
+        setTimeout(function() {
+
+            toast.classList.remove("show");
+
+        }, 2200);
+
+    }
+
+
+    /* =====================================================
+       FUTURE:
+       Firebase / notification / expense / bank
+       functionality will be connected through the
+       shared JavaScript files later.
+       ===================================================== */
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#00695C">
+
+    <title>Summary - Rukmini Hostel</title>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+
+    <style>
+
+        /* =====================================================
+           RUKMINI HOSTEL
+           MASTER APP UI
+           SUMMARY
+           ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #E9EEEE;
+            color: #263238;
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        button {
+            -webkit-appearance: none;
+        }
+
+
+        /* =====================================================
+           APP
+           ===================================================== */
+
+        .app {
+            width: 100%;
+            max-width: 600px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #F5F7F7;
+            position: relative;
+
+            box-shadow:
+                0 0 35px rgba(0, 0, 0, 0.04);
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+            height: 72px;
+            padding: 0 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #00695C;
+            border-bottom: 1px solid #00574D;
+
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .header-logo {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 12px;
+            object-fit: cover;
+            display: block;
+
+            background: #FFFFFF;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .header-title strong {
+            font-size: 17px;
+            line-height: 1;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .header-title span {
+            font-size: 11px;
+            color: #B2DFDB;
+        }
+
+
+        /* =====================================================
+           PROFILE
+           ===================================================== */
+
+        .profile-button {
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid #4DB6AC;
+            border-radius: 50%;
+
+            background: #087D70;
+            color: #FFFFFF;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            transition: 0.15s ease;
+        }
+
+        .profile-button svg {
+            width: 19px;
+            height: 19px;
+            stroke-width: 2.6;
+        }
+
+        .profile-button:active {
+            transform: scale(0.94);
+        }
+
+
+        /* =====================================================
+           CONTENT
+           ===================================================== */
+
+        .content {
+            padding: 24px 18px 105px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADING
+           ===================================================== */
+
+        .page-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+        }
+
+        .heading-text h1 {
+            font-size: 25px;
+            line-height: 1.15;
+            font-weight: 700;
+
+            color: #263238;
+            letter-spacing: -0.3px;
+        }
+
+        .heading-text p {
+            margin-top: 7px;
+
+            font-size: 13px;
+            color: #78909C;
+            line-height: 1.4;
+        }
+
+
+        /* =====================================================
+           PERIOD SELECTOR
+           ===================================================== */
+
+        .period-button {
+            height: 38px;
+
+            border: 1px solid #DCE5E4;
+            border-radius: 10px;
+
+            background: #FFFFFF;
+            color: #455A64;
+
+            padding: 0 11px;
+
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            font-size: 11px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .period-button svg {
+            width: 15px;
+            height: 15px;
+            color: #00695C;
+            stroke-width: 2.5;
+        }
+
+
+        /* =====================================================
+           MAIN COLLECTION CARD
+           ===================================================== */
+
+        .collection-card {
+            background: #00695C;
+            border-radius: 18px;
+
+            padding: 20px;
+
+            margin-bottom: 14px;
+
+            color: #FFFFFF;
+
+            box-shadow:
+                0 8px 20px rgba(0, 105, 92, 0.16);
+        }
+
+        .collection-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+        }
+
+        .collection-title {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .collection-title span {
+            font-size: 11px;
+            color: #B2DFDB;
+        }
+
+        .collection-title strong {
+            font-size: 28px;
+            line-height: 1;
+
+            font-weight: 700;
+        }
+
+        .collection-icon {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 13px;
+
+            background: rgba(255,255,255,0.13);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collection-icon svg {
+            width: 21px;
+            height: 21px;
+            stroke-width: 2.4;
+        }
+
+        .collection-bottom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            border-top: 1px solid rgba(255,255,255,0.14);
+
+            padding-top: 15px;
+        }
+
+        .collection-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .collection-stat + .collection-stat {
+            border-left: 1px solid rgba(255,255,255,0.14);
+            padding-left: 15px;
+        }
+
+        .collection-stat span {
+            font-size: 10px;
+            color: #B2DFDB;
+        }
+
+        .collection-stat strong {
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+
+
+        /* =====================================================
+           STAT GRID
+           ===================================================== */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 11px;
+
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: #FFFFFF;
+
+            border: 1px solid #E4EAEA;
+
+            border-radius: 16px;
+
+            padding: 16px;
+
+            min-height: 112px;
+
+            box-shadow:
+                0 3px 10px rgba(38, 50, 56, 0.035);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 13px;
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 11px;
+
+            background: #E0F2F1;
+            color: #00695C;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.5;
+        }
+
+        .stat-card h3 {
+            font-size: 11px;
+            font-weight: 500;
+
+            color: #90A4AE;
+
+            margin-bottom: 5px;
+        }
+
+        .stat-card strong {
+            font-size: 20px;
+            font-weight: 700;
+
+            color: #455A64;
+        }
+
+        .stat-card .pending {
+            color: #EF8C00;
+        }
+
+        .stat-card .overdue {
+            color: #D84343;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+           ===================================================== */
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 11px;
+        }
+
+        .section-title strong {
+            font-size: 14px;
+            color: #455A64;
+        }
+
+        .section-title span {
+            font-size: 12px;
+            color: #90A4AE;
+        }
+
+
+        /* =====================================================
+           BREAKDOWN CARD
+           ===================================================== */
+
+        .breakdown-card {
+            background: #FFFFFF;
+
+            border: 1px solid #E4EAEA;
+            border-radius: 17px;
+
+            padding: 18px;
+
+            margin-bottom: 23px;
+
+            box-shadow:
+                0 3px 10px rgba(38, 50, 56, 0.035);
+        }
+
+        .breakdown-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 0;
+        }
+
+        .breakdown-row + .breakdown-row {
+            border-top: 1px solid #EDF0F0;
+        }
+
+        .breakdown-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .breakdown-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+
+        .dot-paid {
+            background: #00897B;
+        }
+
+        .dot-due {
+            background: #EF8C00;
+        }
+
+        .dot-overdue {
+            background: #D84343;
+        }
+
+        .breakdown-left span {
+            font-size: 12px;
+            color: #607D8B;
+        }
+
+        .breakdown-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .breakdown-right span {
+            font-size: 11px;
+            color: #90A4AE;
+        }
+
+        .breakdown-right strong {
+            font-size: 13px;
+            color: #455A64;
+        }
+
+
+        /* =====================================================
+           RECENT ACTIVITY
+           ===================================================== */
+
+        .activity-card {
+            background: #FFFFFF;
+
+            border: 1px dashed #D5DEDE;
+
+            border-radius: 17px;
+
+            padding: 30px 18px;
+
+            text-align: center;
+        }
+
+        .activity-icon {
+            width: 52px;
+            height: 52px;
+
+            margin: 0 auto 13px;
+
+            border-radius: 16px;
+
+            background: #E0F2F1;
+            color: #00695C;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-icon svg {
+            width: 23px;
+            height: 23px;
+            stroke-width: 2.4;
+        }
+
+        .activity-card h3 {
+            font-size: 15px;
+            color: #455A64;
+
+            margin-bottom: 6px;
+        }
+
+        .activity-card p {
+            font-size: 12px;
+            line-height: 1.5;
+
+            color: #90A4AE;
+
+            max-width: 270px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           BOTTOM NAVIGATION
+           ===================================================== */
+
+        .bottom-nav {
+            position: fixed;
+
+            bottom: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 100%;
+            max-width: 600px;
+
+            height: 76px;
+
+            background: #00695C;
+
+            border-top: 1px solid #00574D;
+
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            padding: 8px 8px 10px;
+
+            z-index: 50;
+
+            box-shadow:
+                0 -4px 15px rgba(0, 77, 70, 0.12);
+        }
+
+        .nav-item {
+            border: none;
+            background: transparent;
+
+            color: #B2DFDB;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 4px;
+
+            font-size: 10px;
+            font-weight: 500;
+
+            cursor: pointer;
+        }
+
+        .nav-icon {
+            width: 36px;
+            height: 30px;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: 0.15s ease;
+        }
+
+        .nav-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.6;
+        }
+
+        .nav-item.active {
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .nav-item.active .nav-icon {
+            background: #80CBC4;
+            color: #004D40;
+        }
+
+
+        /* =====================================================
+           DESKTOP
+           ===================================================== */
+
+        @media (min-width: 601px) {
+
+            body {
+                background: #E9EEEE;
+            }
+
+            .app {
+                min-height: 100vh;
+
+                box-shadow:
+                    0 0 35px rgba(0, 0, 0, 0.07);
+            }
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+           ===================================================== */
+
+        @media (max-width: 360px) {
+
+            .content {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .header {
+                padding: 0 15px;
+            }
+
+            .header-title strong {
+                font-size: 15px;
+            }
+
+            .collection-title strong {
+                font-size: 25px;
+            }
+
+            .stat-card strong {
+                font-size: 18px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <img
+                src="../../assets/rukminilogo.png"
+                alt="Rukmini Hostel"
+                class="header-logo"
+            >
+
+            <div class="header-title">
+
+                <strong>
+                    Rukmini Hostel
+                </strong>
+
+                <span>
+                    Rent Management
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="profile-button"
+            onclick="openProfile()"
+            aria-label="Profile"
+        >
+
+            <i data-lucide="user-round"></i>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         CONTENT
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- PAGE HEADING -->
+
+        <section class="page-heading">
+
+            <div class="heading-text">
+
+                <h1>
+                    Summary
+                </h1>
+
+                <p>
+                    Overview of your hostel finances
+                </p>
+
+            </div>
+
+
+            <button
+                class="period-button"
+                onclick="changePeriod()"
+            >
+
+                <i data-lucide="calendar-days"></i>
+
+                <span id="periodText">
+                    This Month
+                </span>
+
+            </button>
+
+        </section>
+
+
+
+        <!-- =================================================
+             COLLECTION OVERVIEW
+             ================================================= -->
+
+        <section class="collection-card">
+
+            <div class="collection-top">
+
+                <div class="collection-title">
+
+                    <span>
+                        Rent Collected
+                    </span>
+
+                    <!-- Firebase value -->
+
+                    <strong id="collectedAmount">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="collection-icon">
+
+                    <i data-lucide="indian-rupee"></i>
+
+                </div>
+
+            </div>
+
+
+            <div class="collection-bottom">
+
+                <div class="collection-stat">
+
+                    <span>
+                        Expected
+                    </span>
+
+                    <strong id="expectedAmount">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="collection-stat">
+
+                    <span>
+                        Collection Rate
+                    </span>
+
+                    <strong id="collectionRate">
+                        0%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STAT CARDS
+             ================================================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- TENANTS -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i data-lucide="users-round"></i>
+
+                    </div>
+
+                </div>
+
+                <h3>
+                    Total Tenants
+                </h3>
+
+                <strong id="totalTenants">
+                    0
+                </strong>
+
+            </article>
+
+
+
+            <!-- PAID -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i data-lucide="circle-check"></i>
+
+                    </div>
+
+                </div>
+
+                <h3>
+                    Paid
+                </h3>
+
+                <strong id="paidCount">
+                    0
+                </strong>
+
+            </article>
+
+
+
+            <!-- DUE -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i data-lucide="clock-3"></i>
+
+                    </div>
+
+                </div>
+
+                <h3>
+                    Due
+                </h3>
+
+                <strong
+                    id="dueCount"
+                    class="pending"
+                >
+                    0
+                </strong>
+
+            </article>
+
+
+
+            <!-- OVERDUE -->
+
+            <article class="stat-card">
+
+                <div class="stat-top">
+
+                    <div class="stat-icon">
+
+                        <i data-lucide="triangle-alert"></i>
+
+                    </div>
+
+                </div>
+
+                <h3>
+                    Overdue
+                </h3>
+
+                <strong
+                    id="overdueCount"
+                    class="overdue"
+                >
+                    0
+                </strong>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PAYMENT BREAKDOWN
+             ================================================= -->
+
+        <div class="section-title">
+
+            <strong>
+                Payment Breakdown
+            </strong>
+
+            <span>
+                This Month
+            </span>
+
+        </div>
+
+
+        <section class="breakdown-card">
+
+
+            <!-- PAID -->
+
+            <div class="breakdown-row">
+
+                <div class="breakdown-left">
+
+                    <span
+                        class="breakdown-dot dot-paid"
+                    ></span>
+
+                    <span>
+                        Paid
+                    </span>
+
+                </div>
+
+
+                <div class="breakdown-right">
+
+                    <span id="paidPercentage">
+                        0%
+                    </span>
+
+                    <strong id="paidAmount">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DUE -->
+
+            <div class="breakdown-row">
+
+                <div class="breakdown-left">
+
+                    <span
+                        class="breakdown-dot dot-due"
+                    ></span>
+
+                    <span>
+                        Due
+                    </span>
+
+                </div>
+
+
+                <div class="breakdown-right">
+
+                    <span id="duePercentage">
+                        0%
+                    </span>
+
+                    <strong id="dueAmount">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- OVERDUE -->
+
+            <div class="breakdown-row">
+
+                <div class="breakdown-left">
+
+                    <span
+                        class="breakdown-dot dot-overdue"
+                    ></span>
+
+                    <span>
+                        Overdue
+                    </span>
+
+                </div>
+
+
+                <div class="breakdown-right">
+
+                    <span id="overduePercentage">
+                        0%
+                    </span>
+
+                    <strong id="overdueAmount">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECENT ACTIVITY
+             ================================================= -->
+
+        <div class="section-title">
+
+            <strong>
+                Recent Activity
+            </strong>
+
+            <span>
+                Latest
+            </span>
+
+        </div>
+
+
+        <section class="activity-card">
+
+            <div class="activity-icon">
+
+                <i data-lucide="history"></i>
+
+            </div>
+
+
+            <h3>
+                No recent activity
+            </h3>
+
+
+            <p>
+                Tenant payments and other account
+                activity will appear here once
+                your hostel starts using the app.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+         ===================================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- RENT PLANS -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('rent-plans')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="receipt-text"></i>
+
+            </span>
+
+            <span>
+                Rent Plan
+            </span>
+
+        </button>
+
+
+
+        <!-- TENANTS -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('tenants')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="users-round"></i>
+
+            </span>
+
+            <span>
+                Tenant
+            </span>
+
+        </button>
+
+
+
+        <!-- SUMMARY - ACTIVE -->
+
+        <button
+            class="nav-item active"
+            onclick="goTo('summary')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="chart-no-axes-combined"></i>
+
+            </span>
+
+            <span>
+                Summary
+            </span>
+
+        </button>
+
+
+
+        <!-- ACTION -->
+
+        <button
+            class="nav-item"
+            onclick="goTo('action')"
+        >
+
+            <span class="nav-icon">
+
+                <i data-lucide="menu"></i>
+
+            </span>
+
+            <span>
+                Action
+            </span>
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<script>
+
+    /* =====================================================
+       INITIALIZE ICONS
+       ===================================================== */
+
+    lucide.createIcons();
+
+
+
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    function goTo(page) {
+
+        if (page === "rent-plans") {
+
+            window.location.href =
+                "rent-plans.html";
+
+            return;
+        }
+
+
+        if (page === "tenants") {
+
+            window.location.href =
+                "tenants.html";
+
+            return;
+        }
+
+
+        if (page === "summary") {
+
+            return;
+        }
+
+
+        if (page === "action") {
+
+            window.location.href =
+                "action.html";
+
+            return;
+        }
+
+    }
+
+
+
+    /* =====================================================
+       PROFILE
+       ===================================================== */
+
+    function openProfile() {
+
+        window.location.href =
+            "../tools/profile.html";
+
+    }
+
+
+
+    /* =====================================================
+       PERIOD
+       
+       Placeholder for future Firebase/date filtering.
+       ===================================================== */
+
+    function changePeriod() {
+
+        showToast(
+            "Period selection will be available here."
+        );
+
+    }
+
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    function showToast(message) {
+
+        const toast =
+            document.createElement("div");
+
+        toast.textContent = message;
+
+        toast.style.position = "fixed";
+        toast.style.left = "50%";
+        toast.style.bottom = "92px";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.background = "#263238";
+        toast.style.color = "#FFFFFF";
+        toast.style.padding = "11px 17px";
+        toast.style.borderRadius = "10px";
+        toast.style.fontSize = "12px";
+        toast.style.zIndex = "100";
+        toast.style.whiteSpace = "nowrap";
+
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+
+            toast.remove();
+
+        }, 2200);
+
+    }
+
+
+
+    /* =====================================================
+       FIREBASE DATA PLACEHOLDERS
+       
+       Later database.js will populate:
+
+       collectedAmount
+       expectedAmount
+       collectionRate
+
+       totalTenants
+       paidCount
+       dueCount
+       overdueCount
+
+       paidPercentage
+       paidAmount
+       duePercentage
+       dueAmount
+       overduePercentage
+       overdueAmount
+
+       Recent activity will also be generated
+       dynamically from Firebase.
+
+       NO DEMO FINANCIAL DATA IS BEING USED.
+       ===================================================== */
+
+</script>
+
+
+</body>
+
+</html>

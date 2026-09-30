@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Add Tenant - Rukmini Hostel</title>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f7f7f7;
+        color: #222;
+    }
+
+    body {
+        padding-bottom: 76px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+        height: 158px;
+        background: #006f63;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .status-space {
+        height: 55px;
+    }
+
+    .header-row {
+        height: 103px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        gap: 18px;
+    }
+
+    .back-btn {
+        width: 44px;
+        height: 44px;
+        border: none;
+        background: transparent;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .back-btn i {
+        width: 31px;
+        height: 31px;
+        stroke-width: 2.2;
+    }
+
+    .header-title {
+        font-size: 29px;
+        font-weight: 400;
+        letter-spacing: .2px;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .page {
+        width: 100%;
+        max-width: 650px;
+        margin: auto;
+        padding: 0 12px 25px;
+    }
+
+    /* =========================
+       TENANT PROFILE CARD
+    ========================= */
+
+    .profile-area {
+        background: white;
+        border-radius: 0 0 10px 10px;
+        padding: 14px 10px 18px;
+        box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+
+    .profile-photo-wrap {
+        display: flex;
+        justify-content: center;
+        margin: 0 0 16px;
+    }
+
+    .profile-photo {
+        width: 112px;
+        height: 112px;
+        border-radius: 50%;
+        background: #edf1f1;
+        border: 7px solid #d4dddd;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9aa4a4;
+    }
+
+    .profile-photo i {
+        width: 70px;
+        height: 70px;
+        stroke-width: 1.5;
+    }
+
+    .camera-btn {
+        position: absolute;
+        right: -2px;
+        bottom: -1px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: none;
+        background: #ff9800;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .camera-btn i {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* =========================
+       INPUTS
+    ========================= */
+
+    .input-box {
+        position: relative;
+        width: 100%;
+        margin-bottom: 13px;
+    }
+
+    .input-box input,
+    .input-box textarea {
+        width: 100%;
+        border: 1.5px solid #8b8b8b;
+        border-radius: 8px;
+        background: white;
+        padding: 17px 14px;
+        font-size: 19px;
+        outline: none;
+        color: #222;
+        font-family: inherit;
+    }
+
+    .input-box input {
+        height: 67px;
+    }
+
+    .input-box textarea {
+        min-height: 85px;
+        resize: vertical;
+    }
+
+    .input-box input::placeholder,
+    .input-box textarea::placeholder {
+        color: #777;
+        opacity: 1;
+    }
+
+    .input-box label {
+        position: absolute;
+        left: 14px;
+        top: 7px;
+        background: white;
+        padding-right: 4px;
+        font-size: 16px;
+        color: #777;
+        pointer-events: none;
+    }
+
+    .input-box.labeled input {
+        padding-top: 28px;
+    }
+
+    .optional label {
+        color: #d69b32;
+    }
+
+    .contact-icon {
+        position: absolute;
+        right: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #006f63;
+    }
+
+    .contact-icon i {
+        width: 30px;
+        height: 30px;
+        stroke-width: 2.5;
+    }
+
+    /* =========================
+       DETAILS TOGGLE
+    ========================= */
+
+    .section-toggle {
+        color: #c62828;
+        font-size: 21px;
+        margin: 25px 12px 17px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .details-content {
+        display: block;
+    }
+
+    .details-content.hidden {
+        display: none;
+    }
+
+    /* =========================
+       OPENING BALANCE
+    ========================= */
+
+    .card {
+        background: white;
+        border-radius: 10px;
+        margin-top: 18px;
+        padding: 0 12px 14px;
+        box-shadow: 0 5px 13px rgba(0,0,0,.14);
+        overflow: hidden;
+    }
+
+    .card-title {
+        color: #c62828;
+        font-size: 18px;
+        padding: 10px 0 8px;
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+    .balance-row {
+        min-height: 84px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 10px 10px;
+        border-bottom: 1px solid #ededed;
+    }
+
+    .balance-label {
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+        flex: 1;
+    }
+
+    .date-input {
+        width: 255px;
+        height: 55px;
+        border: none;
+        background: #f4f4f4;
+        box-shadow: 0 3px 8px rgba(0,0,0,.10);
+        padding: 0 12px;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .amount-input {
+        width: 255px;
+        height: 64px;
+        border: 1.5px solid #777;
+        border-radius: 8px;
+        padding: 0 12px;
+        font-size: 19px;
+        outline: none;
+    }
+
+    .balance-choice {
+        display: flex;
+        gap: 18px;
+        margin-top: 12px;
+    }
+
+    .choice {
+        flex: 1;
+        min-height: 68px;
+        border: none;
+        padding: 8px 7px;
+        font-size: 17px;
+        line-height: 1.35;
+        background: #f4f4f4;
+        box-shadow: 0 3px 7px rgba(0,0,0,.14);
+        cursor: pointer;
+    }
+
+    .choice.active {
+        background: #00801d;
+        color: white;
+    }
+
+    .choice i {
+        vertical-align: middle;
+        margin-right: 5px;
+        width: 19px;
+        height: 19px;
+    }
+
+    /* =========================
+       COLLAPSIBLE SECTIONS
+    ========================= */
+
+    .expand-card {
+        background: white;
+        border-radius: 10px;
+        margin-top: 18px;
+        box-shadow: 0 5px 13px rgba(0,0,0,.14);
+        overflow: hidden;
+    }
+
+    .expand-header {
+        min-height: 67px;
+        padding: 20px 16px;
+        color: #c62828;
+        font-size: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .expand-header i {
+        transition: transform .2s ease;
+    }
+
+    .expand-card.open .expand-header i {
+        transform: rotate(180deg);
+    }
+
+    .expand-content {
+        display: none;
+        padding: 0 12px 18px;
+    }
+
+    .expand-card.open .expand-content {
+        display: block;
+    }
+
+    /* =========================
+       BILL DETAILS
+    ========================= */
+
+    .info-box {
+        border: 1.5px solid #888;
+        border-radius: 8px;
+        padding: 14px;
+        margin-bottom: 14px;
+        font-size: 18px;
+        line-height: 1.45;
+    }
+
+    .info-box strong {
+        font-size: 18px;
+    }
+
+    .info-red {
+        color: #c62828;
+        margin-top: 8px;
+    }
+
+    .edit-row {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .outline-btn {
+        border: 1.5px solid #6ca59f;
+        background: white;
+        color: #006f63;
+        border-radius: 25px;
+        padding: 10px 18px;
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+    }
+
+    .outline-btn i {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* =========================
+       ELECTRICITY
+    ========================= */
+
+    .electricity-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        gap: 15px;
+    }
+
+    .electricity-label {
+        font-size: 19px;
+        font-weight: 700;
+        padding-left: 10px;
+    }
+
+    .electricity-input {
+        width: 255px;
+        height: 64px;
+        border: 1.5px solid #888;
+        border-radius: 8px;
+        padding: 0 15px;
+        font-size: 18px;
+        outline: none;
+    }
+
+    /* =========================
+       DOCUMENT
+    ========================= */
+
+    .document-text {
+        color: #888;
+        font-size: 18px;
+        line-height: 1.45;
+        padding: 4px 8px 15px;
+    }
+
+    .document-btn-row {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* =========================
+       BOTTOM ADD BAR
+    ========================= */
+
+    .bottom-action {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 66px;
+        background: #006f63;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .bottom-action:active {
+        background: #005b52;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+        .header {
+            height: 158px;
+        }
+
+        .header-title {
+            font-size: 28px;
+        }
+
+        .page {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        .balance-row {
+            flex-direction: row;
+        }
+
+        .balance-label {
+            font-size: 19px;
+        }
+
+        .date-input,
+        .amount-input,
+        .electricity-input {
+            width: 48%;
+        }
+
+        .choice {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 420px) {
+
+        .header-row {
+            padding: 0 14px;
+        }
+
+        .header-title {
+            font-size: 26px;
+        }
+
+        .profile-photo {
+            width: 105px;
+            height: 105px;
+        }
+
+        .input-box input {
+            height: 65px;
+            font-size: 18px;
+        }
+
+        .section-toggle {
+            font-size: 20px;
+        }
+
+        .balance-row {
+            gap: 10px;
+        }
+
+        .balance-label {
+            font-size: 17px;
+        }
+
+        .date-input,
+        .amount-input,
+        .electricity-input {
+            width: 49%;
+            font-size: 17px;
+        }
+
+        .balance-choice {
+            gap: 18px;
+        }
+
+        .choice {
+            font-size: 16px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="status-space"></div>
+
+    <div class="header-row">
+
+        <button class="back-btn" onclick="history.back()">
+            <i data-lucide="arrow-left"></i>
+        </button>
+
+        <div class="header-title">
+            Add Tenant
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+    <!-- =========================
+         TENANT DETAILS
+    ========================= -->
+
+    <section class="profile-area">
+
+        <div class="profile-photo-wrap">
+
+            <div class="profile-photo">
+
+                <i data-lucide="user-round"></i>
+
+                <button class="camera-btn">
+                    <i data-lucide="camera"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Tenant Name -->
+
+        <div class="input-box">
+
+            <input
+                type="text"
+                id="tenantName"
+                placeholder="Tenant Name*"
+            >
+
+            <div class="contact-icon">
+                <i data-lucide="contact"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Mobile -->
+
+        <div class="input-box">
+
+            <input
+                type="tel"
+                id="mobile"
+                placeholder="Mobile Number (Optional)"
+            >
+
+            <div class="contact-icon">
+                <i data-lucide="contact"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Building -->
+
+        <div class="input-box labeled optional">
+
+            <label>Building Name (Optional)</label>
+
+            <input
+                type="text"
+                id="building"
+                value="Rukmini Hostel"
+            >
+
+        </div>
+
+
+        <!-- Details -->
+
+        <div
+            class="section-toggle"
+            onclick="toggleDetails()"
+            id="detailsToggle"
+        >
+            - Hide Details
+        </div>
+
+
+        <div
+            class="details-content"
+            id="detailsContent"
+        >
+
+            <!-- Mobile 2 -->
+
+            <div class="input-box">
+
+                <input
+                    type="tel"
+                    placeholder="Mobile Number 2"
+                >
+
+                <div class="contact-icon">
+                    <i data-lucide="contact"></i>
+                </div>
+
+            </div>
+
+
+            <!-- Remark -->
+
+            <div class="input-box">
+
+                <input
+                    type="text"
+                    placeholder="Remark(Optional)"
+                >
+
+            </div>
+
+
+            <!-- Building Number -->
+
+            <div class="input-box labeled">
+
+                <label>B.No.</label>
+
+                <input
+                    type="text"
+                    value="1"
+                >
+
+            </div>
+
+
+            <!-- Billing Name -->
+
+            <div class="input-box labeled">
+
+                <label>Tenant Billing Name(*)</label>
+
+                <input
+                    type="text"
+                    value=""
+                >
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="input-box">
+
+                <input
+                    type="email"
+                    placeholder="Email"
+                >
+
+            </div>
+
+
+            <!-- Address -->
+
+            <div class="input-box">
+
+                <textarea
+                    placeholder="Address"
+                ></textarea>
+
+            </div>
+
+
+            <!-- Tenant Code -->
+
+            <div class="input-box">
+
+                <input
+                    type="text"
+                    placeholder="Tenant Code"
+                >
+
+            </div>
+
+
+            <!-- Security Deposit -->
+
+            <div class="input-box">
+
+                <input
+                    type="number"
+                    placeholder="Security Deposit"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         OPENING BALANCE
+    ========================= -->
+
+    <section class="card">
+
+        <div class="card-title">
+            Opening Balance
+        </div>
+
+
+        <div class="balance-row">
+
+            <div class="balance-label">
+                Start Billing From
+            </div>
+
+            <input
+                class="date-input"
+                type="date"
+                id="billingDate"
+            >
+
+        </div>
+
+
+        <div class="balance-row">
+
+            <div class="balance-label">
+                Opening Balance
+            </div>
+
+            <input
+                class="amount-input"
+                type="number"
+                id="openingBalance"
+                placeholder="₹  Amount"
+                oninput="updateBalance()"
+            >
+
+        </div>
+
+
+        <div class="balance-choice">
+
+            <button
+                class="choice active"
+                id="tenantPays"
+                onclick="selectBalanceType('tenant')"
+            >
+                <i data-lucide="check"></i>
+                Tenant need to pay you
+                <span id="tenantAmount">₹0</span>
+            </button>
+
+
+            <button
+                class="choice"
+                id="youPay"
+                onclick="selectBalanceType('owner')"
+            >
+                You need to pay
+                <span id="ownerAmount">₹0</span>
+                to tenant.
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         BILL DETAIL
+    ========================= -->
+
+    <section class="expand-card" id="billCard">
+
+        <div
+            class="expand-header"
+            onclick="toggleCard('billCard')"
+        >
+
+            <span>+ Add Bill Detail</span>
+
+            <i data-lucide="chevron-down"></i>
+
+        </div>
+
+
+        <div class="expand-content">
+
+            <div class="info-box">
+
+                <strong>Bill Type</strong><br>
+                Prepaid
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>Billing Time</strong>
+
+                <br><br>
+
+                Bill will be generated automatically after every
+                <strong>1 month.</strong>
+
+                <div class="info-red">
+                    First bill will be generated according to
+                    the selected billing date.
+                </div>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>
+                    Water Charge/Discount per month
+                </strong>
+
+                <br>
+
+                ₹0 will be added to every bill.
+
+            </div>
+
+
+            <div class="edit-row">
+
+                <button class="outline-btn">
+                    <i data-lucide="pencil"></i>
+                    Edit Details
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ELECTRICITY DETAIL
+    ========================= -->
+
+    <section class="expand-card" id="electricityCard">
+
+        <div
+            class="expand-header"
+            onclick="toggleCard('electricityCard')"
+        >
+
+            <span>+ Add Electricity Detail</span>
+
+            <i data-lucide="chevron-down"></i>
+
+        </div>
+
+
+        <div class="expand-content">
+
+            <div class="electricity-row">
+
+                <div class="electricity-label">
+                    Current Reading
+                </div>
+
+                <input
+                    class="electricity-input"
+                    type="number"
+                    placeholder="Unit"
+                >
+
+            </div>
+
+
+            <div class="electricity-row">
+
+                <div class="electricity-label">
+                    Rate per Unit
+                </div>
+
+                <input
+                    class="electricity-input"
+                    type="number"
+                    placeholder="Amount"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TENANT DOCUMENT
+    ========================= -->
+
+    <section class="expand-card" id="documentCard">
+
+        <div
+            class="expand-header"
+            onclick="toggleCard('documentCard')"
+        >
+
+            <span>+ Add Tenant Document</span>
+
+            <i data-lucide="chevron-down"></i>
+
+        </div>
+
+
+        <div class="expand-content">
+
+            <div class="document-text">
+
+                Please add your document here,
+                To add click on below button.
+
+            </div>
+
+
+            <div class="document-btn-row">
+
+                <button
+                    class="outline-btn"
+                    onclick="selectDocument()"
+                >
+
+                    <i data-lucide="pencil"></i>
+
+                    Select Document
+
+                </button>
+
+            </div>
+
+            <input
+                type="file"
+                id="documentInput"
+                hidden
+            >
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     BOTTOM ADD BUTTON
+========================= -->
+
+<div
+    class="bottom-action"
+    onclick="addTenant()"
+>
+    ADD
+</div>
+
+
+<script>
+
+    /* Lucide icons */
+    lucide.createIcons();
+
+
+    /* =========================
+       DATE
+    ========================= */
+
+    const dateInput = document.getElementById("billingDate");
+
+    const today = new Date();
+
+    const yyyy = today.getFullYear();
+
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
+
+
+    /* =========================
+       DETAILS TOGGLE
+    ========================= */
+
+    function toggleDetails() {
+
+        const content =
+            document.getElementById("detailsContent");
+
+        const toggle =
+            document.getElementById("detailsToggle");
+
+        content.classList.toggle("hidden");
+
+        if (content.classList.contains("hidden")) {
+
+            toggle.textContent = "+ Show Details";
+
+        } else {
+
+            toggle.textContent = "- Hide Details";
+
+        }
+
+    }
+
+
+    /* =========================
+       EXPANDABLE CARDS
+    ========================= */
+
+    function toggleCard(id) {
+
+        const card = document.getElementById(id);
+
+        card.classList.toggle("open");
+
+        const header =
+            card.querySelector(".expand-header span");
+
+        if (card.classList.contains("open")) {
+
+            if (id === "billCard") {
+                header.textContent = "- Hide Bill Detail";
+            }
+
+            if (id === "electricityCard") {
+                header.textContent = "- Hide Electricity Detail";
+            }
+
+            if (id === "documentCard") {
+                header.textContent = "- Hide Tenant Document";
+            }
+
+        } else {
+
+            if (id === "billCard") {
+                header.textContent = "+ Add Bill Detail";
+            }
+
+            if (id === "electricityCard") {
+                header.textContent = "+ Add Electricity Detail";
+            }
+
+            if (id === "documentCard") {
+                header.textContent = "+ Add Tenant Document";
+            }
+
+        }
+
+        lucide.createIcons();
+    }
+
+
+    /* =========================
+       OPENING BALANCE
+    ========================= */
+
+    function updateBalance() {
+
+        let amount =
+            parseFloat(
+                document.getElementById("openingBalance").value
+            ) || 0;
+
+        const formatted =
+            "₹" + amount.toLocaleString("en-IN");
+
+        document.getElementById("tenantAmount").textContent =
+            formatted;
+
+        document.getElementById("ownerAmount").textContent =
+            formatted;
+
+    }
+
+
+    function selectBalanceType(type) {
+
+        const tenant =
+            document.getElementById("tenantPays");
+
+        const owner =
+            document.getElementById("youPay");
+
+        if (type === "tenant") {
+
+            tenant.classList.add("active");
+
+            owner.classList.remove("active");
+
+        } else {
+
+            owner.classList.add("active");
+
+            tenant.classList.remove("active");
+
+        }
+
+    }
+
+
+    /* =========================
+       DOCUMENT
+    ========================= */
+
+    function selectDocument() {
+
+        document
+            .getElementById("documentInput")
+            .click();
+
+    }
+
+
+    /* =========================
+       ADD TENANT
+    ========================= */
+
+    function addTenant() {
+
+        const name =
+            document.getElementById("tenantName").value.trim();
+
+        if (!name) {
+
+            alert("Please enter Tenant Name.");
+
+            return;
+
+        }
+
+        alert(
+            "Tenant details are ready to be saved."
+        );
+
+        // Firebase saving will be connected here later.
+
+    }
+
+</script>
+
+</body>
+</html>

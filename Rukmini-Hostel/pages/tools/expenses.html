@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expenses - Rukmini Hostel</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#F5F7F6;color:#263238;padding-bottom:84px}
+button,input,select,textarea{font:inherit}
+.header{height:72px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;background:#00695C;border-bottom:1px solid #00574D;position:sticky;top:0;z-index:20}
+.header-left{display:flex;align-items:center;gap:9px}
+.back-button{width:34px;height:34px;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.back-button svg{width:21px;height:21px;stroke-width:2.5}
+.header-logo{width:43px;height:43px;border-radius:12px;object-fit:cover;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.header-title{display:flex;flex-direction:column;gap:3px}.header-title strong{font-size:17px;line-height:1;font-weight:700;color:#fff}.header-title span{font-size:11px;color:#B2DFDB}
+.profile-button{width:40px;height:40px;border:1px solid #4DB6AC;border-radius:50%;background:#087D70;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}.profile-button svg{width:19px;height:19px}
+.page{max-width:600px;margin:auto;padding:14px}
+.card{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.09);margin-bottom:12px;overflow:hidden}
+.summary{padding:16px}.summary-title{font-size:17px;font-weight:700;color:#00695C}.summary-text{font-size:12px;color:#777;margin-top:5px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}.summary-box{border:1px solid #D7E5E3;border-radius:9px;padding:12px;background:#FAFCFB}.summary-box svg{width:19px;color:#00695C;margin-bottom:7px}.value{font-size:20px;font-weight:700}.label{font-size:11px;color:#777;margin-top:3px}
+.section-title{color:#00695C;font-size:17px;font-weight:700;padding:14px 15px 11px;border-bottom:1px solid #E4EAEA}
+.form{padding:14px}.field{margin-bottom:12px}.field:last-child{margin-bottom:0}label{display:block;font-size:12px;color:#666;margin-bottom:6px}
+input,select,textarea{width:100%;border:1px solid #CFDDDB;border-radius:8px;background:#fff;color:#222;padding:12px 11px;outline:none}input:focus,select:focus,textarea:focus{border-color:#00897B}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.primary{width:100%;border:0;border-radius:9px;background:#00695C;color:#fff;padding:13px;font-weight:700;cursor:pointer}
+.expense-row{padding:14px 15px;border-bottom:1px solid #EEF1F0;display:flex;align-items:center;gap:11px}.expense-row:last-child{border-bottom:0}.expense-icon{width:42px;height:42px;border-radius:10px;background:#E6F4F2;color:#00695C;display:flex;align-items:center;justify-content:center;flex:none}.expense-icon svg{width:20px}.expense-main{flex:1}.expense-name{font-size:14px;font-weight:700}.expense-meta{font-size:11px;color:#777;margin-top:4px}.expense-amount{font-size:14px;font-weight:700;color:#263238}
+.empty{padding:25px 15px;text-align:center;color:#777;font-size:13px}.empty svg{width:30px;height:30px;color:#80CBC4;margin-bottom:8px}
+.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:600px;height:72px;background:#00695C;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px 10px;z-index:50;box-shadow:0 -4px 15px rgba(0,77,70,.12)}
+.nav-item{border:0;background:transparent;color:#B2DFDB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:500;cursor:pointer}.nav-icon{width:36px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center}.nav-icon svg{width:18px;height:18px;stroke-width:2.6}.nav-item.active{color:#fff;font-weight:700}.nav-item.active .nav-icon{background:#80CBC4;color:#004D40}
+@media(max-width:420px){.header{padding:0 16px}.page{padding:12px}.form-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="header">
+<div class="header-left">
+<button class="back-button" onclick="history.back()"><i data-lucide="arrow-left"></i></button>
+<img src="../../assets/rukminilogo.png" class="header-logo" alt="Rukmini Hostel">
+<div class="header-title"><strong>Expenses</strong><span>Hostel Management</span></div>
+</div>
+<button class="profile-button" onclick="openProfile()"><i data-lucide="user-round"></i></button>
+</header>
+
+<main class="page">
+
+<section class="card summary">
+<div class="summary-title">Expense Summary</div>
+<div class="summary-text">Track hostel expenses and outgoing payments.</div>
+<div class="summary-grid">
+<div class="summary-box"><i data-lucide="wallet"></i><div class="value">₹0</div><div class="label">This Month</div></div>
+<div class="summary-box"><i data-lucide="receipt"></i><div class="value">0</div><div class="label">Total Entries</div></div>
+</div>
+</section>
+
+<section class="card">
+<div class="section-title">Add Expense</div>
+<div class="form">
+<div class="field"><label for="title">Expense Name</label><input id="title" type="text" placeholder="e.g. Electricity bill"></div>
+<div class="form-grid">
+<div class="field"><label for="amount">Amount</label><input id="amount" type="number" min="0" placeholder="₹ amount"></div>
+<div class="field"><label for="date">Date</label><input id="date" type="date"></div>
+</div>
+<div class="field"><label for="category">Category</label><select id="category"><option value="">Select category</option><option>Electricity</option><option>Water</option><option>Maintenance</option><option>Food / Grocery</option><option>Internet</option><option>Staff</option><option>Rent / Property</option><option>Other</option></select></div>
+<div class="field"><label for="notes">Notes</label><textarea id="notes" placeholder="Optional notes"></textarea></div>
+<button class="primary" onclick="saveExpense()">Save Expense</button>
+</div>
+</section>
+
+<section class="card">
+<div class="section-title">Recent Expenses</div>
+<div class="empty"><i data-lucide="receipt"></i><div>No expenses recorded yet.</div><div style="font-size:11px;margin-top:4px">Your expense records will appear here.</div></div>
+</section>
+
+</main>
+
+<nav class="bottom-nav">
+<button class="nav-item" onclick="goTo('rent-plans')"><span class="nav-icon"><i data-lucide="receipt-text"></i></span><span>Rent Plan</span></button>
+<button class="nav-item" onclick="goTo('tenants')"><span class="nav-icon"><i data-lucide="users-round"></i></span><span>Tenant</span></button>
+<button class="nav-item" onclick="goTo('summary')"><span class="nav-icon"><i data-lucide="chart-no-axes-combined"></i></span><span>Summary</span></button>
+<button class="nav-item active" onclick="goTo('action')"><span class="nav-icon"><i data-lucide="menu"></i></span><span>Action</span></button>
+</nav>
+
+<script>
+lucide.createIcons();
+function goTo(page){if(page==="rent-plans")window.location.href="../main/rent-plans.html";if(page==="tenants")window.location.href="../main/tenants.html";if(page==="summary")window.location.href="../main/summary.html";if(page==="action")window.location.href="../main/action.html";}
+function openProfile(){window.location.href="profile.html";}
+function saveExpense(){
+const title=document.getElementById("title").value;
+const amount=document.getElementById("amount").value;
+const category=document.getElementById("category").value;
+if(!title||!amount||Number(amount)<=0||!category){alert("Please enter the expense name, amount and category.");return;}
+alert("Expense saved locally for now. Firebase will handle real records later.");
+}
+</script>
+</body>
+</html>
