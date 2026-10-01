@@ -675,231 +675,767 @@
 </div>
 
 
-<script>
+<script type="module">
+
+    import {
+        auth,
+        db
+    } from "../js/firebase-config.js";
+
+    import {
+        doc,
+        getDoc,
+        updateDoc,
+        deleteDoc
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+    /* =====================================================
+       INITIALIZE LUCIDE
+       ===================================================== */
 
     lucide.createIcons();
 
 
-    /* ================= LOAD PLAN ================= */
+    /* =====================================================
+       GET PLAN ID
+       ===================================================== */
 
-    const params = new URLSearchParams(window.location.search);
-
-    const planId = Number(params.get("id"));
-
-    let plans =
-        JSON.parse(
-            localStorage.getItem("rukminiRentPlans") || "[]"
-        );
-
-    let plan =
-        plans.find(item => item.id === planId);
+    const params =
+        new URLSearchParams(window.location.search);
 
     /*
-        If the page is opened directly without an ID,
-        use the newest plan.
+       Firestore document IDs are strings.
+       Do NOT convert this to Number().
     */
 
-    if (!plan && plans.length > 0) {
-        plan = plans[plans.length - 1];
+    const planId =
+        params.get("id");
+
+
+    let plan = null;
+
+    let planRef = null;
+
+
+    /* =====================================================
+       FORMAT CURRENCY
+       ===================================================== */
+
+    function formatCurrency(value) {
+
+        return "₹" +
+            Number(value || 0).toLocaleString("en-IN");
+
     }
 
-    if (!plan) {
 
-        plan = {
-            id: Date.now(),
-            name: "Rent Plan",
-            rate: 0,
-            gst: 0
-        };
+    /* =====================================================
+       CALCULATE PLAN TOTAL
+       ===================================================== */
+
+    function calculateTotals() {
+
+        if (!plan) return;
+
+
+        const rate =
+            Number(plan.rate) || 0;
+
+        const gst =
+            Number(plan.gst) || 0;
+
+
+        const gstAmount =
+            rate * gst / 100;
+
+        const total =
+            rate + gstAmount;
+
+
+        plan.gstAmount =
+            gstAmount;
+
+        plan.total =
+            total;
 
     }
 
+
+    /* =====================================================
+       LOAD PLAN FROM FIRESTORE
+       ===================================================== */
+
+    async function loadPlan() {
+
+        try {
+
+            /* ---------------------------------------------
+               CHECK AUTHENTICATION
+               --------------------------------------------- */
+
+            const user =
+                auth.currentUser;
+
+
+            if (!user) {
+
+                window.location.href =
+                    "../auth/login.html";
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               CHECK PLAN ID
+               --------------------------------------------- */
+
+            if (!planId) {
+
+                alert(
+                    "Rent plan could not be found."
+                );
+
+                window.location.href =
+                    "../main/rent-plans.html";
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               FIRESTORE DOCUMENT
+
+               users/
+                 USER_UID/
+                   rentPlans/
+                     PLAN_ID
+               --------------------------------------------- */
+
+            planRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid,
+                    "rentPlans",
+                    planId
+                );
+
+
+            const snapshot =
+                await getDoc(planRef);
+
+
+            /* ---------------------------------------------
+               PLAN DOES NOT EXIST
+               --------------------------------------------- */
+
+            if (!snapshot.exists()) {
+
+                alert(
+                    "This rent plan no longer exists."
+                );
+
+                window.location.href =
+                    "../main/rent-plans.html";
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               LOAD PLAN DATA
+               --------------------------------------------- */
+
+            plan = {
+
+                id: snapshot.id,
+
+                ...snapshot.data()
+
+            };
+
+
+            calculateTotals();
+
+            renderPlan();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error loading rent plan:",
+                error
+            );
+
+            alert(
+                "Could not load the rent plan.\n\n"
+                + error.message
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       RENDER PLAN
+       ===================================================== */
 
     function renderPlan() {
 
-        document.getElementById("planName").textContent =
-            plan.name;
-
-        document.getElementById("planRate").textContent =
-            "₹" + Number(plan.rate).toLocaleString("en-IN");
-
-        document.getElementById("gstValue").textContent =
-            plan.gst + "%";
-
-    }
-
-    renderPlan();
+        if (!plan) return;
 
 
-    /* ================= SAVE ================= */
+        document
+            .getElementById("planName")
+            .textContent =
+                plan.name || "Rent Plan";
 
-    function savePlans() {
 
-        const index =
-            plans.findIndex(item => item.id === plan.id);
+        document
+            .getElementById("planRate")
+            .textContent =
+                formatCurrency(plan.rate);
 
-        if (index !== -1) {
-            plans[index] = plan;
-        } else {
-            plans.push(plan);
-        }
 
-        localStorage.setItem(
-            "rukminiRentPlans",
-            JSON.stringify(plans)
-        );
+        document
+            .getElementById("gstValue")
+            .textContent =
+                (Number(plan.gst) || 0) + "%";
 
     }
 
 
-    /* ================= DETAILS ================= */
+    /* =====================================================
+       DETAILS EDIT
+       ===================================================== */
 
     function openDetailsEdit() {
 
-        document.getElementById("editName").value =
-            plan.name;
+        if (!plan) return;
+
+
+        document
+            .getElementById("editName")
+            .value =
+                plan.name || "";
+
 
         document
             .getElementById("detailsModal")
-            .classList.add("show");
+            .classList
+            .add("show");
 
     }
+
+
+    window.openDetailsEdit =
+        openDetailsEdit;
+
 
     function closeDetailsEdit() {
 
         document
             .getElementById("detailsModal")
-            .classList.remove("show");
+            .classList
+            .remove("show");
 
     }
 
-    function saveDetailsEdit() {
+
+    window.closeDetailsEdit =
+        closeDetailsEdit;
+
+
+    async function saveDetailsEdit() {
+
+        if (!plan || !planRef) return;
+
 
         const name =
-            document.getElementById("editName").value.trim();
+            document
+                .getElementById("editName")
+                .value
+                .trim();
 
-        if (!name) return;
 
-        plan.name = name;
+        if (!name) {
 
-        savePlans();
-        renderPlan();
+            alert(
+                "Please enter a plan name."
+            );
 
-        closeDetailsEdit();
+            return;
+
+        }
+
+
+        const saveButton =
+            document.querySelector(
+                "#detailsModal .edit-save"
+            );
+
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try {
+
+            await updateDoc(
+                planRef,
+                {
+
+                    name: name
+
+                }
+            );
+
+
+            plan.name =
+                name;
+
+
+            renderPlan();
+
+            closeDetailsEdit();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error updating plan name:",
+                error
+            );
+
+            alert(
+                "Could not update the plan.\n\n"
+                + error.message
+            );
+
+        } finally {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Save";
+
+        }
 
     }
 
 
-    /* ================= PRICING ================= */
+    window.saveDetailsEdit =
+        saveDetailsEdit;
+
+
+    /* =====================================================
+       PRICING EDIT
+       ===================================================== */
 
     function openPricingEdit() {
 
-        document.getElementById("editRate").value =
-            plan.rate;
+        if (!plan) return;
+
+
+        document
+            .getElementById("editRate")
+            .value =
+                plan.rate || 0;
+
 
         document
             .getElementById("pricingModal")
-            .classList.add("show");
+            .classList
+            .add("show");
 
     }
+
+
+    window.openPricingEdit =
+        openPricingEdit;
+
 
     function closePricingEdit() {
 
         document
             .getElementById("pricingModal")
-            .classList.remove("show");
+            .classList
+            .remove("show");
 
     }
 
-    function savePricingEdit() {
 
-        plan.rate =
+    window.closePricingEdit =
+        closePricingEdit;
+
+
+    async function savePricingEdit() {
+
+        if (!plan || !planRef) return;
+
+
+        const rate =
             Number(
-                document.getElementById("editRate").value
+                document
+                    .getElementById("editRate")
+                    .value
             ) || 0;
 
-        savePlans();
-        renderPlan();
 
-        closePricingEdit();
+        const gst =
+            Number(plan.gst) || 0;
+
+
+        const gstAmount =
+            rate * gst / 100;
+
+
+        const total =
+            rate + gstAmount;
+
+
+        const saveButton =
+            document.querySelector(
+                "#pricingModal .edit-save"
+            );
+
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try {
+
+            await updateDoc(
+                planRef,
+                {
+
+                    rate: rate,
+
+                    gstAmount: gstAmount,
+
+                    total: total
+
+                }
+            );
+
+
+            plan.rate =
+                rate;
+
+            plan.gstAmount =
+                gstAmount;
+
+            plan.total =
+                total;
+
+
+            renderPlan();
+
+            closePricingEdit();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error updating plan pricing:",
+                error
+            );
+
+            alert(
+                "Could not update pricing.\n\n"
+                + error.message
+            );
+
+        } finally {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Save";
+
+        }
 
     }
 
 
-    /* ================= GST ================= */
+    window.savePricingEdit =
+        savePricingEdit;
+
+
+    /* =====================================================
+       GST EDIT
+       ===================================================== */
 
     function openGstEdit() {
 
-        document.getElementById("editGst").value =
-            plan.gst;
+        if (!plan) return;
+
+
+        document
+            .getElementById("editGst")
+            .value =
+                Number(plan.gst) || 0;
+
 
         document
             .getElementById("gstModal")
-            .classList.add("show");
+            .classList
+            .add("show");
 
     }
+
+
+    window.openGstEdit =
+        openGstEdit;
+
 
     function closeGstEdit() {
 
         document
             .getElementById("gstModal")
-            .classList.remove("show");
+            .classList
+            .remove("show");
 
     }
 
-    function saveGstEdit() {
 
-        plan.gst =
+    window.closeGstEdit =
+        closeGstEdit;
+
+
+    async function saveGstEdit() {
+
+        if (!plan || !planRef) return;
+
+
+        const gst =
             Number(
-                document.getElementById("editGst").value
+                document
+                    .getElementById("editGst")
+                    .value
             );
 
-        savePlans();
-        renderPlan();
 
-        closeGstEdit();
+        const rate =
+            Number(plan.rate) || 0;
+
+
+        const gstAmount =
+            rate * gst / 100;
+
+
+        const total =
+            rate + gstAmount;
+
+
+        const saveButton =
+            document.querySelector(
+                "#gstModal .edit-save"
+            );
+
+
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try {
+
+            await updateDoc(
+                planRef,
+                {
+
+                    gst: gst,
+
+                    gstAmount: gstAmount,
+
+                    total: total
+
+                }
+            );
+
+
+            plan.gst =
+                gst;
+
+            plan.gstAmount =
+                gstAmount;
+
+            plan.total =
+                total;
+
+
+            renderPlan();
+
+            closeGstEdit();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error updating GST:",
+                error
+            );
+
+            alert(
+                "Could not update GST.\n\n"
+                + error.message
+            );
+
+        } finally {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Save";
+
+        }
 
     }
 
 
-    /* ================= DELETE ================= */
+    window.saveGstEdit =
+        saveGstEdit;
+
+
+    /* =====================================================
+       DELETE
+       ===================================================== */
 
     function openDeleteModal() {
 
         document
             .getElementById("deleteModal")
-            .classList.add("show");
+            .classList
+            .add("show");
 
     }
+
+
+    window.openDeleteModal =
+        openDeleteModal;
+
 
     function closeDeleteModal() {
 
         document
             .getElementById("deleteModal")
-            .classList.remove("show");
-
-    }
-
-    function deletePlan() {
-
-        plans =
-            plans.filter(item => item.id !== plan.id);
-
-        localStorage.setItem(
-            "rukminiRentPlans",
-            JSON.stringify(plans)
-        );
-
-        window.location.href = "../main/rent-plans.html";
+            .classList
+            .remove("show");
 
     }
 
 
-    /* ================= BACK ================= */
+    window.closeDeleteModal =
+        closeDeleteModal;
+
+
+    async function deletePlan() {
+
+        if (!planRef) return;
+
+
+        const deleteButton =
+            document.querySelector(
+                ".delete-confirm"
+            );
+
+
+        deleteButton.disabled = true;
+
+        deleteButton.textContent =
+            "Deleting...";
+
+
+        try {
+
+            await deleteDoc(
+                planRef
+            );
+
+
+            window.location.href =
+                "../main/rent-plans.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "Error deleting rent plan:",
+                error
+            );
+
+            alert(
+                "Could not delete the rent plan.\n\n"
+                + error.message
+            );
+
+
+            deleteButton.disabled =
+                false;
+
+            deleteButton.textContent =
+                "Delete";
+
+        }
+
+    }
+
+
+    window.deletePlan =
+        deletePlan;
+
+
+    /* =====================================================
+       BACK
+       ===================================================== */
 
     function goBack() {
+
         window.history.back();
+
     }
+
+
+    window.goBack =
+        goBack;
+
+
+    /* =====================================================
+       START
+       ===================================================== */
+
+    auth.onAuthStateChanged(
+        function(user) {
+
+            if (user) {
+
+                loadPlan();
+
+            } else {
+
+                window.location.href =
+                    "../auth/login.html";
+
+            }
+
+        }
+    );
 
 </script>
 

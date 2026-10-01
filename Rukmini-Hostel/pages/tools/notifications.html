@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@ button,input,select{font:inherit}
 .setting-icon{width:40px;height:40px;border-radius:10px;background:#E6F4F2;color:#00695C;display:flex;align-items:center;justify-content:center}.setting-icon svg{width:19px}
 .setting-main{flex:1}.setting-title{font-size:14px;font-weight:700}.setting-meta{font-size:11px;color:#777;margin-top:4px}
 .switch{position:relative;width:42px;height:24px;flex:none}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#B0BFBD;border-radius:20px;cursor:pointer;transition:.2s}.slider:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}.switch input:checked+.slider{background:#00897B}.switch input:checked+.slider:before{transform:translateX(18px)}
-.notification{padding:14px 15px;border-bottom:1px solid #EEF1F0;display:flex;gap:11px}.notification:last-child{border-bottom:0}.notification.unread{background:#F4FBFA}.notification-icon{width:40px;height:40px;border-radius:10px;background:#E6F4F2;color:#00695C;display:flex;align-items:center;justify-content:center;flex:none}.notification-icon svg{width:19px}.notification-main{flex:1}.notification-title{font-size:14px;font-weight:700}.notification-text{font-size:11px;color:#777;line-height:1.45;margin-top:4px}.notification-time{font-size:10px;color:#999;margin-top:6px}
+.notification{padding:14px 15px;border-bottom:1px solid #EEF1F0;display:flex;gap:11px}.notification:last-child{border-bottom:0}.notification.unread{background:#F4FBFA}.notification-icon{width:40px;height:40px;border-radius:10px;background:#E6F4F2;color:#00695C;display:flex;align-items:center;justify-content:center;flex:none}.notification-icon svg{width:19px}.notification-main{flex:1;min-width:0}.notification-title{font-size:14px;font-weight:700}.notification-text{font-size:11px;color:#777;line-height:1.45;margin-top:4px;overflow-wrap:anywhere}.notification-time{font-size:10px;color:#999;margin-top:6px}
 .empty{padding:25px 15px;text-align:center;color:#777;font-size:13px}.empty svg{width:30px;height:30px;color:#80CBC4;margin-bottom:8px}
 .bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:600px;height:72px;background:#00695C;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px 10px;z-index:50;box-shadow:0 -4px 15px rgba(0,77,70,.12)}
 .nav-item{border:0;background:transparent;color:#B2DFDB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:500;cursor:pointer}.nav-icon{width:36px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center}.nav-icon svg{width:18px;height:18px;stroke-width:2.6}.nav-item.active{color:#fff;font-weight:700}.nav-item.active .nav-icon{background:#80CBC4;color:#004D40}
@@ -47,8 +48,8 @@ button,input,select{font:inherit}
 <div class="summary-title">Notifications</div>
 <div class="summary-text">Manage alerts and view important activity from your hostel.</div>
 <div class="summary-grid">
-<div class="summary-box"><i data-lucide="bell-ring"></i><div class="value">0</div><div class="label">Unread</div></div>
-<div class="summary-box"><i data-lucide="bell"></i><div class="value">0</div><div class="label">Total</div></div>
+<div class="summary-box"><i data-lucide="bell-ring"></i><div class="value" id="unreadCount">0</div><div class="label">Unread</div></div>
+<div class="summary-box"><i data-lucide="bell"></i><div class="value" id="totalCount">0</div><div class="label">Total</div></div>
 </div>
 </section>
 
@@ -57,35 +58,36 @@ button,input,select{font:inherit}
 
 <div class="setting-row">
 <div class="setting-icon"><i data-lucide="calendar-clock"></i></div>
-<div class="setting-main"><div class="setting-title">Rent Reminders</div><div class="setting-meta">Get reminders about upcoming rent dues</div></div>
-<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+<div class="setting-main"><div class="setting-title">Rent Reminders</div><div class="setting-meta">Get reminders about outstanding rent balances</div></div>
+<label class="switch"><input type="checkbox" data-setting="rent" checked><span class="slider"></span></label>
 </div>
 
 <div class="setting-row">
 <div class="setting-icon"><i data-lucide="credit-card"></i></div>
-<div class="setting-main"><div class="setting-title">Payment Updates</div><div class="setting-meta">Receive payment and receipt alerts</div></div>
-<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+<div class="setting-main"><div class="setting-title">Payment Updates</div><div class="setting-meta">View recent payment activity</div></div>
+<label class="switch"><input type="checkbox" data-setting="payments" checked><span class="slider"></span></label>
 </div>
 
 <div class="setting-row">
 <div class="setting-icon"><i data-lucide="user-round-plus"></i></div>
-<div class="setting-main"><div class="setting-title">Tenant Activity</div><div class="setting-meta">Alerts for important tenant changes</div></div>
-<label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+<div class="setting-main"><div class="setting-title">Tenant Activity</div><div class="setting-meta">View recently added tenants</div></div>
+<label class="switch"><input type="checkbox" data-setting="tenants" checked><span class="slider"></span></label>
 </div>
 
 <div class="setting-row">
 <div class="setting-icon"><i data-lucide="zap"></i></div>
-<div class="setting-main"><div class="setting-title">Electricity Updates</div><div class="setting-meta">Meter and electricity bill notifications</div></div>
-<label class="switch"><input type="checkbox"><span class="slider"></span></label>
+<div class="setting-main"><div class="setting-title">Electricity Updates</div><div class="setting-meta">View recent electricity records</div></div>
+<label class="switch"><input type="checkbox" data-setting="electricity"><span class="slider"></span></label>
 </div>
 </section>
 
 <section class="card">
 <div class="section-title">Recent Notifications</div>
+<div id="recentNotifications">
 <div class="empty">
-<i data-lucide="bell-off"></i>
-<div>No notifications yet.</div>
-<div style="font-size:11px;margin-top:4px">New alerts and activity will appear here.</div>
+<i data-lucide="loader-circle"></i>
+<div>Loading notifications...</div>
+</div>
 </div>
 </section>
 
@@ -98,10 +100,335 @@ button,input,select{font:inherit}
 <button class="nav-item active" onclick="goTo('action')"><span class="nav-icon"><i data-lucide="menu"></i></span><span>Action</span></button>
 </nav>
 
-<script>
+<script type="module">
+import { auth, db } from "../js/firebase-config.js";
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const notificationContainer = document.getElementById("recentNotifications");
+const unreadCount = document.getElementById("unreadCount");
+const totalCount = document.getElementById("totalCount");
+const settingInputs = [...document.querySelectorAll("[data-setting]")];
+
+const defaultPreferences = {
+    rent: true,
+    payments: true,
+    tenants: true,
+    electricity: false
+};
+
+let currentUser = null;
+let preferences = {...defaultPreferences};
+let notifications = [];
+let readIds = new Set();
+
+const settingsKey = uid => `rukmini_notification_settings_${uid}`;
+const readKey = uid => `rukmini_notification_read_${uid}`;
+
+function loadPreferences(uid) {
+    try {
+        const stored = JSON.parse(localStorage.getItem(settingsKey(uid)) || "{}");
+        preferences = {...defaultPreferences, ...stored};
+
+        readIds = new Set(
+            JSON.parse(localStorage.getItem(readKey(uid)) || "[]")
+        );
+    } catch (error) {
+        console.warn("Could not load notification settings:", error);
+        preferences = {...defaultPreferences};
+        readIds = new Set();
+    }
+
+    settingInputs.forEach(input => {
+        input.checked = Boolean(preferences[input.dataset.setting]);
+    });
+}
+
+function savePreferences() {
+    if (!currentUser) return;
+
+    localStorage.setItem(
+        settingsKey(currentUser.uid),
+        JSON.stringify(preferences)
+    );
+}
+
+function saveReadIds() {
+    if (!currentUser) return;
+
+    localStorage.setItem(readKey(currentUser.uid), JSON.stringify([...readIds]));
+}
+
+settingInputs.forEach(input => {
+    input.addEventListener("change", () => {
+        preferences[input.dataset.setting] = input.checked;
+        savePreferences();
+        loadNotifications();
+    });
+});
+
+function getTime(value) {
+    if (!value) return 0;
+
+    if (typeof value.toMillis === "function") return value.toMillis();
+    if (typeof value.seconds === "number") return value.seconds * 1000;
+
+    const result = new Date(value).getTime();
+    return Number.isNaN(result) ? 0 : result;
+}
+
+function formatDate(value) {
+    const timestamp = getTime(value);
+    if (!timestamp) return "Date unavailable";
+
+    return new Date(timestamp).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+function formatMoney(value) {
+    return Number(value || 0).toLocaleString("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 2
+    });
+}
+
+function isRecent(timestamp, days = 30) {
+    return timestamp > 0 &&
+        timestamp <= Date.now() &&
+        Date.now() - timestamp <= days * 86400000;
+}
+
+function addNotification(notification) {
+    notifications.push(notification);
+}
+
+function showMessage(message, iconName = "bell-off") {
+    notificationContainer.replaceChildren();
+
+    const empty = document.createElement("div");
+    empty.className = "empty";
+
+    const icon = document.createElement("i");
+    icon.setAttribute("data-lucide", iconName);
+
+    const text = document.createElement("div");
+    text.textContent = message;
+
+    empty.append(icon, text);
+    notificationContainer.appendChild(empty);
+    lucide.createIcons();
+}
+
+function renderNotifications() {
+    notifications.sort((a, b) => b.time - a.time);
+
+    unreadCount.textContent = notifications.filter(
+        item => !readIds.has(item.id)
+    ).length;
+
+    totalCount.textContent = notifications.length;
+    notificationContainer.replaceChildren();
+
+    if (!notifications.length) {
+        showMessage("No notifications yet.");
+        return;
+    }
+
+    notifications.forEach(item => {
+        const unread = !readIds.has(item.id);
+
+        const row = document.createElement("div");
+        row.className = "notification" + (unread ? " unread" : "");
+        row.style.cursor = unread ? "pointer" : "default";
+
+        const iconBox = document.createElement("div");
+        iconBox.className = "notification-icon";
+
+        const icon = document.createElement("i");
+        icon.setAttribute("data-lucide", item.icon);
+        iconBox.appendChild(icon);
+
+        const main = document.createElement("div");
+        main.className = "notification-main";
+
+        const title = document.createElement("div");
+        title.className = "notification-title";
+        title.textContent = item.title;
+
+        const description = document.createElement("div");
+        description.className = "notification-text";
+        description.textContent = item.text;
+
+        const time = document.createElement("div");
+        time.className = "notification-time";
+        time.textContent = formatDate(item.time);
+
+        main.append(title, description, time);
+        row.append(iconBox, main);
+
+        if (unread) {
+            row.title = "Click to mark as read";
+            row.addEventListener("click", () => {
+                readIds.add(item.id);
+                saveReadIds();
+                renderNotifications();
+            });
+        }
+
+        notificationContainer.appendChild(row);
+    });
+
+    lucide.createIcons();
+}
+
+async function loadNotifications() {
+    if (!currentUser) return;
+
+    showMessage("Loading notifications...", "loader-circle");
+    notifications = [];
+
+    try {
+        const uid = currentUser.uid;
+
+        const [tenantSnapshot, paymentSnapshot] = await Promise.all([
+            getDocs(collection(db, "users", uid, "tenants")),
+            preferences.payments
+                ? getDocs(collection(db, "users", uid, "payments"))
+                : Promise.resolve(null)
+        ]);
+
+        const tenants = tenantSnapshot.docs.map(document => ({
+            id: document.id,
+            ...document.data()
+        }));
+
+        // Outstanding balances are reminders, not confirmed rent due dates.
+        if (preferences.rent) {
+            tenants.forEach(tenant => {
+                const balance = Number(
+                    tenant.currentDue ?? tenant.openingBalance ?? 0
+                );
+
+                if (balance <= 0) return;
+
+                addNotification({
+                    id: `rent-${tenant.id}-${balance}`,
+                    title: "Outstanding balance",
+                    text: `${tenant.name || "Tenant"} has ${formatMoney(balance)} outstanding.`,
+                    time: 1,
+                    icon: "calendar-clock"
+                });
+            });
+        }
+
+        if (preferences.payments && paymentSnapshot) {
+            paymentSnapshot.docs.forEach(document => {
+                const payment = document.data();
+                const timestamp = getTime(payment.createdAt) ||
+                    getTime(payment.date);
+
+                if (!isRecent(timestamp)) return;
+
+                addNotification({
+                    id: `payment-${document.id}`,
+                    title: "Payment recorded",
+                    text: `${payment.tenantName || "Tenant"} — ${formatMoney(payment.amount)} received.`,
+                    time: timestamp,
+                    icon: "credit-card"
+                });
+            });
+        }
+
+        if (preferences.tenants) {
+            tenants.forEach(tenant => {
+                const timestamp = getTime(tenant.createdAt);
+
+                if (!isRecent(timestamp)) return;
+
+                addNotification({
+                    id: `tenant-${tenant.id}`,
+                    title: "New tenant added",
+                    text: `${tenant.name || "Tenant"} was added to your tenant records.`,
+                    time: timestamp,
+                    icon: "user-round-plus"
+                });
+            });
+        }
+
+        if (preferences.electricity) {
+            tenants.forEach(tenant => {
+                const records = Array.isArray(tenant.electricityRecords)
+                    ? tenant.electricityRecords
+                    : [];
+
+                records.forEach((record, index) => {
+                    const timestamp = getTime(record.createdAt) ||
+                        getTime(record.date);
+
+                    if (!isRecent(timestamp)) return;
+
+                    addNotification({
+                        id: `electricity-${tenant.id}-${record.id || index}`,
+                        title: "Electricity record updated",
+                        text: `${tenant.name || "Tenant"} — ${formatMoney(record.amount ?? record.billAmount ?? 0)} bill.`,
+                        time: timestamp,
+                        icon: "zap"
+                    });
+                });
+            });
+        }
+
+        renderNotifications();
+
+    } catch (error) {
+        console.error("Error loading notifications:", error);
+        showMessage(
+            "Could not load notifications. Check your connection and Firestore permissions.",
+            "alert-circle"
+        );
+
+        const retry = document.createElement("button");
+        retry.textContent = "Retry";
+        retry.className = "primary";
+        retry.style.cssText = "display:block;width:calc(100% - 28px);margin:0 14px 14px;padding:12px;border:0;border-radius:9px;background:#00695C;color:white";
+        retry.addEventListener("click", loadNotifications);
+        notificationContainer.appendChild(retry);
+    }
+}
+
+window.goTo = function(page) {
+    if (page === "rent-plans") window.location.href = "../main/rent-plans.html";
+    if (page === "tenants") window.location.href = "../main/tenants.html";
+    if (page === "summary") window.location.href = "../main/summary.html";
+    if (page === "action") window.location.href = "../main/action.html";
+};
+
+window.openProfile = function() {
+    window.location.href = "profile.html";
+};
+
+auth.onAuthStateChanged(user => {
+    currentUser = user;
+
+    if (!user) {
+        notifications = [];
+        unreadCount.textContent = "0";
+        totalCount.textContent = "0";
+        showMessage("Please sign in to view notifications.", "user-round");
+        return;
+    }
+
+    loadPreferences(user.uid);
+    loadNotifications();
+});
+
 lucide.createIcons();
-function goTo(page){if(page==="rent-plans")window.location.href="../main/rent-plans.html";if(page==="tenants")window.location.href="../main/tenants.html";if(page==="summary")window.location.href="../main/summary.html";if(page==="action")window.location.href="../main/action.html";}
-function openProfile(){window.location.href="profile.html";}
 </script>
 </body>
 </html>

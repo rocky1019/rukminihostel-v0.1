@@ -484,22 +484,59 @@
 </div>
 
 
-<script>
+<script type="module">
+
+    import {
+        auth,
+        db
+    } from "../js/firebase-config.js";
+
+    import {
+        collection,
+        addDoc,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+    /* =====================================================
+       INITIALIZE LUCIDE
+       ===================================================== */
 
     lucide.createIcons();
 
-    const rateInput = document.getElementById("rate");
-    const gstInput = document.getElementById("gst");
 
-    const preview = document.getElementById("preview");
+    /* =====================================================
+       INPUTS
+       ===================================================== */
+
+    const rateInput =
+        document.getElementById("rate");
+
+    const gstInput =
+        document.getElementById("gst");
+
+    const preview =
+        document.getElementById("preview");
+
+
+    /* =====================================================
+       BILL PREVIEW
+       ===================================================== */
 
     function updatePreview() {
 
-        const rate = Number(rateInput.value) || 0;
-        const gst = Number(gstInput.value) || 0;
+        const rate =
+            Number(rateInput.value) || 0;
 
-        const gstAmount = rate * gst / 100;
-        const total = rate + gstAmount;
+        const gst =
+            Number(gstInput.value) || 0;
+
+        const gstAmount =
+            rate * gst / 100;
+
+        const total =
+            rate + gstAmount;
+
 
         document.getElementById("previewRate").textContent =
             "₹" + rate.toLocaleString("en-IN");
@@ -510,58 +547,226 @@
         document.getElementById("previewTotal").textContent =
             "₹" + total.toLocaleString("en-IN");
 
+
         if (rate > 0 || gst > 0) {
+
             preview.classList.add("show");
+
         } else {
+
             preview.classList.remove("show");
+
         }
+
     }
 
-    rateInput.addEventListener("input", updatePreview);
-    gstInput.addEventListener("change", updatePreview);
+
+    rateInput.addEventListener(
+        "input",
+        updatePreview
+    );
+
+    gstInput.addEventListener(
+        "change",
+        updatePreview
+    );
 
 
-    function savePlan() {
+    /* =====================================================
+       SAVE RENT PLAN TO FIRESTORE
+       ===================================================== */
 
-        const name = document.getElementById("planName").value.trim();
-        const rate = Number(rateInput.value) || 0;
-        const gst = Number(gstInput.value) || 0;
+    async function savePlan() {
+
+        const name =
+            document
+                .getElementById("planName")
+                .value
+                .trim();
+
+        const rate =
+            Number(rateInput.value) || 0;
+
+        const gst =
+            Number(gstInput.value) || 0;
+
+
+        /* ---------------------------------------------
+           VALIDATION
+           --------------------------------------------- */
 
         if (!name) {
-            document.getElementById("modal").classList.add("show");
+
+            document
+                .getElementById("modal")
+                .classList
+                .add("show");
+
             return;
+
         }
 
-        const plans =
-            JSON.parse(localStorage.getItem("rukminiRentPlans") || "[]");
 
-        const newPlan = {
-            id: Date.now(),
-            name: name,
-            rate: rate,
-            gst: gst,
-            createdAt: new Date().toISOString()
-        };
+        /* ---------------------------------------------
+           CHECK LOGIN
+           --------------------------------------------- */
 
-        plans.push(newPlan);
+        const user = auth.currentUser;
 
-        localStorage.setItem(
-            "rukminiRentPlans",
-            JSON.stringify(plans)
-        );
 
-        window.location.href = "plan-details.html?id=" + newPlan.id;
+        if (!user) {
+
+            alert(
+                "Your session has expired. Please log in again."
+            );
+
+            window.location.href =
+                "../auth/login.html";
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           CALCULATE TOTAL
+           --------------------------------------------- */
+
+        const gstAmount =
+            rate * gst / 100;
+
+        const total =
+            rate + gstAmount;
+
+
+        /* ---------------------------------------------
+           PREVENT DOUBLE CLICK
+           --------------------------------------------- */
+
+        const saveButton =
+            document.querySelector(".save-btn");
+
+        saveButton.disabled = true;
+
+        saveButton.textContent = "SAVING...";
+
+
+        try {
+
+            /* -----------------------------------------
+               FIRESTORE PATH
+
+               users/
+                 USER_UID/
+                   rentPlans/
+                     AUTO_PLAN_ID
+               ----------------------------------------- */
+
+            const rentPlansRef =
+                collection(
+                    db,
+                    "users",
+                    user.uid,
+                    "rentPlans"
+                );
+
+
+            /* -----------------------------------------
+               CREATE PLAN
+               ----------------------------------------- */
+
+            const planRef =
+                await addDoc(
+                    rentPlansRef,
+                    {
+
+                        name: name,
+
+                        rate: rate,
+
+                        gst: gst,
+
+                        gstAmount: gstAmount,
+
+                        total: total,
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+            /* -----------------------------------------
+               OPEN PLAN DETAILS
+
+               Pass Firestore document ID
+               ----------------------------------------- */
+
+            window.location.href =
+                "plan-details.html?id="
+                + encodeURIComponent(planRef.id);
+
+
+        } catch (error) {
+
+            console.error(
+                "Error saving rent plan:",
+                error
+            );
+
+
+            alert(
+                "Could not save the rent plan.\n\n"
+                + error.message
+            );
+
+
+            saveButton.disabled = false;
+
+            saveButton.textContent = "SAVE";
+
+        }
+
     }
 
+
+    /* =====================================================
+       MAKE FUNCTION AVAILABLE TO INLINE BUTTON
+       ===================================================== */
+
+    window.savePlan = savePlan;
+
+
+    /* =====================================================
+       CLOSE ERROR MODAL
+       ===================================================== */
 
     function closeModal() {
-        document.getElementById("modal").classList.remove("show");
+
+        document
+            .getElementById("modal")
+            .classList
+            .remove("show");
+
     }
 
+
+    window.closeModal = closeModal;
+
+
+    /* =====================================================
+       BACK
+       ===================================================== */
 
     function goBack() {
+
         window.history.back();
+
     }
+
+
+    window.goBack = goBack;
 
 </script>
 

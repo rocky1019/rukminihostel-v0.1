@@ -1375,14 +1375,26 @@
 
 
 
-<script>
+<script type="module">
+
+    import {
+        auth,
+        db
+    } from "../js/firebase-config.js";
+
+    import {
+        collection,
+        getDocs,
+        query,
+        orderBy
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
 
     /* =====================================================
        INITIALIZE LUCIDE
        ===================================================== */
 
     lucide.createIcons();
-
 
 
     /* =====================================================
@@ -1392,11 +1404,8 @@
     function goTo(page) {
 
         if (page === "rent-plans") {
-
             return;
-
         }
-
 
         if (page === "tenants") {
 
@@ -1404,9 +1413,7 @@
                 "tenants.html";
 
             return;
-
         }
-
 
         if (page === "summary") {
 
@@ -1414,9 +1421,7 @@
                 "summary.html";
 
             return;
-
         }
-
 
         if (page === "action") {
 
@@ -1424,11 +1429,11 @@
                 "action.html";
 
             return;
-
         }
 
     }
 
+    window.goTo = goTo;
 
 
     /* =====================================================
@@ -1442,6 +1447,7 @@
 
     }
 
+    window.addRentPlan = addRentPlan;
 
 
     /* =====================================================
@@ -1451,11 +1457,12 @@
     function openPlan(planId) {
 
         window.location.href =
-            "../rent-plans/plan-details.html?plan="
+            "../rent-plans/plan-details.html?id="
             + encodeURIComponent(planId);
 
     }
 
+    window.openPlan = openPlan;
 
 
     /* =====================================================
@@ -1470,6 +1477,7 @@
 
     }
 
+    window.openPlanMenu = openPlanMenu;
 
 
     /* =====================================================
@@ -1483,6 +1491,456 @@
 
     }
 
+    window.openProfile = openProfile;
+
+
+    /* =====================================================
+       FORMAT CURRENCY
+       ===================================================== */
+
+    function formatCurrency(value) {
+
+        return "₹" +
+            Number(value || 0).toLocaleString("en-IN");
+
+    }
+
+
+    /* =====================================================
+       FIREBASE → RENT PLANS
+       ===================================================== */
+
+    async function loadRentPlans() {
+
+        const container =
+            document.getElementById("plansContainer");
+
+        const emptyState =
+            document.getElementById("emptyState");
+
+        const planCount =
+            document.getElementById("planCount");
+
+        const planLabel =
+            document.getElementById("planLabel");
+
+
+        /* ---------------------------------------------
+           WAIT FOR AUTHENTICATION
+           --------------------------------------------- */
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+            planCount.textContent = "0";
+
+            planLabel.textContent = "0 plans";
+
+            return;
+
+        }
+
+
+        try {
+
+            /* -----------------------------------------
+               FIRESTORE PATH
+
+               users/
+                 USER_UID/
+                   rentPlans/
+               ----------------------------------------- */
+
+            const rentPlansRef =
+                collection(
+                    db,
+                    "users",
+                    user.uid,
+                    "rentPlans"
+                );
+
+
+            let snapshot;
+
+
+            try {
+
+                const plansQuery =
+                    query(
+                        rentPlansRef,
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        )
+                    );
+
+                snapshot =
+                    await getDocs(plansQuery);
+
+            } catch (orderError) {
+
+                /*
+                 If an index is not available yet,
+                 load the collection without ordering.
+                */
+
+                console.warn(
+                    "Could not order rent plans. Loading without ordering.",
+                    orderError
+                );
+
+                snapshot =
+                    await getDocs(
+                        rentPlansRef
+                    );
+
+            }
+
+
+            /* -----------------------------------------
+               REMOVE OLD DYNAMIC CARDS
+
+               Keep the empty-state element.
+               ----------------------------------------- */
+
+            container
+                .querySelectorAll(".plan-card")
+                .forEach(function(card) {
+
+                    card.remove();
+
+                });
+
+
+            const plans =
+                [];
+
+
+            snapshot.forEach(function(doc) {
+
+                plans.push({
+
+                    id: doc.id,
+
+                    ...doc.data()
+
+                });
+
+            });
+
+
+            /* -----------------------------------------
+               UPDATE COUNTS
+               ----------------------------------------- */
+
+            const count =
+                plans.length;
+
+
+            planCount.textContent =
+                count;
+
+
+            planLabel.textContent =
+                count +
+                (count === 1
+                    ? " plan"
+                    : " plans");
+
+
+            /* -----------------------------------------
+               EMPTY STATE
+               ----------------------------------------- */
+
+            if (count === 0) {
+
+                emptyState.style.display =
+                    "block";
+
+                lucide.createIcons();
+
+                return;
+
+            }
+
+
+            emptyState.style.display =
+                "none";
+
+
+            /* -----------------------------------------
+               CREATE PLAN CARDS
+               ----------------------------------------- */
+
+            plans.forEach(function(plan) {
+
+                const card =
+                    document.createElement("article");
+
+
+                card.className =
+                    "plan-card";
+
+
+                card.setAttribute(
+                    "data-name",
+                    plan.name || ""
+                );
+
+
+                card.onclick =
+                    function() {
+
+                        openPlan(plan.id);
+
+                    };
+
+
+                /* -------------------------------------
+                   PLAN TOP
+                   ------------------------------------- */
+
+                const top =
+                    document.createElement("div");
+
+                top.className =
+                    "plan-top";
+
+
+                const info =
+                    document.createElement("div");
+
+                info.className =
+                    "plan-info";
+
+
+                const icon =
+                    document.createElement("div");
+
+                icon.className =
+                    "plan-icon";
+
+
+                icon.innerHTML =
+                    '<i data-lucide="receipt-text"></i>';
+
+
+                const nameBox =
+                    document.createElement("div");
+
+                nameBox.className =
+                    "plan-name";
+
+
+                const name =
+                    document.createElement("strong");
+
+                name.textContent =
+                    plan.name || "Unnamed Plan";
+
+
+                const subtitle =
+                    document.createElement("span");
+
+                subtitle.textContent =
+                    "Rent Plan";
+
+
+                nameBox.appendChild(name);
+
+                nameBox.appendChild(subtitle);
+
+
+                info.appendChild(icon);
+
+                info.appendChild(nameBox);
+
+
+                /* -------------------------------------
+                   MENU BUTTON
+                   ------------------------------------- */
+
+                const menuButton =
+                    document.createElement("button");
+
+                menuButton.className =
+                    "menu-button";
+
+                menuButton.type =
+                    "button";
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "Plan options"
+                );
+
+
+                menuButton.innerHTML =
+                    '<i data-lucide="more-vertical"></i>';
+
+
+                menuButton.onclick =
+                    function(event) {
+
+                        event.stopPropagation();
+
+                        openPlanMenu(
+                            plan.id
+                        );
+
+                    };
+
+
+                top.appendChild(info);
+
+                top.appendChild(menuButton);
+
+
+                /* -------------------------------------
+                   PLAN DETAILS
+                   ------------------------------------- */
+
+                const details =
+                    document.createElement("div");
+
+                details.className =
+                    "plan-details";
+
+
+                /* RATE */
+
+                const rateDetail =
+                    document.createElement("div");
+
+                rateDetail.className =
+                    "detail";
+
+
+                rateDetail.innerHTML =
+
+                    '<span>Monthly Rent</span>' +
+
+                    '<strong>' +
+                    formatCurrency(plan.rate) +
+                    '</strong>';
+
+
+                /* GST */
+
+                const gstDetail =
+                    document.createElement("div");
+
+                gstDetail.className =
+                    "detail";
+
+
+                gstDetail.innerHTML =
+
+                    '<span>GST</span>' +
+
+                    '<strong class="gst">' +
+                    (Number(plan.gst || 0)) +
+                    '%' +
+                    '</strong>';
+
+
+                /* TOTAL */
+
+                const totalDetail =
+                    document.createElement("div");
+
+                totalDetail.className =
+                    "detail";
+
+
+                totalDetail.innerHTML =
+
+                    '<span>Total</span>' +
+
+                    '<strong>' +
+                    formatCurrency(plan.total) +
+                    '</strong>';
+
+
+                details.appendChild(
+                    rateDetail
+                );
+
+                details.appendChild(
+                    gstDetail
+                );
+
+                details.appendChild(
+                    totalDetail
+                );
+
+
+                /* -------------------------------------
+                   BUILD CARD
+                   ------------------------------------- */
+
+                card.appendChild(top);
+
+                card.appendChild(details);
+
+
+                /*
+                 Insert before empty state so the
+                 empty-state stays at the bottom.
+                */
+
+                container.insertBefore(
+                    card,
+                    emptyState
+                );
+
+            });
+
+
+            /* -----------------------------------------
+               REINITIALIZE LUCIDE
+               ----------------------------------------- */
+
+            lucide.createIcons();
+
+
+            /* -----------------------------------------
+               APPLY CURRENT SEARCH
+               ----------------------------------------- */
+
+            searchPlans();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error loading rent plans:",
+                error
+            );
+
+
+            planCount.textContent =
+                "0";
+
+
+            planLabel.textContent =
+                "Unable to load";
+
+
+            emptyState.style.display =
+                "block";
+
+
+            showToast(
+                "Could not load rent plans."
+            );
+
+        }
+
+    }
 
 
     /* =====================================================
@@ -1505,15 +1963,18 @@
             );
 
 
-        let visible = 0;
+        let visible =
+            0;
 
 
         cards.forEach(function(card) {
 
             const name =
-                card
-                    .getAttribute("data-name")
-                    .toLowerCase();
+                (
+                    card.getAttribute(
+                        "data-name"
+                    ) || ""
+                ).toLowerCase();
 
 
             if (name.includes(query)) {
@@ -1539,24 +2000,35 @@
             );
 
 
+        /*
+         * Only show the empty state when
+         * there are genuinely no plans.
+         *
+         * If plans exist but search has
+         * no matches, show a toast instead.
+         */
+
         if (cards.length === 0) {
 
             emptyState.style.display =
                 "block";
 
-        }
-
-        else if (visible === 0) {
-
-            emptyState.style.display =
-                "block";
-
-        }
-
-        else {
+        } else {
 
             emptyState.style.display =
                 "none";
+
+
+            if (
+                query &&
+                visible === 0
+            ) {
+
+                showToast(
+                    "No matching rent plans."
+                );
+
+            }
 
         }
 
@@ -1565,12 +2037,15 @@
             .getElementById("planLabel")
             .textContent =
                 visible +
-                (visible === 1
-                    ? " plan"
-                    : " plans");
+                (
+                    visible === 1
+                        ? " plan"
+                        : " plans"
+                );
 
     }
 
+    window.searchPlans = searchPlans;
 
 
     /* =====================================================
@@ -1604,24 +2079,31 @@
 
     }
 
+    window.showToast = showToast;
 
 
     /* =====================================================
-       FUTURE FIREBASE FUNCTION
-       
-       Later database.js will:
-       
-       1. Read rent plans
-       2. Create .plan-card elements
-       3. Insert them into #plansContainer
-       4. Update #planCount
-       5. Update #planLabel
-       
-       The UI above does not need to change.
+       AUTH STATE
        ===================================================== */
 
-</script>
+    auth.onAuthStateChanged(
+        function(user) {
 
+            if (user) {
+
+                loadRentPlans();
+
+            } else {
+
+                window.location.href =
+                    "../auth/login.html";
+
+            }
+
+        }
+    );
+
+</script>
 
 </body>
 

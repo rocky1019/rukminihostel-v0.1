@@ -1048,188 +1048,604 @@
 </div>
 
 
-<script>
+<script type="module">
 
-    /* Lucide icons */
+    import {
+        auth,
+        db
+    } from "../js/firebase-config.js";
+
+    import {
+        collection,
+        addDoc,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+    /* =====================================================
+       LUCIDE
+       ===================================================== */
+
     lucide.createIcons();
 
 
-    /* =========================
+    /* =====================================================
        DATE
-    ========================= */
+       ===================================================== */
 
-    const dateInput = document.getElementById("billingDate");
+    const dateInput =
+        document.getElementById("billingDate");
 
-    const today = new Date();
+    const today =
+        new Date();
 
-    const yyyy = today.getFullYear();
+    const yyyy =
+        today.getFullYear();
 
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const mm =
+        String(today.getMonth() + 1)
+            .padStart(2, "0");
 
-    const dd = String(today.getDate()).padStart(2, "0");
+    const dd =
+        String(today.getDate())
+            .padStart(2, "0");
 
-    dateInput.value = `${yyyy}-${mm}-${dd}`;
+    dateInput.value =
+        `${yyyy}-${mm}-${dd}`;
 
 
-    /* =========================
+    /* =====================================================
        DETAILS TOGGLE
-    ========================= */
+       ===================================================== */
 
     function toggleDetails() {
 
         const content =
-            document.getElementById("detailsContent");
+            document.getElementById(
+                "detailsContent"
+            );
 
         const toggle =
-            document.getElementById("detailsToggle");
+            document.getElementById(
+                "detailsToggle"
+            );
 
-        content.classList.toggle("hidden");
+        content.classList.toggle(
+            "hidden"
+        );
 
-        if (content.classList.contains("hidden")) {
+        if (
+            content.classList.contains(
+                "hidden"
+            )
+        ) {
 
-            toggle.textContent = "+ Show Details";
+            toggle.textContent =
+                "+ Show Details";
 
         } else {
 
-            toggle.textContent = "- Hide Details";
+            toggle.textContent =
+                "- Hide Details";
 
         }
 
     }
 
+    window.toggleDetails =
+        toggleDetails;
 
-    /* =========================
+
+    /* =====================================================
        EXPANDABLE CARDS
-    ========================= */
+       ===================================================== */
 
     function toggleCard(id) {
 
-        const card = document.getElementById(id);
+        const card =
+            document.getElementById(id);
 
         card.classList.toggle("open");
 
         const header =
-            card.querySelector(".expand-header span");
+            card.querySelector(
+                ".expand-header span"
+            );
+
 
         if (card.classList.contains("open")) {
 
             if (id === "billCard") {
-                header.textContent = "- Hide Bill Detail";
+
+                header.textContent =
+                    "- Hide Bill Detail";
+
             }
 
             if (id === "electricityCard") {
-                header.textContent = "- Hide Electricity Detail";
+
+                header.textContent =
+                    "- Hide Electricity Detail";
+
             }
 
             if (id === "documentCard") {
-                header.textContent = "- Hide Tenant Document";
+
+                header.textContent =
+                    "- Hide Tenant Document";
+
             }
 
         } else {
 
             if (id === "billCard") {
-                header.textContent = "+ Add Bill Detail";
+
+                header.textContent =
+                    "+ Add Bill Detail";
+
             }
 
             if (id === "electricityCard") {
-                header.textContent = "+ Add Electricity Detail";
+
+                header.textContent =
+                    "+ Add Electricity Detail";
+
             }
 
             if (id === "documentCard") {
-                header.textContent = "+ Add Tenant Document";
+
+                header.textContent =
+                    "+ Add Tenant Document";
+
             }
 
         }
 
         lucide.createIcons();
+
     }
 
+    window.toggleCard =
+        toggleCard;
 
-    /* =========================
+
+    /* =====================================================
        OPENING BALANCE
-    ========================= */
+       ===================================================== */
 
     function updateBalance() {
 
-        let amount =
+        const amount =
             parseFloat(
-                document.getElementById("openingBalance").value
+                document.getElementById(
+                    "openingBalance"
+                ).value
             ) || 0;
 
-        const formatted =
-            "₹" + amount.toLocaleString("en-IN");
 
-        document.getElementById("tenantAmount").textContent =
+        const formatted =
+            "₹" +
+            amount.toLocaleString(
+                "en-IN"
+            );
+
+
+        document.getElementById(
+            "tenantAmount"
+        ).textContent =
             formatted;
 
-        document.getElementById("ownerAmount").textContent =
+
+        document.getElementById(
+            "ownerAmount"
+        ).textContent =
             formatted;
 
     }
+
+    window.updateBalance =
+        updateBalance;
+
+
+    /* =====================================================
+       BALANCE TYPE
+       ===================================================== */
+
+    let balanceType =
+        "tenant";
 
 
     function selectBalanceType(type) {
 
         const tenant =
-            document.getElementById("tenantPays");
+            document.getElementById(
+                "tenantPays"
+            );
 
         const owner =
-            document.getElementById("youPay");
+            document.getElementById(
+                "youPay"
+            );
+
 
         if (type === "tenant") {
 
-            tenant.classList.add("active");
+            tenant.classList.add(
+                "active"
+            );
 
-            owner.classList.remove("active");
+            owner.classList.remove(
+                "active"
+            );
+
+            balanceType =
+                "tenant";
 
         } else {
 
-            owner.classList.add("active");
+            owner.classList.add(
+                "active"
+            );
 
-            tenant.classList.remove("active");
+            tenant.classList.remove(
+                "active"
+            );
+
+            balanceType =
+                "owner";
 
         }
 
     }
 
+    window.selectBalanceType =
+        selectBalanceType;
 
-    /* =========================
+
+    /* =====================================================
        DOCUMENT
-    ========================= */
+       ===================================================== */
 
     function selectDocument() {
 
         document
-            .getElementById("documentInput")
+            .getElementById(
+                "documentInput"
+            )
             .click();
 
     }
 
+    window.selectDocument =
+        selectDocument;
 
-    /* =========================
+
+    /* =====================================================
        ADD TENANT
-    ========================= */
+       ===================================================== */
 
-    function addTenant() {
+    async function addTenant() {
 
-        const name =
-            document.getElementById("tenantName").value.trim();
+        /* ---------------------------------------------
+           AUTH
+           --------------------------------------------- */
 
-        if (!name) {
+        const user =
+            auth.currentUser;
 
-            alert("Please enter Tenant Name.");
+
+        if (!user) {
+
+            alert(
+                "Please log in before adding a tenant."
+            );
+
+            window.location.href =
+                "../auth/login.html";
 
             return;
 
         }
 
-        alert(
-            "Tenant details are ready to be saved."
-        );
 
-        // Firebase saving will be connected here later.
+        /* ---------------------------------------------
+           REQUIRED FIELD
+           --------------------------------------------- */
+
+        const name =
+            document
+                .getElementById(
+                    "tenantName"
+                )
+                .value
+                .trim();
+
+
+        if (!name) {
+
+            alert(
+                "Please enter Tenant Name."
+            );
+
+            return;
+
+        }
+
+
+        /* ---------------------------------------------
+           GET MAIN FIELDS
+           --------------------------------------------- */
+
+        const mobile =
+            document
+                .getElementById(
+                    "mobile"
+                )
+                .value
+                .trim();
+
+
+        const building =
+            document
+                .getElementById(
+                    "building"
+                )
+                .value
+                .trim();
+
+
+        /* ---------------------------------------------
+           GET DETAILS INPUTS
+           ---------------------------------------------
+
+           These fields don't currently have IDs,
+           so we locate them using their position
+           inside #detailsContent.
+           --------------------------------------------- */
+
+        const detailInputs =
+            document.querySelectorAll(
+                "#detailsContent .input-box"
+            );
+
+
+        const mobile2 =
+            detailInputs[0]
+                ?.querySelector("input")
+                ?.value
+                .trim() || "";
+
+
+        const remark =
+            detailInputs[1]
+                ?.querySelector("input")
+                ?.value
+                .trim() || "";
+
+
+        const buildingNumber =
+            detailInputs[2]
+                ?.querySelector("input")
+                ?.value
+                .trim() || "";
+
+
+        const billingName =
+            detailInputs[3]
+                ?.querySelector("input")
+                ?.value
+                .trim() || "";
+
+
+        const email =
+            detailInputs[4]
+                ?.querySelector("input")
+                ?.value
+                .trim() || "";
+
+
+        const address =
+            detailInputs[5]
+                ?.querySelector("textarea")
+                ?.value
+                .trim() || "";
+
+
+        const tenantCode =
+            detailInputs[6]
+                ?.querySelector("input")
+                ?.value
+                .trim() || "";
+
+
+        const securityDeposit =
+            Number(
+                detailInputs[7]
+                    ?.querySelector("input")
+                    ?.value
+            ) || 0;
+
+
+        /* ---------------------------------------------
+           OPENING BALANCE
+           --------------------------------------------- */
+
+        const billingDate =
+            document
+                .getElementById(
+                    "billingDate"
+                )
+                .value;
+
+
+        const openingBalance =
+            Number(
+                document
+                    .getElementById(
+                        "openingBalance"
+                    )
+                    .value
+            ) || 0;
+
+
+        /* ---------------------------------------------
+           SAVE BUTTON STATE
+           --------------------------------------------- */
+
+        const addButton =
+            document.querySelector(
+                ".bottom-action"
+            );
+
+
+        addButton.style.pointerEvents =
+            "none";
+
+        addButton.textContent =
+            "SAVING...";
+
+
+        try {
+
+            /* -----------------------------------------
+               FIRESTORE PATH
+
+               users/
+                 UID/
+                   tenants/
+                     AUTO ID
+               ----------------------------------------- */
+
+            const tenantsRef =
+                collection(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants"
+                );
+
+
+            /* -----------------------------------------
+               TENANT DATA
+               ----------------------------------------- */
+
+            const tenantData = {
+
+                name: name,
+
+                mobile: mobile,
+
+                mobile2: mobile2,
+
+                building: building,
+
+                buildingNumber:
+                    buildingNumber,
+
+                billingName:
+                    billingName,
+
+                email: email,
+
+                address: address,
+
+                tenantCode:
+                    tenantCode,
+
+                securityDeposit:
+                    securityDeposit,
+
+                billingDate:
+                    billingDate,
+
+                openingBalance:
+                    openingBalance,
+
+                balanceType:
+                    balanceType,
+
+                currentDue:
+                    balanceType === "tenant"
+                        ? openingBalance
+                        : 0,
+
+                totalPaid: 0,
+
+                status:
+                    "Active",
+
+                remark:
+                    remark,
+
+                createdAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+
+            };
+
+
+            /* -----------------------------------------
+               WRITE TO FIRESTORE
+               ----------------------------------------- */
+
+            const tenantDoc =
+                await addDoc(
+                    tenantsRef,
+                    tenantData
+                );
+
+
+            console.log(
+                "Tenant saved:",
+                tenantDoc.id
+            );
+
+
+            /* -----------------------------------------
+               SUCCESS
+               ----------------------------------------- */
+
+            alert(
+                "Tenant added successfully!"
+            );
+
+
+            /* -----------------------------------------
+               RETURN TO TENANTS PAGE
+               ----------------------------------------- */
+
+            window.location.href =
+                "../main/tenants.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "Error adding tenant:",
+                error
+            );
+
+
+            alert(
+                "Could not save tenant.\n\n" +
+                error.message
+            );
+
+
+            addButton.style.pointerEvents =
+                "auto";
+
+            addButton.textContent =
+                "ADD";
+
+        }
 
     }
+
+    window.addTenant =
+        addTenant;
 
 </script>
 

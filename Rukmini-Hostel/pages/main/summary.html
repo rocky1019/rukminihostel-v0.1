@@ -1240,150 +1240,602 @@
 
 
 
-<script>
 
-    /* =====================================================
-       INITIALIZE ICONS
-       ===================================================== */
+<script type="module">
+import { auth, db } from "../js/firebase-config.js";
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {
+    collection,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-    lucide.createIcons();
+/* =========================================
+   GLOBAL FUNCTIONS FOR HTML ONCLICK BUTTONS
+   ========================================= */
 
+window.goTo = function (page) {
+    if (page === "rent-plans") {
+        window.location.href = "rent-plans.html";
+    } else if (page === "tenants") {
+        window.location.href = "tenants.html";
+    } else if (page === "summary") {
+        // Already on the Summary page.
+    } else if (page === "action") {
+        window.location.href = "action.html";
+    }
+};
 
+window.openProfile = function () {
+    window.location.href = "../tools/profile.html";
+};
 
-    /* =====================================================
-       NAVIGATION
-       ===================================================== */
+window.changePeriod = function () {
+    window.summaryChangePeriod();
+};
 
-    function goTo(page) {
+/* =========================================
+   TOAST NOTIFICATION
+   ========================================= */
 
-        if (page === "rent-plans") {
+function showToast(message) {
+    const toast = document.createElement("div");
+    toast.textContent = message;
 
-            window.location.href =
-                "rent-plans.html";
+    Object.assign(toast.style, {
+        position: "fixed",
+        left: "50%",
+        bottom: "92px",
+        transform: "translateX(-50%)",
+        background: "#263238",
+        color: "#FFFFFF",
+        padding: "11px 17px",
+        borderRadius: "10px",
+        fontSize: "12px",
+        zIndex: "100",
+        whiteSpace: "normal",
+        maxWidth: "calc(100vw - 32px)",
+        textAlign: "center"
+    });
 
-            return;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2200);
+}
+
+/* =========================================
+   INITIALIZE
+   ========================================= */
+
+if (window.lucide) {
+    window.lucide.createIcons();
+}
+
+const money = value =>
+    "₹" + (Number(value) || 0).toLocaleString("en-IN", {
+        maximumFractionDigits: 2
+    });
+
+const byId = id => document.getElementById(id);
+
+let selectedPeriod = "This Month";
+let cachedData = null;
+
+/* =========================================
+   DATA HELPERS
+   ========================================= */
+
+function numberFrom(...values) {
+    for (const value of values) {
+        if (
+            value !== undefined &&
+            value !== null &&
+            value !== "" &&
+            Number.isFinite(Number(value))
+        ) {
+            return Number(value);
         }
-
-
-        if (page === "tenants") {
-
-            window.location.href =
-                "tenants.html";
-
-            return;
-        }
-
-
-        if (page === "summary") {
-
-            return;
-        }
-
-
-        if (page === "action") {
-
-            window.location.href =
-                "action.html";
-
-            return;
-        }
-
     }
 
+    return 0;
+}
 
+function asDate(value) {
+    if (!value) return null;
 
-    /* =====================================================
-       PROFILE
-       ===================================================== */
-
-    function openProfile() {
-
-        window.location.href =
-            "../tools/profile.html";
-
+    if (typeof value.toDate === "function") {
+        return value.toDate();
     }
 
+    if (typeof value === "object" && value.seconds) {
+        return new Date(value.seconds * 1000);
+    }
 
+    if (typeof value === "number") {
+        return new Date(value);
+    }
 
-    /* =====================================================
-       PERIOD
-       
-       Placeholder for future Firebase/date filtering.
-       ===================================================== */
+    const date = new Date(value);
 
-    function changePeriod() {
+    return Number.isNaN(date.getTime()) ? null : date;
+}
 
-        showToast(
-            "Period selection will be available here."
+function dateInSelectedPeriod(value) {
+    const date = asDate(value);
+
+    if (!date) return false;
+
+    const now = new Date();
+
+    if (selectedPeriod === "All Time") {
+        return true;
+    }
+
+    if (selectedPeriod === "Last Month") {
+        const start = new Date(
+            now.getFullYear(),
+            now.getMonth() - 1,
+            1
         );
 
+        const end = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            1
+        );
+
+        return date >= start && date < end;
     }
 
+    return (
+        date.getFullYear() === now.getFullYear() &&
+        date.getMonth() === now.getMonth()
+    );
+}
 
+function getTenantName(tenant) {
+    return (
+        tenant.name ||
+        tenant.fullName ||
+        tenant.tenantName ||
+        tenant.customerName ||
+        "Tenant"
+    );
+}
 
-    /* =====================================================
-       TOAST
-       ===================================================== */
+function getTenantDue(tenant) {
+    return Math.max(
+        0,
+        numberFrom(
+            tenant.currentDue,
+            tenant.balanceDue,
+            tenant.outstandingBalance,
+            tenant.dueAmount,
+            tenant.openingBalance
+        )
+    );
+}
 
-    function showToast(message) {
+function isInactive(tenant) {
+    const status = String(
+        tenant.status || tenant.tenantStatus || "active"
+    ).toLowerCase();
 
-        const toast =
-            document.createElement("div");
+    return [
+        "inactive",
+        "vacated",
+        "vacant",
+        "deleted",
+        "left",
+        "terminated"
+    ].includes(status);
+}
 
-        toast.textContent = message;
+function getTenantRent(tenant, rentPlans) {
+    const planId =
+        tenant.rentPlanId ||
+        tenant.planId ||
+        tenant.rentPlanID;
 
-        toast.style.position = "fixed";
-        toast.style.left = "50%";
-        toast.style.bottom = "92px";
-        toast.style.transform = "translateX(-50%)";
-        toast.style.background = "#263238";
-        toast.style.color = "#FFFFFF";
-        toast.style.padding = "11px 17px";
-        toast.style.borderRadius = "10px";
-        toast.style.fontSize = "12px";
-        toast.style.zIndex = "100";
-        toast.style.whiteSpace = "nowrap";
+    const planName =
+        typeof tenant.rentPlan === "string"
+            ? tenant.rentPlan
+            : (
+                tenant.rentPlanName ||
+                tenant.planName ||
+                (
+                    tenant.rentPlan &&
+                    tenant.rentPlan.name
+                )
+            );
 
-        document.body.appendChild(toast);
+    let plan = planId
+        ? rentPlans.find(item => item.id === planId)
+        : null;
 
-        setTimeout(function () {
-
-            toast.remove();
-
-        }, 2200);
-
+    if (!plan && planName) {
+        plan = rentPlans.find(
+            item =>
+                String(item.name || "").toLowerCase() ===
+                String(planName).toLowerCase()
+        );
     }
 
+    const nestedPlan =
+        tenant.rentPlan &&
+        typeof tenant.rentPlan === "object"
+            ? tenant.rentPlan
+            : {};
 
+    return Math.max(
+        0,
+        numberFrom(
+            tenant.monthlyRent,
+            tenant.rentAmount,
+            tenant.monthlyAmount,
+            tenant.rent,
+            nestedPlan.rate,
+            nestedPlan.amount,
+            plan && plan.rate,
+            plan && plan.amount
+        )
+    );
+}
 
-    /* =====================================================
-       FIREBASE DATA PLACEHOLDERS
-       
-       Later database.js will populate:
+function paymentDate(payment) {
+    return (
+        payment.date ||
+        payment.paymentDate ||
+        payment.createdAt ||
+        payment.timestamp
+    );
+}
 
-       collectedAmount
-       expectedAmount
-       collectionRate
+function paymentAmount(payment) {
+    return Math.max(
+        0,
+        numberFrom(
+            payment.amount,
+            payment.paidAmount,
+            payment.total
+        )
+    );
+}
 
-       totalTenants
-       paidCount
-       dueCount
-       overdueCount
+function setText(id, value) {
+    const element = byId(id);
 
-       paidPercentage
-       paidAmount
-       duePercentage
-       dueAmount
-       overduePercentage
-       overdueAmount
+    if (element) {
+        element.textContent = value;
+    }
+}
 
-       Recent activity will also be generated
-       dynamically from Firebase.
+/* =========================================
+   RENDER SUMMARY
+   ========================================= */
 
-       NO DEMO FINANCIAL DATA IS BEING USED.
-       ===================================================== */
+function renderSummary(data) {
+    const { tenants, rentPlans, payments } = data;
 
+    const activeTenants = tenants.filter(
+        tenant => !isInactive(tenant)
+    );
+
+    const periodPayments = payments.filter(
+        payment => dateInSelectedPeriod(paymentDate(payment))
+    );
+
+    const collected = periodPayments.reduce(
+        (sum, payment) => sum + paymentAmount(payment),
+        0
+    );
+
+    const expected = activeTenants.reduce(
+        (sum, tenant) => sum + getTenantRent(tenant, rentPlans),
+        0
+    );
+
+    let paidCount = 0;
+    let dueCount = 0;
+    let overdueCount = 0;
+
+    let dueAmount = 0;
+    let overdueAmount = 0;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    activeTenants.forEach(tenant => {
+        const due = getTenantDue(tenant);
+
+        if (due <= 0) {
+            paidCount++;
+            return;
+        }
+
+        const dueDate = asDate(
+            tenant.dueDate ||
+            tenant.rentDueDate ||
+            tenant.nextDueDate ||
+            tenant.paymentDueDate
+        );
+
+        const explicitStatus = String(
+            tenant.paymentStatus ||
+            tenant.rentStatus ||
+            ""
+        ).toLowerCase();
+
+        const overdue =
+            explicitStatus === "overdue" ||
+            (dueDate && dueDate < today);
+
+        if (overdue) {
+            overdueCount++;
+            overdueAmount += due;
+        } else {
+            dueCount++;
+            dueAmount += due;
+        }
+    });
+
+    const breakdownTotal =
+        collected + dueAmount + overdueAmount;
+
+    const percentage = value =>
+        breakdownTotal > 0
+            ? Math.round(value / breakdownTotal * 100)
+            : 0;
+
+    const collectionRate =
+        expected > 0
+            ? Math.min(
+                100,
+                Math.round(collected / expected * 100)
+            )
+            : 0;
+
+    setText("collectedAmount", money(collected));
+    setText("expectedAmount", money(expected));
+    setText("collectionRate", collectionRate + "%");
+
+    setText("totalTenants", String(tenants.length));
+    setText("paidCount", String(paidCount));
+    setText("dueCount", String(dueCount));
+    setText("overdueCount", String(overdueCount));
+
+    setText("paidPercentage", percentage(collected) + "%");
+    setText("paidAmount", money(collected));
+
+    setText("duePercentage", percentage(dueAmount) + "%");
+    setText("dueAmount", money(dueAmount));
+
+    setText(
+        "overduePercentage",
+        percentage(overdueAmount) + "%"
+    );
+
+    setText("overdueAmount", money(overdueAmount));
+
+    // Update the Payment Breakdown period label.
+    const breakdownTitle =
+        document.querySelector(".section-title");
+
+    if (breakdownTitle) {
+        const label = breakdownTitle.querySelector("span");
+
+        if (label) {
+            label.textContent = selectedPeriod;
+        }
+    }
+
+    renderRecentActivity(periodPayments);
+}
+
+/* =========================================
+   RECENT PAYMENT ACTIVITY
+   ========================================= */
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    }[character]));
+}
+
+function renderRecentActivity(payments) {
+    const card = document.querySelector(".activity-card");
+
+    if (!card) return;
+
+    const sorted = [...payments]
+        .sort((a, b) => {
+            const dateA = asDate(paymentDate(a)) || new Date(0);
+            const dateB = asDate(paymentDate(b)) || new Date(0);
+
+            return dateB - dateA;
+        })
+        .slice(0, 4);
+
+    if (!sorted.length) {
+        card.style.textAlign = "center";
+        card.style.padding = "30px 18px";
+        card.style.borderStyle = "dashed";
+
+        card.innerHTML = `
+            <div class="activity-icon">
+                <i data-lucide="history"></i>
+            </div>
+            <h3>No recent activity</h3>
+            <p>
+                Tenant payments and other account activity
+                will appear here once recorded.
+            </p>
+        `;
+
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+
+        return;
+    }
+
+    card.style.textAlign = "left";
+    card.style.padding = "8px 18px";
+    card.style.borderStyle = "solid";
+
+    card.innerHTML = sorted.map(payment => {
+        const name =
+            payment.tenantName ||
+            payment.name ||
+            "Tenant payment";
+
+        const date = asDate(paymentDate(payment));
+
+        const dateLabel = date
+            ? date.toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            })
+            : "Date unavailable";
+
+        const method = payment.method || "Payment";
+
+        return `
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:12px;
+                padding:13px 0;
+                border-bottom:1px solid #EDF0F0;
+            ">
+                <div style="min-width:0">
+                    <strong style="
+                        display:block;
+                        font-size:13px;
+                        color:#455A64;
+                        overflow-wrap:anywhere;
+                    ">${escapeHTML(name)}</strong>
+
+                    <span style="
+                        display:block;
+                        margin-top:4px;
+                        font-size:11px;
+                        color:#90A4AE;
+                    ">${dateLabel} · ${escapeHTML(method)}</span>
+                </div>
+
+                <strong style="
+                    font-size:13px;
+                    color:#00897B;
+                    white-space:nowrap;
+                ">${money(paymentAmount(payment))}</strong>
+            </div>
+        `;
+    }).join("");
+}
+
+/* =========================================
+   LOAD FIRESTORE DATA
+   ========================================= */
+
+async function loadSummary(uid) {
+    setText("collectedAmount", "Loading…");
+
+    try {
+        const base = `users/${uid}`;
+
+        const [
+            tenantSnapshot,
+            planSnapshot,
+            paymentSnapshot
+        ] = await Promise.all([
+            getDocs(collection(db, base, "tenants")),
+            getDocs(collection(db, base, "rentPlans")),
+            getDocs(collection(db, base, "payments"))
+        ]);
+
+        cachedData = {
+            tenants: tenantSnapshot.docs.map(item => ({
+                id: item.id,
+                ...item.data()
+            })),
+
+            rentPlans: planSnapshot.docs.map(item => ({
+                id: item.id,
+                ...item.data()
+            })),
+
+            payments: paymentSnapshot.docs.map(item => ({
+                id: item.id,
+                ...item.data()
+            }))
+        };
+
+        renderSummary(cachedData);
+
+    } catch (error) {
+        console.error("Summary loading failed:", error);
+
+        setText("collectedAmount", "—");
+        setText("expectedAmount", "—");
+        setText("collectionRate", "—");
+        setText("totalTenants", "—");
+        setText("paidCount", "—");
+        setText("dueCount", "—");
+        setText("overdueCount", "—");
+
+        setText("paidPercentage", "—");
+        setText("paidAmount", "—");
+        setText("duePercentage", "—");
+        setText("dueAmount", "—");
+        setText("overduePercentage", "—");
+        setText("overdueAmount", "—");
+
+        showToast(
+            "Could not load summary. Check Firebase permissions."
+        );
+    }
+}
+
+/* =========================================
+   PERIOD SELECTOR
+   ========================================= */
+
+window.summaryChangePeriod = function () {
+    selectedPeriod =
+        selectedPeriod === "This Month"
+            ? "Last Month"
+            : selectedPeriod === "Last Month"
+                ? "All Time"
+                : "This Month";
+
+    setText("periodText", selectedPeriod);
+
+    if (cachedData) {
+        renderSummary(cachedData);
+    }
+};
+
+/* =========================================
+   AUTHENTICATION
+   ========================================= */
+
+onAuthStateChanged(auth, user => {
+    if (!user) {
+        showToast("Please sign in to view your summary.");
+        return;
+    }
+
+    loadSummary(user.uid);
+});
 </script>
+
 
 
 </body>

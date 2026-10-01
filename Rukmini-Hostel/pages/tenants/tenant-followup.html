@@ -1,354 +1,1008 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tenant Follow-up - Rukmini Hostel</title>
-<script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#00695C">
+  <title>Tenant Follow Up - Rukmini Hostel</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#F5F7F6;color:#263238;padding-bottom:84px}
-button,input,select,textarea{font:inherit}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-/* MASTER HEADER */
-.header{
-    height:72px;padding:0 20px;display:flex;align-items:center;
-    justify-content:space-between;background:#00695C;border-bottom:1px solid #00574D;
-    position:sticky;top:0;z-index:20
-}
-.header-left{display:flex;align-items:center;gap:9px}
-.back-button{
-    width:34px;height:34px;border:0;background:transparent;color:#fff;
-    display:flex;align-items:center;justify-content:center;cursor:pointer
-}
-.back-button svg{width:21px;height:21px;stroke-width:2.5}
-.header-logo{
-    width:43px;height:43px;border-radius:12px;object-fit:cover;background:#fff;
-    box-shadow:0 4px 12px rgba(0,0,0,.12)
-}
-.header-title{display:flex;flex-direction:column;gap:3px}
-.header-title strong{font-size:17px;line-height:1;font-weight:700;color:#fff}
-.header-title span{font-size:11px;color:#B2DFDB}
-.profile-button{
-    width:40px;height:40px;border:1px solid #4DB6AC;border-radius:50%;
-    background:#087D70;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer
-}
-.profile-button svg{width:19px;height:19px}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #E9EEEE;
+      color: #263238;
+    }
 
-/* PAGE */
-.page{max-width:600px;margin:auto;padding:14px 14px 25px}
+    button, input, select, textarea {
+      font-family: inherit;
+    }
 
-/* TENANT CARD */
-.tenant-card{
-    background:#fff;border-radius:12px;padding:15px;
-    box-shadow:0 3px 12px rgba(0,0,0,.10);
-    display:flex;align-items:center;gap:13px;margin-bottom:12px
-}
-.tenant-avatar{
-    width:52px;height:52px;border-radius:50%;background:#E0F2F1;color:#00695C;
-    display:flex;align-items:center;justify-content:center
-}
-.tenant-avatar svg{width:23px}
-.tenant-info{flex:1}
-.tenant-name{font-size:18px;font-weight:700}
-.tenant-meta{font-size:12px;color:#777;margin-top:4px}
+    .app {
+      width: 100%;
+      max-width: 600px;
+      min-height: 100vh;
+      margin: auto;
+      background: #F5F7F7;
+    }
 
-/* STATUS */
-.status-card{
-    background:#fff;border-radius:12px;padding:16px;
-    box-shadow:0 3px 12px rgba(0,0,0,.10);margin-bottom:12px
-}
-.status-head{display:flex;align-items:center;justify-content:space-between}
-.status-title{font-size:17px;font-weight:700;color:#00695C}
-.status-text{font-size:12px;color:#777;margin-top:5px}
-.status-pill{
-    padding:6px 11px;border-radius:16px;font-size:11px;font-weight:700;
-    background:#FFF1D6;color:#B66E00
-}
+    .header {
+      height: 72px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #00695C;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
 
-/* SECTION */
-.section{
-    background:#fff;border-radius:11px;overflow:hidden;
-    box-shadow:0 3px 11px rgba(0,0,0,.09);margin-bottom:12px
-}
-.section-title{
-    color:#00695C;font-size:17px;font-weight:700;
-    padding:14px 15px 11px;border-bottom:1px solid #E4EAEA
-}
+    .back-button {
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: transparent;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
 
-/* FORM */
-.form{padding:14px}
-.field{margin-bottom:12px}
-.field:last-child{margin-bottom:0}
-label{display:block;font-size:12px;color:#666;margin-bottom:6px}
-input,select,textarea{
-    width:100%;border:1px solid #CFDDDB;border-radius:8px;
-    background:#fff;color:#222;padding:12px 11px;outline:none
-}
-input:focus,select:focus,textarea:focus{border-color:#00897B}
-textarea{min-height:78px;resize:vertical}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.primary-btn{
-    width:100%;margin-top:3px;border:0;border-radius:9px;
-    background:#00695C;color:#fff;padding:13px;font-weight:700;cursor:pointer
-}
+    .header-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
 
-/* QUICK ACTIONS */
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px}
-.quick-btn{
-    border:1px solid #D7E5E3;background:#fff;border-radius:9px;
-    padding:13px 10px;text-align:left;color:#00695C;cursor:pointer;
-    display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600
-}
-.quick-btn svg{width:19px;flex:none}
+    .content {
+      padding: 20px 16px 35px;
+    }
 
-/* FOLLOW-UP HISTORY */
-.followup-row{
-    padding:14px 15px;border-bottom:1px solid #EEF1F0;
-    display:flex;align-items:flex-start;gap:11px
-}
-.followup-row:last-child{border-bottom:0}
-.followup-icon{
-    width:39px;height:39px;border-radius:10px;background:#E6F4F2;color:#00695C;
-    display:flex;align-items:center;justify-content:center;flex:none
-}
-.followup-icon svg{width:18px}
-.followup-main{flex:1}
-.followup-title{font-size:14px;font-weight:700}
-.followup-meta{font-size:11px;color:#777;margin-top:4px;line-height:1.45}
-.followup-status{font-size:11px;font-weight:700;margin-top:6px;color:#B66E00}
-.followup-actions{display:flex;gap:7px;margin-top:8px}
-.small-btn{
-    border:1px solid #B7D8D4;background:#fff;color:#00695C;
-    border-radius:7px;padding:6px 8px;font-size:11px;font-weight:600;cursor:pointer
-}
+    .profile-card, .card, .empty-card, .error {
+      background: white;
+      border: 1px solid #E4EAEA;
+      border-radius: 17px;
+      margin-bottom: 14px;
+    }
 
-/* EMPTY */
-.empty{padding:25px 15px;text-align:center;color:#777;font-size:13px}
-.empty svg{width:30px;height:30px;color:#80CBC4;margin-bottom:8px}
+    .profile-card {
+      padding: 22px 20px;
+      text-align: center;
+    }
 
-/* NAV */
-.bottom-nav{
-    position:fixed;left:50%;bottom:0;transform:translateX(-50%);
-    width:100%;max-width:600px;height:72px;background:#00695C;
-    display:grid;grid-template-columns:repeat(4,1fr);
-    padding:8px 8px 10px;z-index:50;
-    box-shadow:0 -4px 15px rgba(0,77,70,.12)
-}
-.nav-item{
-    border:0;background:transparent;color:#B2DFDB;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:4px;font-size:10px;font-weight:500;cursor:pointer
-}
-.nav-icon{
-    width:36px;height:30px;border-radius:10px;
-    display:flex;align-items:center;justify-content:center
-}
-.nav-icon svg{width:18px;height:18px;stroke-width:2.6}
-.nav-item.active{color:#fff;font-weight:700}
-.nav-item.active .nav-icon{background:#80CBC4;color:#004D40}
+    .avatar {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 11px;
+      border-radius: 20px;
+      background: #E0F2F1;
+      color: #00695C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      font-weight: 700;
+    }
 
-@media(max-width:420px){
-    .header{padding:0 16px}
-    .page{padding-left:12px;padding-right:12px}
-    .form-grid{grid-template-columns:1fr}
-}
-</style>
+    .profile-card h1 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .profile-card p {
+      font-size: 13px;
+      color: #78909C;
+    }
+
+    .status-card {
+      background: #FFF8E1;
+      border-radius: 17px;
+      padding: 19px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .status-info span {
+      font-size: 12px;
+      color: #8D7650;
+    }
+
+    .status-info strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 22px;
+      color: #EF8C00;
+    }
+
+    .status-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: white;
+      color: #EF8C00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #00695C;
+      margin-bottom: 16px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #EDF0F0;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .detail-row:first-child {
+      padding-top: 0;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      color: #90A4AE;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      color: #37474F;
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+      max-width: 60%;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #607D8B;
+      margin-bottom: 7px;
+    }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      border: 1px solid #DCE5E5;
+      border-radius: 10px;
+      background: #FBFCFC;
+      padding: 12px;
+      font-size: 14px;
+      color: #263238;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 11px;
+      padding: 12px 15px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .btn-primary {
+      background: #00695C;
+      color: white;
+      width: 100%;
+    }
+
+    .btn-secondary {
+      background: #E0F2F1;
+      color: #00695C;
+    }
+
+    .btn-danger {
+      background: #FFEBEE;
+      color: #C62828;
+    }
+
+    .btn:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 9px;
+      margin-top: 16px;
+    }
+
+    .form-actions .btn-primary {
+      flex: 1;
+    }
+
+    .notice {
+      display: none;
+      border-radius: 10px;
+      padding: 11px 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .notice.success {
+      display: block;
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .notice.failure {
+      display: block;
+      background: #FFEBEE;
+      color: #C62828;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .history-item {
+      border: 1px solid #E6ECEC;
+      border-radius: 13px;
+      padding: 14px;
+      background: #FCFDFD;
+    }
+
+    .history-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .history-date {
+      font-size: 14px;
+      font-weight: 700;
+      color: #37474F;
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pill.pending {
+      background: #FFF3CD;
+      color: #946200;
+    }
+
+    .pill.completed {
+      background: #E8F5E9;
+      color: #2E7D32;
+    }
+
+    .pill.cancelled {
+      background: #ECEFF1;
+      color: #546E7A;
+    }
+
+    .history-meta {
+      font-size: 12px;
+      color: #78909C;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .history-remark {
+      font-size: 13px;
+      color: #455A64;
+      line-height: 1.5;
+      margin-top: 8px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .history-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .history-actions .btn {
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .empty-card {
+      padding: 28px 20px;
+      text-align: center;
+      border-style: dashed;
+      box-shadow: none;
+    }
+
+    .empty-icon, .error-icon {
+      width: 55px;
+      height: 55px;
+      margin: 0 auto 14px;
+      border-radius: 16px;
+      background: #E0F2F1;
+      color: #00695C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-card h3, .error h3 {
+      font-size: 16px;
+      color: #455A64;
+      margin-bottom: 7px;
+    }
+
+    .empty-card p, .error p {
+      font-size: 12px;
+      line-height: 1.5;
+      color: #90A4AE;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 70px 20px;
+      color: #78909C;
+      font-size: 14px;
+    }
+
+    .error {
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    .error-icon {
+      background: #FFEBEE;
+      color: #C62828;
+    }
+
+    .error p {
+      font-size: 13px;
+    }
+
+    @media (max-width: 380px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 15px 12px 30px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+<div class="app">
+  <header class="header">
+    <button class="back-button" onclick="goBack()" aria-label="Back">
+      <i data-lucide="arrow-left"></i>
+    </button>
+    <div class="header-title">Tenant Follow Up</div>
+  </header>
 
-<header class="header">
-    <div class="header-left">
-        <button class="back-button" onclick="history.back()" aria-label="Go back">
-            <i data-lucide="arrow-left"></i>
-        </button>
-
-        <img src="../../assets/rukminilogo.png" class="header-logo" alt="Rukmini Hostel">
-
-        <div class="header-title">
-            <strong>Tenant Follow-up</strong>
-            <span>Rent Management</span>
-        </div>
+  <main class="content">
+    <div id="loading" class="loading">
+      Loading follow-up details...
     </div>
 
-    <button class="profile-button" onclick="openProfile()" aria-label="Profile">
-        <i data-lucide="user-round"></i>
-    </button>
-</header>
+    <div id="tenantContent" style="display:none">
+      <section class="profile-card">
+        <div class="avatar" id="avatar">TN</div>
+        <h1 id="tenantName">—</h1>
+        <p id="tenantRoom">—</p>
+      </section>
 
-<main class="page">
-
-    <section class="tenant-card">
-        <div class="tenant-avatar">
-            <i data-lucide="user-round"></i>
+      <section class="status-card">
+        <div class="status-info">
+          <span>Current Follow-up Status</span>
+          <strong id="followUpStatus">Pending</strong>
         </div>
-        <div class="tenant-info">
-            <div class="tenant-name">Tenant Name</div>
-            <div class="tenant-meta">Tenant Code: — &nbsp; • &nbsp; Room: —</div>
+        <div class="status-icon">
+          <i data-lucide="phone-call"></i>
         </div>
-    </section>
+      </section>
 
-    <section class="status-card">
-        <div class="status-head">
-            <div>
-                <div class="status-title">Follow-up Status</div>
-                <div class="status-text">No active follow-up has been recorded.</div>
-            </div>
-            <div class="status-pill">PENDING</div>
+      <section class="card">
+        <div class="card-title">Latest Follow-up</div>
+        <div class="detail-row">
+          <span class="detail-label">Follow-up Date</span>
+          <strong class="detail-value" id="followUpDate">—</strong>
         </div>
-    </section>
+        <div class="detail-row">
+          <span class="detail-label">Last Contact</span>
+          <strong class="detail-value" id="lastContact">—</strong>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Contact Method</span>
+          <strong class="detail-value" id="contactMethod">—</strong>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Remark</span>
+          <strong class="detail-value" id="followUpRemark">—</strong>
+        </div>
+      </section>
 
-    <section class="section">
-        <div class="section-title">Create Follow-up</div>
+      <section class="card" id="formCard">
+        <div class="card-title" id="formTitle">Schedule / Add Follow-up</div>
+        <div id="notice" class="notice" role="status"></div>
 
-        <div class="form">
-
+        <form id="followUpForm">
+          <div class="grid">
             <div class="field">
-                <label for="reason">Follow-up Reason</label>
-                <select id="reason">
-                    <option value="">Select reason</option>
-                    <option>Rent Payment</option>
-                    <option>Pending Balance</option>
-                    <option>Document</option>
-                    <option>Electricity Bill</option>
-                    <option>Subscription</option>
-                    <option>Other</option>
-                </select>
-            </div>
-
-            <div class="form-grid">
-                <div class="field">
-                    <label for="date">Follow-up Date</label>
-                    <input id="date" type="date">
-                </div>
-
-                <div class="field">
-                    <label for="priority">Priority</label>
-                    <select id="priority">
-                        <option>Normal</option>
-                        <option>High</option>
-                        <option>Urgent</option>
-                    </select>
-                </div>
+              <label for="followUpDateInput">Follow-up date *</label>
+              <input type="date" id="followUpDateInput" required>
             </div>
 
             <div class="field">
-                <label for="method">Follow-up Method</label>
-                <select id="method">
-                    <option value="">Select method</option>
-                    <option>WhatsApp</option>
-                    <option>Phone Call</option>
-                    <option>SMS</option>
-                    <option>In Person</option>
-                    <option>Other</option>
-                </select>
+              <label for="statusInput">Status *</label>
+              <select id="statusInput" required>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="field">
+              <label for="lastContactInput">Last contact date</label>
+              <input type="date" id="lastContactInput">
             </div>
 
             <div class="field">
-                <label for="notes">Notes</label>
-                <textarea id="notes" placeholder="Add follow-up notes"></textarea>
+              <label for="methodInput">Contact method</label>
+              <select id="methodInput">
+                <option value="">Select method</option>
+                <option>Phone Call</option>
+                <option>WhatsApp</option>
+                <option>In Person</option>
+                <option>SMS</option>
+                <option>Email</option>
+                <option>Other</option>
+              </select>
             </div>
+          </div>
 
-            <button class="primary-btn" onclick="saveFollowup()">
-                Save Follow-up
+          <div class="field">
+            <label for="remarkInput">Remark / Notes</label>
+            <textarea id="remarkInput"
+              placeholder="Reason for follow-up, discussion, next steps..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="cancelEditBtn"
+              class="btn btn-secondary" style="display:none"
+              onclick="resetForm()">Cancel</button>
+
+            <button type="submit" id="saveBtn" class="btn btn-primary">
+              Save Follow-up
             </button>
-        </div>
-    </section>
+          </div>
+        </form>
+      </section>
 
-    <section class="section">
-        <div class="section-title">Quick Actions</div>
+      <section class="card">
+        <div class="card-title">Follow-up History</div>
+        <div id="historyList" class="history-list"></div>
+      </section>
+    </div>
 
-        <div class="quick-grid">
+    <div id="errorState" class="error" style="display:none">
+      <div class="error-icon">
+        <i data-lucide="alert-circle"></i>
+      </div>
+      <h3>Unable to load tenant</h3>
+      <p id="errorMessage">We couldn't load this tenant.</p>
+    </div>
+  </main>
+</div>
 
-            <button class="quick-btn" onclick="alert('WhatsApp reminder will be connected later.')">
-                <i data-lucide="message-circle"></i>
-                WhatsApp Reminder
-            </button>
+<script type="module">
+  import { auth, db } from "../js/firebase-config.js";
 
-            <button class="quick-btn" onclick="alert('Call action will be connected later.')">
-                <i data-lucide="phone"></i>
-                Call Tenant
-            </button>
+  import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    updateDoc,
+    query,
+    where
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-            <button class="quick-btn" onclick="alert('Payment reminder will be connected later.')">
-                <i data-lucide="bell-ring"></i>
-                Payment Reminder
-            </button>
+  const params = new URLSearchParams(window.location.search);
+  const tenantId = params.get("tenant");
 
-            <button class="quick-btn" onclick="alert('Follow-up completion will be connected later.')">
-                <i data-lucide="check-check"></i>
-                Mark Completed
-            </button>
+  let tenantRef = null;
+  let tenantNameValue = "Unnamed Tenant";
+  let editingId = null;
+  let followUps = [];
 
-        </div>
-    </section>
+  const el = (id) => document.getElementById(id);
 
-    <section class="section">
-        <div class="section-title">Follow-up History</div>
+  function followUpsRef() {
+    return collection(
+      db, "users", auth.currentUser.uid, "followUps"
+    );
+  }
 
-        <div class="empty">
-            <i data-lucide="clipboard-list"></i>
-            <div>No follow-ups recorded yet.</div>
-            <div style="font-size:11px;margin-top:4px">
-                Follow-ups will appear here after they are added.
-            </div>
-        </div>
-    </section>
+  function getInitials(name) {
+    const words = String(name || "").trim()
+      .split(/\s+/).filter(Boolean);
 
-</main>
+    if (!words.length) return "TN";
 
-<nav class="bottom-nav">
+    return words.length === 1
+      ? words[0].slice(0, 2).toUpperCase()
+      : (words[0][0] + words[1][0]).toUpperCase();
+  }
 
-    <button class="nav-item" onclick="goTo('rent-plans')">
-        <span class="nav-icon"><i data-lucide="receipt-text"></i></span>
-        <span>Rent Plan</span>
-    </button>
+  function displayValue(value) {
+    return value === undefined || value === null ||
+      String(value).trim() === "" ? "—" : String(value);
+  }
 
-    <button class="nav-item active" onclick="goTo('tenants')">
-        <span class="nav-icon"><i data-lucide="users-round"></i></span>
-        <span>Tenant</span>
-    </button>
+  function formatDate(value) {
+    if (!value) return "—";
 
-    <button class="nav-item" onclick="goTo('summary')">
-        <span class="nav-icon"><i data-lucide="chart-no-axes-combined"></i></span>
-        <span>Summary</span>
-    </button>
+    const parts = String(value).split("-");
 
-    <button class="nav-item" onclick="goTo('action')">
-        <span class="nav-icon"><i data-lucide="menu"></i></span>
-        <span>Action</span>
-    </button>
-
-</nav>
-
-<script>
-lucide.createIcons();
-
-function goTo(page){
-    if(page==="rent-plans") window.location.href="../main/rent-plans.html";
-    if(page==="tenants") window.location.href="../main/tenants.html";
-    if(page==="summary") window.location.href="../main/summary.html";
-    if(page==="action") window.location.href="../main/action.html";
-}
-
-function openProfile(){
-    window.location.href="../tools/profile.html";
-}
-
-function saveFollowup(){
-    const reason=document.getElementById("reason").value;
-    const date=document.getElementById("date").value;
-
-    if(!reason || !date){
-        alert("Please select a follow-up reason and date.");
-        return;
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
     }
 
-    alert("Follow-up saved locally for now. Firebase will handle real follow-ups later.");
-}
-</script>
+    return String(value);
+  }
 
+  function showNotice(message, type = "success") {
+    const notice = el("notice");
+    notice.textContent = message;
+    notice.className = `notice ${type}`;
+  }
+
+  function hideNotice() {
+    el("notice").className = "notice";
+    el("notice").textContent = "";
+  }
+
+  function goBack() {
+    if (tenantId) {
+      window.location.href =
+        "tenant-details.html?tenant=" +
+        encodeURIComponent(tenantId);
+    } else {
+      window.location.href = "../main/tenants.html";
+    }
+  }
+
+  window.goBack = goBack;
+
+  function resetForm() {
+    editingId = null;
+    el("followUpForm").reset();
+    el("formTitle").textContent = "Schedule / Add Follow-up";
+    el("saveBtn").textContent = "Save Follow-up";
+    el("cancelEditBtn").style.display = "none";
+    hideNotice();
+  }
+
+  window.resetForm = resetForm;
+
+  function updateLatestSummary() {
+    const sorted = [...followUps].sort((a, b) =>
+      String(b.followUpDate || "").localeCompare(
+        String(a.followUpDate || "")
+      )
+    );
+
+    const latest = sorted[0];
+
+    el("followUpStatus").textContent =
+      latest?.status || "No follow-ups";
+
+    el("followUpDate").textContent =
+      formatDate(latest?.followUpDate);
+
+    el("lastContact").textContent =
+      formatDate(latest?.lastContact);
+
+    el("contactMethod").textContent =
+      displayValue(latest?.contactMethod);
+
+    el("followUpRemark").textContent =
+      displayValue(latest?.remark);
+  }
+
+  function renderHistory() {
+    const list = el("historyList");
+    list.replaceChildren();
+
+    if (!followUps.length) {
+      const empty = document.createElement("div");
+      empty.className = "empty-card";
+      empty.innerHTML = `
+        <div class="empty-icon">
+          <i data-lucide="clipboard-list"></i>
+        </div>
+        <h3>No follow-ups yet</h3>
+        <p>Add a follow-up above to start tracking calls,
+        visits, reminders, and tenant communication.</p>
+      `;
+
+      list.appendChild(empty);
+      updateLatestSummary();
+      lucide.createIcons();
+      return;
+    }
+
+    const sorted = [...followUps].sort((a, b) =>
+      String(b.followUpDate || "").localeCompare(
+        String(a.followUpDate || "")
+      )
+    );
+
+    for (const item of sorted) {
+      const card = document.createElement("article");
+      card.className = "history-item";
+
+      const top = document.createElement("div");
+      top.className = "history-top";
+
+      const date = document.createElement("div");
+      date.className = "history-date";
+      date.textContent =
+        `Follow-up: ${formatDate(item.followUpDate)}`;
+
+      const status = document.createElement("span");
+      const statusClass =
+        String(item.status || "Pending").toLowerCase();
+
+      status.className =
+        `pill ${["pending", "completed", "cancelled"].includes(statusClass)
+          ? statusClass : "pending"}`;
+
+      status.textContent = item.status || "Pending";
+      top.append(date, status);
+
+      const meta = document.createElement("div");
+      meta.className = "history-meta";
+      meta.textContent =
+        `Last contact: ${formatDate(item.lastContact)} · ` +
+        `Method: ${displayValue(item.contactMethod)}`;
+
+      card.append(top, meta);
+
+      if (item.remark) {
+        const remark = document.createElement("div");
+        remark.className = "history-remark";
+        remark.textContent = item.remark;
+        card.appendChild(remark);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "history-actions";
+
+      const edit = document.createElement("button");
+      edit.type = "button";
+      edit.className = "btn btn-secondary";
+      edit.textContent = "Edit";
+      edit.addEventListener("click", () => startEdit(item));
+
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "btn btn-danger";
+      remove.textContent = "Delete";
+      remove.addEventListener("click", () =>
+        removeFollowUp(item.id)
+      );
+
+      actions.append(edit, remove);
+      card.appendChild(actions);
+      list.appendChild(card);
+    }
+
+    updateLatestSummary();
+    lucide.createIcons();
+  }
+
+  function startEdit(item) {
+    editingId = item.id;
+
+    el("formTitle").textContent = "Edit Follow-up";
+    el("followUpDateInput").value = item.followUpDate || "";
+    el("statusInput").value = item.status || "Pending";
+    el("lastContactInput").value = item.lastContact || "";
+    el("methodInput").value = item.contactMethod || "";
+    el("remarkInput").value = item.remark || "";
+    el("saveBtn").textContent = "Update Follow-up";
+    el("cancelEditBtn").style.display = "inline-flex";
+
+    hideNotice();
+
+    el("formCard").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  async function refreshFollowUps() {
+    const q = query(
+      followUpsRef(),
+      where("tenantId", "==", tenantId)
+    );
+
+    const snapshot = await getDocs(q);
+
+    followUps = snapshot.docs.map(entry => ({
+      id: entry.id,
+      ...entry.data()
+    }));
+
+    renderHistory();
+  }
+
+  async function syncTenantSummary() {
+    const sorted = [...followUps].sort((a, b) =>
+      String(b.followUpDate || "").localeCompare(
+        String(a.followUpDate || "")
+      )
+    );
+
+    const latest = sorted[0];
+
+    await updateDoc(tenantRef, {
+      followUpStatus: latest?.status || "",
+      followUpDate: latest?.followUpDate || "",
+      lastContact: latest?.lastContact || "",
+      contactMethod: latest?.contactMethod || "",
+      followUpRemark: latest?.remark || ""
+    });
+  }
+
+  async function saveFollowUp(event) {
+    event.preventDefault();
+    hideNotice();
+
+    const user = auth.currentUser;
+
+    if (!user || !tenantRef) {
+      showNotice(
+        "Please log in and reload this page before saving.",
+        "failure"
+      );
+      return;
+    }
+
+    const payload = {
+      tenantId,
+      tenantName: tenantNameValue,
+      followUpDate: el("followUpDateInput").value,
+      status: el("statusInput").value,
+      lastContact: el("lastContactInput").value,
+      contactMethod: el("methodInput").value,
+      remark: el("remarkInput").value.trim(),
+      updatedAt: new Date().toISOString()
+    };
+
+    if (!payload.followUpDate) {
+      showNotice("Please select a follow-up date.", "failure");
+      return;
+    }
+
+    const saveButton = el("saveBtn");
+    saveButton.disabled = true;
+    saveButton.textContent = editingId
+      ? "Updating..." : "Saving...";
+
+    try {
+      if (editingId) {
+        await updateDoc(
+          doc(db, "users", user.uid, "followUps", editingId),
+          payload
+        );
+      } else {
+        payload.createdAt = new Date().toISOString();
+        await addDoc(followUpsRef(), payload);
+      }
+
+      await refreshFollowUps();
+      await syncTenantSummary();
+
+      resetForm();
+      showNotice("Follow-up saved successfully.");
+    } catch (error) {
+      console.error("Error saving follow-up:", error);
+
+      showNotice(
+        error.code === "permission-denied"
+          ? "Permission denied. Check Firestore rules for users/{uid}/followUps and users/{uid}/tenants."
+          : (error.message || "Could not save this follow-up."),
+        "failure"
+      );
+    } finally {
+      saveButton.disabled = false;
+      saveButton.textContent = editingId
+        ? "Update Follow-up" : "Save Follow-up";
+    }
+  }
+
+  async function removeFollowUp(id) {
+    if (!confirm("Delete this follow-up? This cannot be undone.")) {
+      return;
+    }
+
+    try {
+      await deleteDoc(
+        doc(db, "users", auth.currentUser.uid, "followUps", id)
+      );
+
+      await refreshFollowUps();
+      await syncTenantSummary();
+
+      showNotice("Follow-up deleted.");
+    } catch (error) {
+      console.error("Error deleting follow-up:", error);
+
+      showNotice(
+        error.code === "permission-denied"
+          ? "Permission denied. Check Firestore rules for users/{uid}/followUps."
+          : (error.message || "Could not delete this follow-up."),
+        "failure"
+      );
+    }
+  }
+
+  el("followUpForm").addEventListener("submit", saveFollowUp);
+
+  async function loadTenant() {
+    if (!tenantId) {
+      throw new Error("No tenant ID was provided in the page URL.");
+    }
+
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error(
+        "Please log in before viewing tenant follow-up details."
+      );
+    }
+
+    tenantRef = doc(
+      db, "users", user.uid, "tenants", tenantId
+    );
+
+    const snapshot = await getDoc(tenantRef);
+
+    if (!snapshot.exists()) {
+      throw new Error("This tenant does not exist.");
+    }
+
+    const tenant = snapshot.data();
+
+    tenantNameValue = tenant.name || "Unnamed Tenant";
+
+    const room = tenant.buildingNumber
+      ? (tenant.building
+          ? `${tenant.building} • ${tenant.buildingNumber}`
+          : tenant.buildingNumber)
+      : (tenant.building || "No room assigned");
+
+    el("avatar").textContent = getInitials(tenantNameValue);
+    el("tenantName").textContent = tenantNameValue;
+    el("tenantRoom").textContent = room;
+
+    await refreshFollowUps();
+
+    if (!followUps.length) {
+      el("followUpStatus").textContent =
+        tenant.followUpStatus || "No follow-ups";
+
+      el("followUpDate").textContent =
+        formatDate(tenant.followUpDate);
+
+      el("lastContact").textContent =
+        formatDate(tenant.lastContact);
+
+      el("contactMethod").textContent =
+        displayValue(tenant.contactMethod);
+
+      el("followUpRemark").textContent =
+        displayValue(tenant.followUpRemark);
+    }
+
+    el("loading").style.display = "none";
+    el("tenantContent").style.display = "block";
+    lucide.createIcons();
+  }
+
+  async function startApp() {
+    try {
+      await loadTenant();
+    } catch (error) {
+      console.error("Error loading tenant follow-up:", error);
+
+      el("loading").style.display = "none";
+      el("errorState").style.display = "block";
+
+      el("errorMessage").textContent =
+        error.code === "permission-denied"
+          ? "Permission denied. Check Firestore read rules for this tenant and its follow-ups."
+          : (error.message ||
+             "Something went wrong while loading follow-up details.");
+
+      lucide.createIcons();
+    }
+  }
+
+  if (auth.currentUser) {
+    startApp();
+  } else {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        startApp();
+      } else {
+        el("loading").style.display = "none";
+        el("errorState").style.display = "block";
+        el("errorMessage").textContent =
+          "Please log in before viewing tenant follow-up details.";
+        lucide.createIcons();
+      }
+    });
+  }
+
+  lucide.createIcons();
+</script>
 </body>
 </html>

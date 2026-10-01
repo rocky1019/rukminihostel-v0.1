@@ -1,36 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenant Details - Rukmini Hostel</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#00695C">
+
+    <title>Tenant Balance - Rukmini Hostel</title>
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
         }
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7f6;
-            color: #222;
-            padding-bottom: 75px;
+            background: #E9EEEE;
+            color: #263238;
+            overflow-x: hidden;
+            padding-bottom: 76px;
         }
 
-        /* =========================
-           MASTER HEADER
-        ========================== */
+        button,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        button {
+            -webkit-appearance: none;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 600px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #F5F7F7;
+            position: relative;
+            box-shadow: 0 0 35px rgba(0, 0, 0, 0.04);
+        }
+
+        /* HEADER */
 
         .header {
             height: 72px;
-            padding: 0 20px;
+            padding: 0 16px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             background: #00695C;
             border-bottom: 1px solid #00574D;
             position: sticky;
@@ -38,54 +70,38 @@
             z-index: 20;
         }
 
-        .subpage-header-left {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-
         .back-button {
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
             border: none;
             background: transparent;
-            color: #FFFFFF;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .back-button svg {
-            width: 21px;
-            height: 21px;
+            width: 23px;
+            height: 23px;
             stroke-width: 2.5;
         }
 
-        .header-logo {
-            width: 43px;
-            height: 43px;
-            border-radius: 12px;
-            object-fit: cover;
-            display: block;
-            background: #FFFFFF;
-            box-shadow: 0 4px 12px rgba(0,0,0,.12);
-        }
-
-        .subpage-title {
+        .header-title {
+            margin-left: 8px;
             display: flex;
             flex-direction: column;
             gap: 3px;
         }
 
-        .subpage-title strong {
+        .header-title strong {
             font-size: 17px;
-            line-height: 1;
-            font-weight: 700;
             color: #FFFFFF;
         }
 
-        .subpage-title span {
+        .header-title span {
             font-size: 11px;
             color: #B2DFDB;
         }
@@ -93,10 +109,11 @@
         .profile-button {
             width: 40px;
             height: 40px;
+            margin-left: auto;
             border: 1px solid #4DB6AC;
             border-radius: 50%;
             background: #087D70;
-            color: #FFFFFF;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -106,258 +123,360 @@
         .profile-button svg {
             width: 19px;
             height: 19px;
+            stroke-width: 2.6;
         }
 
-        /* =========================
-           PAGE
-        ========================== */
+        /* CONTENT */
 
-        .page {
-            max-width: 650px;
-            margin: auto;
-            padding: 14px 13px 25px;
+        .content {
+            padding: 20px 18px 100px;
         }
 
-        /* =========================
-           PROFILE CARD
-        ========================== */
+        /* TENANT HEADER */
 
-        .profile-card {
+        .tenant-summary {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
-            padding: 20px 16px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .profile-photo {
-            width: 82px;
-            height: 82px;
-            border-radius: 50%;
-            background: #e8f3f1;
+            border: 1px solid #E1E9E8;
+            border-radius: 17px;
+            padding: 17px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            border: 3px solid #b9dcd7;
-            color: #00766b;
-            font-size: 34px;
-        }
-
-        .tenant-name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #222;
-        }
-
-        .tenant-code {
-            margin-top: 5px;
-            color: #777;
-            font-size: 14px;
-        }
-
-        .status {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 7px 18px;
-            border-radius: 20px;
-            background: #e4f5e9;
-            color: #08752d;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* =========================
-           QUICK ACTIONS
-        ========================== */
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 9px;
-            margin-bottom: 16px;
-        }
-
-        .quick-btn {
-            min-height: 78px;
-            border: none;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 9px rgba(0,0,0,0.10);
-            color: #006f65;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 7px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .quick-btn i {
-            font-size: 21px;
-        }
-
-        .quick-btn:active {
-            transform: scale(0.97);
-        }
-
-        /* =========================
-           SECTION
-        ========================== */
-
-        .section {
-            background: white;
-            border-radius: 11px;
-            margin-bottom: 15px;
-            box-shadow: 0 3px 11px rgba(0,0,0,0.10);
-            overflow: hidden;
-        }
-
-        .section-title {
-            color: #00766b;
-            font-size: 19px;
-            padding: 15px 16px 11px;
-            border-bottom: 1px solid #e4e4e4;
-        }
-
-        /* =========================
-           DETAIL ROWS
-        ========================== */
-
-        .detail-row {
-            display: flex;
-            align-items: flex-start;
-            padding: 14px 16px;
-            border-bottom: 1px solid #eeeeee;
             gap: 13px;
+            margin-bottom: 16px;
+            box-shadow: 0 3px 10px rgba(38, 50, 56, 0.035);
         }
 
-        .detail-row:last-child {
-            border-bottom: none;
+        .tenant-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: #E0F2F1;
+            color: #00695C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
         }
 
-        .detail-icon {
-            width: 30px;
-            color: #00766b;
-            font-size: 17px;
-            padding-top: 2px;
-            text-align: center;
-        }
-
-        .detail-content {
-            flex: 1;
+        .tenant-info {
             min-width: 0;
         }
 
-        .detail-label {
-            color: #777;
-            font-size: 12px;
-            margin-bottom: 4px;
-        }
-
-        .detail-value {
-            color: #222;
+        .tenant-info strong {
+            display: block;
             font-size: 16px;
-            word-break: break-word;
+            color: #263238;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* =========================
-           BALANCE CARD
-        ========================== */
-
-        .balance-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 14px;
+        .tenant-info span {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #78909C;
         }
 
-        .balance-box {
-            border: 1px solid #00766b;
-            border-radius: 8px;
-            padding: 15px 8px;
-            text-align: center;
-            background: #fbfffe;
+        /* BALANCE HERO */
+
+        .balance-card {
+            background: #00695C;
+            color: white;
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 15px;
+            box-shadow: 0 7px 18px rgba(0, 105, 92, 0.18);
         }
 
         .balance-label {
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 8px;
+            font-size: 12px;
+            color: #B2DFDB;
+            margin-bottom: 7px;
         }
 
-        .balance-value {
-            font-size: 21px;
+        .balance-amount {
+            font-size: 35px;
             font-weight: 700;
+            line-height: 1.1;
         }
 
-        .due {
-            color: #d28a00;
+        .balance-status {
+            margin-top: 9px;
+            font-size: 12px;
+            color: #E0F2F1;
         }
 
-        .paid {
-            color: #07833a;
+        /* ACTIONS */
+
+        .action-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        /* =========================
-           MANAGEMENT BUTTONS
-        ========================== */
-
-        .management-list {
-            padding: 8px 13px 13px;
-        }
-
-        .management-btn {
-            width: 100%;
-            border: 1px solid #d8e5e3;
-            background: white;
-            border-radius: 9px;
-            padding: 14px 13px;
-            margin-top: 8px;
+        .action-button {
+            height: 50px;
+            border-radius: 13px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 13px;
-            color: #006f65;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .action-button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .payment-button {
+            background: #00695C;
+            color: white;
+        }
+
+        .add-balance-button {
+            background: white;
+            color: #00695C;
+            border: 1px solid #80CBC4;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: white;
+            border: 1px solid #E4EAEA;
+            border-radius: 14px;
+            padding: 14px 10px;
+        }
+
+        .stat span {
+            display: block;
+            font-size: 10px;
+            color: #90A4AE;
+            margin-bottom: 7px;
+        }
+
+        .stat strong {
             font-size: 15px;
-            cursor: pointer;
-            text-align: left;
+            color: #455A64;
         }
 
-        .management-btn i:first-child {
-            width: 23px;
+        /* SECTION */
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .section-title strong {
+            font-size: 15px;
+            color: #455A64;
+        }
+
+        /* HISTORY */
+
+        .history-card {
+            background: white;
+            border: 1px solid #E4EAEA;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .history-item {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #EDF0F0;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-left {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .history-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: #E0F2F1;
+            color: #00695C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .history-info strong {
+            display: block;
+            font-size: 13px;
+            color: #455A64;
+        }
+
+        .history-info span {
+            display: block;
+            margin-top: 4px;
+            font-size: 10px;
+            color: #90A4AE;
+        }
+
+        .history-amount {
+            font-size: 14px;
+            font-weight: 700;
+            color: #00695C;
+        }
+
+        .empty-history {
+            padding: 30px 20px;
             text-align: center;
+            color: #90A4AE;
+            font-size: 12px;
         }
 
-        .management-btn .arrow {
-            margin-left: auto;
-            color: #888;
+        /* ADD BALANCE MODAL */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.42);
+            z-index: 100;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
         }
 
-        .management-btn:active {
-            background: #f1f8f7;
+        .modal.show {
+            display: flex;
         }
 
-        /* =========================
-           MASTER BOTTOM NAVIGATION
-        ========================== */
+        .modal-box {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 22px 18px 28px;
+        }
+
+        .modal-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #263238;
+            margin-bottom: 17px;
+        }
+
+        .modal-label {
+            display: block;
+            font-size: 12px;
+            color: #78909C;
+            margin-bottom: 7px;
+        }
+
+        .modal-input {
+            width: 100%;
+            height: 52px;
+            border: 1px solid #B0BEC5;
+            border-radius: 11px;
+            outline: none;
+            padding: 0 14px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .modal-input:focus {
+            border-color: #00695C;
+        }
+
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .modal-actions button {
+            height: 48px;
+            border-radius: 11px;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .cancel-button {
+            background: #F1F4F4;
+            color: #546E7A;
+        }
+
+        .save-button {
+            background: #00695C;
+            color: white;
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 90px;
+            transform: translate(-50%, 20px);
+            background: #263238;
+            color: white;
+            padding: 11px 17px;
+            border-radius: 10px;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            z-index: 200;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* BOTTOM NAV */
 
         .bottom-nav {
             position: fixed;
-            left: 50%;
             bottom: 0;
+            left: 50%;
             transform: translateX(-50%);
             width: 100%;
             max-width: 600px;
-            height: 72px;
+            height: 76px;
             background: #00695C;
+            border-top: 1px solid #00574D;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             padding: 8px 8px 10px;
             z-index: 50;
-            box-shadow: 0 -4px 15px rgba(0,77,70,.12);
+            box-shadow: 0 -4px 15px rgba(0, 77, 70, 0.12);
         }
 
         .nav-item {
@@ -372,8 +491,6 @@
             font-size: 10px;
             font-weight: 500;
             cursor: pointer;
-            text-decoration: none;
-            width: auto;
         }
 
         .nav-icon {
@@ -391,554 +508,1271 @@
             stroke-width: 2.6;
         }
 
-        .nav-item.active {
-            color: #FFFFFF;
-            font-weight: 700;
-        }
+        @media (max-width: 360px) {
 
-        .nav-item.active .nav-icon {
-            background: #80CBC4;
-            color: #004D40;
-        }
+            .content {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
 
-        /* =========================
-           MOBILE
-        ========================== */
+            .balance-amount {
+                font-size: 31px;
+            }
 
-        @media (max-width: 420px) {
-            .quick-actions {
+            .stats {
                 gap: 7px;
             }
 
-            .quick-btn {
-                min-height: 74px;
-                font-size: 11px;
+            .stat {
+                padding-left: 8px;
+                padding-right: 8px;
             }
 
-            .quick-btn i {
-                font-size: 20px;
-            }
-
-            .tenant-name {
-                font-size: 22px;
-            }
-
-            .detail-value {
-                font-size: 15px;
+            .stat strong {
+                font-size: 13px;
             }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+<div class="app">
+
+    <!-- HEADER -->
 
     <header class="header">
 
-        <div class="subpage-header-left">
+        <button
+            class="back-button"
+            onclick="goBack()"
+            aria-label="Back"
+        >
+            <i data-lucide="arrow-left"></i>
+        </button>
 
-            <button class="back-button"
-                    onclick="history.back()"
-                    aria-label="Go back">
-                <i data-lucide="arrow-left"></i>
-            </button>
+        <div class="header-title">
 
-            <img src="../../assets/rukminilogo.png"
-                 class="header-logo"
-                 alt="Rukmini Hostel">
+            <strong>Tenant Balance</strong>
 
-            <div class="subpage-title">
-                <strong>Tenant Details</strong>
-                <span>Rent Management</span>
-            </div>
+            <span>Rukmini Hostel • Rent Management</span>
 
         </div>
 
-        <button class="profile-button"
-                onclick="openProfile()"
-                aria-label="Profile">
+        <button
+            class="profile-button"
+            onclick="openProfile()"
+        >
             <i data-lucide="user-round"></i>
         </button>
 
     </header>
 
 
-    <!-- =========================
-         PAGE CONTENT
-    ========================== -->
+    <!-- CONTENT -->
 
-    <main class="page">
+    <main class="content">
 
-        <!-- PROFILE -->
+        <!-- TENANT -->
 
-        <section class="profile-card">
+        <section class="tenant-summary">
 
-            <div class="profile-photo">
-                <i class="fa-solid fa-user"></i>
+            <div
+                class="tenant-avatar"
+                id="tenantAvatar"
+            >
+                TN
             </div>
 
-            <div class="tenant-name">
-                Tenant Name
-            </div>
+            <div class="tenant-info">
 
-            <div class="tenant-code">
-                Tenant Code: —
-            </div>
+                <strong id="tenantName">
+                    Loading...
+                </strong>
 
-            <div class="status">
-                Active
+                <span id="tenantRoom">
+                    Loading tenant details...
+                </span>
+
             </div>
 
         </section>
 
 
-        <!-- QUICK ACTIONS -->
+        <!-- CURRENT BALANCE -->
 
-        <div class="quick-actions">
+        <section class="balance-card">
 
-            <button class="quick-btn"
-                    onclick="location.href='tenant-payment.html'">
-                <i class="fa-solid fa-indian-rupee-sign"></i>
-                Payment
+            <div class="balance-label">
+                Current Balance
+            </div>
+
+            <div
+                class="balance-amount"
+                id="currentBalance"
+            >
+                ₹0
+            </div>
+
+            <div
+                class="balance-status"
+                id="balanceStatus"
+            >
+                Loading...
+            </div>
+
+        </section>
+
+
+        <!-- ACTIONS -->
+
+        <div class="action-row">
+
+            <button
+                class="action-button payment-button"
+                onclick="collectPayment()"
+            >
+                <i data-lucide="wallet"></i>
+                Collect Payment
             </button>
 
-            <button class="quick-btn"
-                    onclick="location.href='tenant-balance.html'">
-                <i class="fa-solid fa-wallet"></i>
-                Balance
-            </button>
-
-            <button class="quick-btn"
-                    onclick="location.href='tenant-followup.html'">
-                <i class="fa-solid fa-phone"></i>
-                Follow Up
+            <button
+                class="action-button add-balance-button"
+                onclick="openAddBalance()"
+            >
+                <i data-lucide="plus"></i>
+                Add Balance
             </button>
 
         </div>
 
 
-        <!-- PERSONAL DETAILS -->
+        <!-- STATS -->
 
-        <section class="section">
+        <section class="stats">
 
-            <div class="section-title">
-                Personal Details
-            </div>
+            <div class="stat">
 
-            <div class="detail-row">
+                <span>
+                    Opening Balance
+                </span>
 
-                <div class="detail-icon">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Tenant Name
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
+                <strong id="openingBalance">
+                    ₹0
+                </strong>
 
             </div>
 
 
-            <div class="detail-row">
+            <div class="stat">
 
-                <div class="detail-icon">
-                    <i class="fa-solid fa-phone"></i>
-                </div>
+                <span>
+                    Total Paid
+                </span>
 
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Mobile Number
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
+                <strong id="totalPaid">
+                    ₹0
+                </strong>
 
             </div>
 
 
-            <div class="detail-row">
+            <div class="stat">
 
-                <div class="detail-icon">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                </div>
+                <span>
+                    Balance Type
+                </span>
 
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Mobile Number 2
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-icon">
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Email
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-icon">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Address
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
+                <strong id="balanceType">
+                    —
+                </strong>
 
             </div>
 
         </section>
 
 
-        <!-- TENANCY DETAILS -->
+        <!-- HISTORY -->
 
-        <section class="section">
+        <div class="section-title">
 
-            <div class="section-title">
-                Tenancy Details
-            </div>
+            <strong>
+                Balance History
+            </strong>
 
-
-            <div class="detail-row">
-
-                <div class="detail-icon">
-                    <i class="fa-solid fa-building"></i>
-                </div>
-
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Building Name
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
-
-            </div>
+        </div>
 
 
-            <div class="detail-row">
+        <section class="history-card">
 
-                <div class="detail-icon">
-                    <i class="fa-solid fa-hashtag"></i>
-                </div>
+            <div id="historyContainer">
 
-                <div class="detail-content">
-                    <div class="detail-label">
-                        B.No.
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-icon">
-                    <i class="fa-solid fa-calendar-days"></i>
-                </div>
-
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Start Billing From
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-icon">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Security Deposit
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-icon">
-                    <i class="fa-solid fa-file-signature"></i>
-                </div>
-
-                <div class="detail-content">
-                    <div class="detail-label">
-                        Tenant Billing Name
-                    </div>
-
-                    <div class="detail-value">
-                        —
-                    </div>
+                <div class="empty-history">
+                    Loading balance history...
                 </div>
 
             </div>
 
         </section>
-
-
-        <!-- BALANCE -->
-
-        <section class="section">
-
-            <div class="section-title">
-                Account Summary
-            </div>
-
-            <div class="balance-grid">
-
-                <div class="balance-box">
-
-                    <div class="balance-label">
-                        Current Due
-                    </div>
-
-                    <div class="balance-value due">
-                        ₹0
-                    </div>
-
-                </div>
-
-
-                <div class="balance-box">
-
-                    <div class="balance-label">
-                        Total Paid
-                    </div>
-
-                    <div class="balance-value paid">
-                        ₹0
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- TENANT MANAGEMENT -->
-
-        <section class="section">
-
-            <div class="section-title">
-                Tenant Management
-            </div>
-
-            <div class="management-list">
-
-                <button class="management-btn"
-                        onclick="location.href='tenant-payment.html'">
-
-                    <i class="fa-solid fa-money-bill-wave"></i>
-
-                    <span>
-                        Payment History
-                    </span>
-
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-
-                </button>
-
-
-                <button class="management-btn"
-                        onclick="location.href='tenant-balance.html'">
-
-                    <i class="fa-solid fa-wallet"></i>
-
-                    <span>
-                        Balance & Bills
-                    </span>
-
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-
-                </button>
-
-
-                <button class="management-btn"
-                        onclick="location.href='tenant-followup.html'">
-
-                    <i class="fa-solid fa-phone-volume"></i>
-
-                    <span>
-                        Follow Up
-                    </span>
-
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-
-                </button>
-
-
-                <button class="management-btn"
-                        onclick="location.href='tenant-document.html'">
-
-                    <i class="fa-solid fa-folder-open"></i>
-
-                    <span>
-                        Tenant Documents
-                    </span>
-
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-
-                </button>
-
-
-                <button class="management-btn"
-                        onclick="location.href='tenant-electricity.html'">
-
-                    <i class="fa-solid fa-bolt"></i>
-
-                    <span>
-                        Electricity Details
-                    </span>
-
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-
-                </button>
-
-
-                <button class="management-btn"
-                        onclick="location.href='tenant-subscription.html'">
-
-                    <i class="fa-solid fa-repeat"></i>
-
-                    <span>
-                        Subscription Details
-                    </span>
-
-                    <i class="fa-solid fa-chevron-right arrow"></i>
-
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- EDIT -->
-
-        <button
-            style="
-                width:100%;
-                border:none;
-                background:#00766b;
-                color:white;
-                border-radius:9px;
-                padding:15px;
-                font-size:16px;
-                font-weight:600;
-                margin-bottom:10px;
-                cursor:pointer;
-            "
-            onclick="alert('Edit tenant will be connected to Firebase later.')">
-
-            <i class="fa-solid fa-pen"></i>
-            &nbsp; Edit Tenant Details
-
-        </button>
 
     </main>
 
 
-    <!-- =========================
-         BOTTOM NAVIGATION
-    ========================== -->
+    <!-- BOTTOM NAV -->
 
     <nav class="bottom-nav">
 
-        <button class="nav-item" onclick="goTo('rent-plans')">
-            <span class="nav-icon"><i data-lucide="receipt-text"></i></span>
+        <button
+            class="nav-item"
+            onclick="goTo('rent-plans')"
+        >
+            <span class="nav-icon">
+                <i data-lucide="receipt-text"></i>
+            </span>
+
             <span>Rent Plan</span>
         </button>
 
-        <button class="nav-item active" onclick="goTo('tenants')">
-            <span class="nav-icon"><i data-lucide="users-round"></i></span>
+
+        <button
+            class="nav-item active"
+            onclick="goTo('tenants')"
+        >
+            <span class="nav-icon">
+                <i data-lucide="users-round"></i>
+            </span>
+
             <span>Tenant</span>
         </button>
 
-        <button class="nav-item" onclick="goTo('summary')">
-            <span class="nav-icon"><i data-lucide="chart-no-axes-combined"></i></span>
+
+        <button
+            class="nav-item"
+            onclick="goTo('summary')"
+        >
+            <span class="nav-icon">
+                <i data-lucide="chart-no-axes-combined"></i>
+            </span>
+
             <span>Summary</span>
         </button>
 
-        <button class="nav-item" onclick="goTo('action')">
-            <span class="nav-icon"><i data-lucide="menu"></i></span>
+
+        <button
+            class="nav-item"
+            onclick="goTo('action')"
+        >
+            <span class="nav-icon">
+                <i data-lucide="menu"></i>
+            </span>
+
             <span>Action</span>
         </button>
 
     </nav>
 
-    <script>
-        lucide.createIcons();
+</div>
 
-        function goTo(page) {
-            const pages = {
-                'rent-plans': '../main/rent-plans.html',
-                'tenants': '../main/tenants.html',
-                'summary': '../main/summary.html',
-                'action': '../main/action.html'
-            };
-            if (pages[page]) window.location.href = pages[page];
+
+<!-- ADD BALANCE MODAL -->
+
+<div
+    class="modal"
+    id="balanceModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+            Add Balance
+        </div>
+
+
+        <label class="modal-label">
+            Amount
+        </label>
+
+        <input
+            type="number"
+            id="balanceAmount"
+            class="modal-input"
+            placeholder="₹ Amount"
+            min="1"
+        >
+
+
+        <label class="modal-label">
+            Note
+        </label>
+
+        <input
+            type="text"
+            id="balanceNote"
+            class="modal-input"
+            placeholder="Reason or note"
+        >
+
+
+        <div class="modal-actions">
+
+            <button
+                class="cancel-button"
+                onclick="closeAddBalance()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="save-button"
+                onclick="saveBalance()"
+            >
+                Add Balance
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script type="module">
+
+    import {
+        auth,
+        db
+    } from "../js/firebase-config.js";
+
+    import {
+        doc,
+        getDoc,
+        collection,
+        addDoc,
+        getDocs,
+        updateDoc,
+        increment,
+        serverTimestamp,
+        query,
+        orderBy
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+    /* =====================================================
+       INITIALIZE
+       ===================================================== */
+
+    lucide.createIcons();
+
+
+    /* =====================================================
+       TENANT ID
+       ===================================================== */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const tenantId =
+        params.get("tenant");
+
+
+    let tenantData = null;
+
+
+    /* =====================================================
+       HELPERS
+       ===================================================== */
+
+    function formatMoney(amount) {
+
+        return "₹" +
+            (Number(amount) || 0)
+                .toLocaleString("en-IN");
+
+    }
+
+
+    function getInitials(name) {
+
+        if (!name) {
+            return "TN";
         }
 
-        function openProfile() {
-            window.location.href = '../tools/profile.html';
+        const words =
+            name.trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+        if (words.length === 1) {
+
+            return words[0]
+                .substring(0, 2)
+                .toUpperCase();
+
         }
-    </script>
+
+        return (
+            words[0][0] +
+            words[1][0]
+        ).toUpperCase();
+
+    }
+
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    function formatDate(value) {
+
+        if (!value) {
+            return "Unknown date";
+        }
+
+        let date;
+
+        if (
+            typeof value === "object" &&
+            value.seconds
+        ) {
+
+            date =
+                new Date(
+                    value.seconds * 1000
+                );
+
+        } else {
+
+            date =
+                new Date(value);
+
+        }
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "Unknown date";
+
+        }
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       BACK
+       ===================================================== */
+
+    function goBack() {
+
+        if (tenantId) {
+
+            window.location.href =
+                "tenant-details.html?tenant=" +
+                encodeURIComponent(tenantId);
+
+        } else {
+
+            window.location.href =
+                "../main/tenants.html";
+
+        }
+
+    }
+
+    window.goBack = goBack;
+
+
+    /* =====================================================
+       PROFILE
+       ===================================================== */
+
+    function openProfile() {
+
+        window.location.href =
+            "../tools/profile.html";
+
+    }
+
+    window.openProfile = openProfile;
+
+
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    function goTo(page) {
+
+        if (page === "rent-plans") {
+
+            window.location.href =
+                "../main/rent-plans.html";
+
+            return;
+
+        }
+
+        if (page === "tenants") {
+
+            window.location.href =
+                "../main/tenants.html";
+
+            return;
+
+        }
+
+        if (page === "summary") {
+
+            window.location.href =
+                "../main/summary.html";
+
+            return;
+
+        }
+
+        if (page === "action") {
+
+            window.location.href =
+                "../main/action.html";
+
+            return;
+
+        }
+
+    }
+
+    window.goTo = goTo;
+
+
+    /* =====================================================
+       LOAD TENANT
+       ===================================================== */
+
+    async function loadTenant() {
+
+        if (!tenantId) {
+
+            showError(
+                "No tenant selected."
+            );
+
+            return;
+
+        }
+
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+            showError(
+                "Please log in first."
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            const tenantRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants",
+                    tenantId
+                );
+
+
+            const snapshot =
+                await getDoc(
+                    tenantRef
+                );
+
+
+            if (!snapshot.exists()) {
+
+                showError(
+                    "Tenant not found."
+                );
+
+                return;
+
+            }
+
+
+            tenantData =
+                snapshot.data();
+
+
+            renderTenant();
+
+
+            await loadHistory();
+
+        } catch (error) {
+
+            console.error(
+                "Error loading tenant:",
+                error
+            );
+
+            showError(
+                error.message ||
+                "Unable to load tenant."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       RENDER TENANT
+       ===================================================== */
+
+    function renderTenant() {
+
+        const name =
+            tenantData.name ||
+            "Unnamed Tenant";
+
+
+        const room =
+            tenantData.buildingNumber
+                ? (
+                    tenantData.building
+                        ? tenantData.building +
+                          " • " +
+                          tenantData.buildingNumber
+                        : tenantData.buildingNumber
+                  )
+                : (
+                    tenantData.building ||
+                    "No room assigned"
+                  );
+
+
+        const balance =
+            Number(
+                tenantData.currentDue ??
+                tenantData.openingBalance ??
+                0
+            );
+
+
+        const opening =
+            Number(
+                tenantData.openingBalance ||
+                0
+            );
+
+
+        const totalPaid =
+            Number(
+                tenantData.totalPaid ||
+                0
+            );
+
+
+        const type =
+            tenantData.balanceType === "owner"
+                ? "Owner pays"
+                : "Tenant owes";
+
+
+        document.getElementById(
+            "tenantName"
+        ).textContent =
+            name;
+
+
+        document.getElementById(
+            "tenantRoom"
+        ).textContent =
+            room;
+
+
+        document.getElementById(
+            "tenantAvatar"
+        ).textContent =
+            getInitials(name);
+
+
+        document.getElementById(
+            "currentBalance"
+        ).textContent =
+            formatMoney(balance);
+
+
+        document.getElementById(
+            "openingBalance"
+        ).textContent =
+            formatMoney(opening);
+
+
+        document.getElementById(
+            "totalPaid"
+        ).textContent =
+            formatMoney(totalPaid);
+
+
+        document.getElementById(
+            "balanceType"
+        ).textContent =
+            type;
+
+
+        const status =
+            document.getElementById(
+                "balanceStatus"
+            );
+
+
+        if (balance <= 0) {
+
+            status.textContent =
+                "No outstanding balance";
+
+        } else if (
+            tenantData.balanceType === "owner"
+        ) {
+
+            status.textContent =
+                "Amount payable to tenant";
+
+        } else {
+
+            status.textContent =
+                "Amount due from tenant";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       BALANCE HISTORY
+       ===================================================== */
+
+    async function loadHistory() {
+
+        const container =
+            document.getElementById(
+                "historyContainer"
+            );
+
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user || !tenantId) {
+            return;
+        }
+
+
+        try {
+
+            const historyRef =
+                collection(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants",
+                    tenantId,
+                    "balanceHistory"
+                );
+
+
+            let snapshot;
+
+
+            try {
+
+                const historyQuery =
+                    query(
+                        historyRef,
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        )
+                    );
+
+
+                snapshot =
+                    await getDocs(
+                        historyQuery
+                    );
+
+            } catch (error) {
+
+                snapshot =
+                    await getDocs(
+                        historyRef
+                    );
+
+            }
+
+
+            if (snapshot.empty) {
+
+                container.innerHTML = `
+                    <div class="empty-history">
+                        No balance history yet.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML = "";
+
+
+            snapshot.forEach(
+                function(historyDoc) {
+
+                    const item =
+                        historyDoc.data();
+
+
+                    const amount =
+                        Number(
+                            item.amount || 0
+                        );
+
+
+                    const note =
+                        item.note ||
+                        "Balance added";
+
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    div.className =
+                        "history-item";
+
+
+                    div.innerHTML = `
+
+                        <div class="history-left">
+
+                            <div class="history-icon">
+                                <i data-lucide="plus"></i>
+                            </div>
+
+                            <div class="history-info">
+
+                                <strong>
+                                    Balance Added
+                                </strong>
+
+                                <span>
+                                    ${escapeHtml(note)}
+                                    •
+                                    ${formatDate(item.createdAt)}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="history-amount">
+                            +${formatMoney(amount)}
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+
+            lucide.createIcons();
+
+        } catch (error) {
+
+            console.error(
+                "Error loading balance history:",
+                error
+            );
+
+
+            container.innerHTML = `
+                <div class="empty-history">
+                    Unable to load balance history.
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ADD BALANCE MODAL
+       ===================================================== */
+
+    function openAddBalance() {
+
+        document.getElementById(
+            "balanceAmount"
+        ).value = "";
+
+
+        document.getElementById(
+            "balanceNote"
+        ).value = "";
+
+
+        document.getElementById(
+            "balanceModal"
+        ).classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            function() {
+
+                document.getElementById(
+                    "balanceAmount"
+                ).focus();
+
+            },
+            100
+        );
+
+    }
+
+    window.openAddBalance =
+        openAddBalance;
+
+
+    function closeAddBalance() {
+
+        document.getElementById(
+            "balanceModal"
+        ).classList.remove(
+            "show"
+        );
+
+    }
+
+    window.closeAddBalance =
+        closeAddBalance;
+
+
+    /* =====================================================
+       SAVE BALANCE
+       ===================================================== */
+
+    async function saveBalance() {
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "balanceAmount"
+                ).value
+            );
+
+
+        const note =
+            document.getElementById(
+                "balanceNote"
+            ).value.trim();
+
+
+        if (!amount || amount <= 0) {
+
+            showToast(
+                "Enter a valid amount."
+            );
+
+            return;
+
+        }
+
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user || !tenantId) {
+
+            showToast(
+                "Tenant could not be found."
+            );
+
+            return;
+
+        }
+
+
+        const saveButton =
+            document.querySelector(
+                ".save-button"
+            );
+
+
+        saveButton.disabled =
+            true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
+        try {
+
+            const tenantRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants",
+                    tenantId
+                );
+
+
+            /*
+             * Increase the tenant's current due.
+             */
+
+            await updateDoc(
+                tenantRef,
+                {
+
+                    currentDue:
+                        increment(amount),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            /*
+             * Store a permanent
+             * balance history record.
+             */
+
+            const historyRef =
+                collection(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants",
+                    tenantId,
+                    "balanceHistory"
+                );
+
+
+            await addDoc(
+                historyRef,
+                {
+
+                    amount:
+                        amount,
+
+                    note:
+                        note ||
+                        "Balance added",
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            /*
+             * Update local data immediately.
+             */
+
+            tenantData.currentDue =
+                Number(
+                    tenantData.currentDue ??
+                    tenantData.openingBalance ??
+                    0
+                ) + amount;
+
+
+            renderTenant();
+
+
+            closeAddBalance();
+
+
+            await loadHistory();
+
+
+            showToast(
+                "Balance added successfully."
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error adding balance:",
+                error
+            );
+
+
+            showToast(
+                error.message ||
+                "Could not add balance."
+            );
+
+        } finally {
+
+            saveButton.disabled =
+                false;
+
+            saveButton.textContent =
+                "Add Balance";
+
+        }
+
+    }
+
+    window.saveBalance =
+        saveBalance;
+
+
+    /* =====================================================
+       COLLECT PAYMENT
+       ===================================================== */
+
+    function collectPayment() {
+
+        if (!tenantId) {
+            return;
+        }
+
+
+        window.location.href =
+            "tenant-payment.html?tenant=" +
+            encodeURIComponent(tenantId);
+
+    }
+
+    window.collectPayment =
+        collectPayment;
+
+
+    /* =====================================================
+       ERROR
+       ===================================================== */
+
+    function showError(message) {
+
+        document.getElementById(
+            "tenantName"
+        ).textContent =
+            "Unable to load";
+
+
+        document.getElementById(
+            "tenantRoom"
+        ).textContent =
+            message;
+
+
+        document.getElementById(
+            "balanceStatus"
+        ).textContent =
+            message;
+
+
+        document.getElementById(
+            "historyContainer"
+        ).innerHTML = `
+            <div class="empty-history">
+                ${escapeHtml(message)}
+            </div>
+        `;
+
+    }
+
+
+    /* =====================================================
+       AUTH
+       ===================================================== */
+
+    if (auth.currentUser) {
+
+        loadTenant();
+
+    } else {
+
+        auth.onAuthStateChanged(
+            function(user) {
+
+                if (user) {
+
+                    loadTenant();
+
+                } else {
+
+                    showError(
+                        "Please log in first."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+</script>
 
 </body>
 </html>

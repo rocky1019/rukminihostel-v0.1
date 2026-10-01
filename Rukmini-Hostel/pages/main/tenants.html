@@ -1393,14 +1393,26 @@
 
 
 
-<script>
+<script type="module">
+
+    import {
+        auth,
+        db
+    } from "../js/firebase-config.js";
+
+    import {
+        collection,
+        getDocs,
+        query,
+        orderBy
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
 
     /* =====================================================
        INITIALIZE LUCIDE
        ===================================================== */
 
     lucide.createIcons();
-
 
 
     /* =====================================================
@@ -1410,43 +1422,27 @@
     function goTo(page) {
 
         if (page === "rent-plans") {
-
-            window.location.href =
-                "rent-plans.html";
-
+            window.location.href = "rent-plans.html";
             return;
-
         }
-
 
         if (page === "tenants") {
-
             return;
-
         }
-
 
         if (page === "summary") {
-
-            window.location.href =
-                "summary.html";
-
+            window.location.href = "summary.html";
             return;
-
         }
 
-
         if (page === "action") {
-
-            window.location.href =
-                "action.html";
-
+            window.location.href = "action.html";
             return;
-
         }
 
     }
 
+    window.goTo = goTo;
 
 
     /* =====================================================
@@ -1460,12 +1456,11 @@
 
     }
 
+    window.addTenant = addTenant;
 
 
     /* =====================================================
        OPEN TENANT
-       
-       Firebase tenant ID will be passed here later.
        ===================================================== */
 
     function openTenant(tenantId) {
@@ -1476,13 +1471,18 @@
 
     }
 
+    window.openTenant = openTenant;
 
 
     /* =====================================================
        TENANT MENU
        ===================================================== */
 
-    function openTenantMenu(tenantId) {
+    function openTenantMenu(tenantId, event) {
+
+        if (event) {
+            event.stopPropagation();
+        }
 
         showToast(
             "Tenant options will be available here."
@@ -1490,6 +1490,7 @@
 
     }
 
+    window.openTenantMenu = openTenantMenu;
 
 
     /* =====================================================
@@ -1503,6 +1504,517 @@
 
     }
 
+    window.openProfile = openProfile;
+
+
+    /* =====================================================
+       INITIALS
+       ===================================================== */
+
+    function getInitials(name) {
+
+        if (!name) {
+            return "TN";
+        }
+
+        const words =
+            name
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+        if (words.length === 1) {
+
+            return words[0]
+                .substring(0, 2)
+                .toUpperCase();
+
+        }
+
+        return (
+            words[0][0] +
+            words[1][0]
+        ).toUpperCase();
+
+    }
+
+
+    /* =====================================================
+       FORMAT MONEY
+       ===================================================== */
+
+    function formatMoney(amount) {
+
+        const number =
+            Number(amount) || 0;
+
+        return "₹" +
+            number.toLocaleString("en-IN");
+
+    }
+
+
+    /* =====================================================
+       PAYMENT STATUS
+       ===================================================== */
+
+    function getPaymentStatus(tenant) {
+
+        const balance =
+            Number(
+                tenant.currentDue ??
+                tenant.openingBalance ??
+                0
+            );
+
+        if (balance <= 0) {
+
+            return {
+                text: "Paid",
+                className: "status-paid"
+            };
+
+        }
+
+        return {
+            text: "Due",
+            className: "status-due"
+        };
+
+    }
+
+
+    /* =====================================================
+       LOAD TENANTS FROM FIRESTORE
+       ===================================================== */
+
+    async function loadTenants() {
+
+        const container =
+            document.getElementById(
+                "tenantsContainer"
+            );
+
+        const emptyState =
+            document.getElementById(
+                "emptyState"
+            );
+
+        const tenantCount =
+            document.getElementById(
+                "tenantCount"
+            );
+
+        const tenantLabel =
+            document.getElementById(
+                "tenantLabel"
+            );
+
+
+        /* ---------------------------------------------
+           WAIT FOR FIREBASE AUTH
+           --------------------------------------------- */
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+            console.log(
+                "No logged-in user."
+            );
+
+            container.innerHTML = "";
+
+            emptyState.style.display =
+                "block";
+
+            tenantCount.textContent =
+                "0";
+
+            tenantLabel.textContent =
+                "0 tenants";
+
+            return;
+
+        }
+
+
+        try {
+
+            /* -----------------------------------------
+               FIRESTORE PATH
+
+               users/
+                 UID/
+                   tenants/
+               ----------------------------------------- */
+
+            const tenantsRef =
+                collection(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants"
+                );
+
+
+            let snapshot;
+
+
+            try {
+
+                const orderedQuery =
+                    query(
+                        tenantsRef,
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        )
+                    );
+
+                snapshot =
+                    await getDocs(
+                        orderedQuery
+                    );
+
+            } catch (orderError) {
+
+                /*
+                   If some older documents don't have
+                   createdAt, load normally instead.
+                */
+
+                console.warn(
+                    "Ordered tenant query failed. Loading normally.",
+                    orderError
+                );
+
+                snapshot =
+                    await getDocs(
+                        tenantsRef
+                    );
+
+            }
+
+
+            /* -----------------------------------------
+               REMOVE OLD CARDS
+               ----------------------------------------- */
+
+            container.innerHTML = "";
+
+
+            /* -----------------------------------------
+               NO TENANTS
+               ----------------------------------------- */
+
+            if (snapshot.empty) {
+
+                container.appendChild(
+                    emptyState
+                );
+
+                emptyState.style.display =
+                    "block";
+
+                tenantCount.textContent =
+                    "0";
+
+                tenantLabel.textContent =
+                    "0 tenants";
+
+                lucide.createIcons();
+
+                return;
+
+            }
+
+
+            /* -----------------------------------------
+               TENANT COUNT
+               ----------------------------------------- */
+
+            const total =
+                snapshot.size;
+
+            tenantCount.textContent =
+                total;
+
+            tenantLabel.textContent =
+                total === 1
+                    ? "1 tenant"
+                    : total + " tenants";
+
+
+            /* -----------------------------------------
+               CREATE TENANT CARDS
+               ----------------------------------------- */
+
+            snapshot.forEach(function(doc) {
+
+                const tenant =
+                    doc.data();
+
+                const tenantId =
+                    doc.id;
+
+
+                const name =
+                    tenant.name ||
+                    "Unnamed Tenant";
+
+
+                const room =
+                    tenant.buildingNumber
+                        ? (
+                            tenant.building
+                                ? tenant.building +
+                                  " • " +
+                                  tenant.buildingNumber
+                                : tenant.buildingNumber
+                          )
+                        : (
+                            tenant.building ||
+                            "No room assigned"
+                          );
+
+
+                const rent =
+                    Number(
+                        tenant.rent ??
+                        tenant.monthlyRent ??
+                        tenant.openingBalance ??
+                        0
+                    );
+
+
+                const balance =
+                    Number(
+                        tenant.currentDue ??
+                        tenant.openingBalance ??
+                        0
+                    );
+
+
+                const status =
+                    getPaymentStatus(
+                        tenant
+                    );
+
+
+                /* -------------------------------------
+                   CARD
+                   ------------------------------------- */
+
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+                card.className =
+                    "tenant-card";
+
+
+                card.setAttribute(
+                    "data-name",
+                    name
+                );
+
+
+                card.setAttribute(
+                    "data-room",
+                    room
+                );
+
+
+                card.setAttribute(
+                    "data-tenant-id",
+                    tenantId
+                );
+
+
+                card.onclick =
+                    function() {
+
+                        openTenant(
+                            tenantId
+                        );
+
+                    };
+
+
+                /* -------------------------------------
+                   CARD HTML
+                   ------------------------------------- */
+
+                card.innerHTML = `
+
+                    <div class="tenant-top">
+
+                        <div class="tenant-info">
+
+                            <div class="tenant-avatar">
+                                ${getInitials(name)}
+                            </div>
+
+                            <div class="tenant-name">
+
+                                <strong>
+                                    ${escapeHtml(name)}
+                                </strong>
+
+                                <span>
+                                    ${escapeHtml(room)}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="menu-button"
+                            type="button"
+                            aria-label="Tenant options"
+                        >
+
+                            <i data-lucide="more-vertical"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="tenant-details">
+
+                        <div class="detail">
+
+                            <span>
+                                Rent
+                            </span>
+
+                            <strong>
+                                ${formatMoney(rent)}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span>
+                                Balance
+                            </span>
+
+                            <strong>
+                                ${formatMoney(balance)}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail">
+
+                            <span>
+                                Status
+                            </span>
+
+                            <strong class="${status.className}">
+                                ${status.text}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                /* -------------------------------------
+                   MENU BUTTON
+                   ------------------------------------- */
+
+                const menuButton =
+                    card.querySelector(
+                        ".menu-button"
+                    );
+
+
+                menuButton.onclick =
+                    function(event) {
+
+                        openTenantMenu(
+                            tenantId,
+                            event
+                        );
+
+                    };
+
+
+                container.appendChild(
+                    card
+                );
+
+            });
+
+
+            /* -----------------------------------------
+               HIDE EMPTY STATE
+               ----------------------------------------- */
+
+            emptyState.style.display =
+                "none";
+
+
+            lucide.createIcons();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error loading tenants:",
+                error
+            );
+
+
+            container.innerHTML = "";
+
+            emptyState.style.display =
+                "block";
+
+            emptyState.querySelector(
+                "h3"
+            ).textContent =
+                "Unable to load tenants";
+
+
+            emptyState.querySelector(
+                "p"
+            ).textContent =
+                error.message ||
+                "Something went wrong while loading tenants.";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHtml(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
 
 
     /* =====================================================
@@ -1513,7 +2025,9 @@
 
         const query =
             document
-                .getElementById("searchInput")
+                .getElementById(
+                    "searchInput"
+                )
                 .value
                 .toLowerCase()
                 .trim();
@@ -1556,9 +2070,7 @@
 
                 visible++;
 
-            }
-
-            else {
+            } else {
 
                 card.style.display =
                     "none";
@@ -1597,7 +2109,9 @@
 
 
         document
-            .getElementById("tenantLabel")
+            .getElementById(
+                "tenantLabel"
+            )
             .textContent =
                 visible +
                 (
@@ -1608,6 +2122,8 @@
 
     }
 
+    window.searchTenants =
+        searchTenants;
 
 
     /* =====================================================
@@ -1642,71 +2158,37 @@
     }
 
 
-
     /* =====================================================
-       FUTURE FIREBASE STRUCTURE
-       
-       Later database.js will generate cards like:
-
-       <article
-           class="tenant-card"
-           data-name="Tenant Name"
-           data-room="Room 101"
-           onclick="openTenant('firebase-id')"
-       >
-
-           <div class="tenant-top">
-
-               <div class="tenant-info">
-
-                   <div class="tenant-avatar">
-                       TN
-                   </div>
-
-                   <div class="tenant-name">
-
-                       <strong>
-                           Tenant Name
-                       </strong>
-
-                       <span>
-                           Room 101
-                       </span>
-
-                   </div>
-
-               </div>
-
-               <button class="menu-button">
-                   ...
-               </button>
-
-           </div>
-
-           <div class="tenant-details">
-
-               <div class="detail">
-                   <span>Rent</span>
-                   <strong>₹5,000</strong>
-               </div>
-
-               <div class="detail">
-                   <span>Balance</span>
-                   <strong>₹0</strong>
-               </div>
-
-               <div class="detail">
-                   <span>Status</span>
-                   <strong class="status-paid">
-                       Paid
-                   </strong>
-               </div>
-
-           </div>
-
-       </article>
-
+       WAIT FOR AUTH + LOAD
        ===================================================== */
+
+    if (
+        auth.currentUser
+    ) {
+
+        loadTenants();
+
+    } else {
+
+        auth.onAuthStateChanged(
+            function(user) {
+
+                if (user) {
+
+                    loadTenants();
+
+                } else {
+
+                    console.log(
+                        "User is not logged in."
+                    );
+
+                }
+
+            }
+        );
+
+    }
 
 </script>
 

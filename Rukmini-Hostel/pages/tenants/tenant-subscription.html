@@ -1,125 +1,1023 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tenant Subscription - Rukmini Hostel</title>
-<script src="https://unpkg.com/lucide@latest"></script>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#F5F7F6;color:#263238;padding-bottom:84px}
-button,input,select{font:inherit}
-.header{height:72px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;background:#00695C;border-bottom:1px solid #00574D;position:sticky;top:0;z-index:20}
-.header-left{display:flex;align-items:center;gap:9px}
-.back-button{width:34px;height:34px;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.back-button svg{width:21px;height:21px;stroke-width:2.5}
-.header-logo{width:43px;height:43px;border-radius:12px;object-fit:cover;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.12)}
-.header-title{display:flex;flex-direction:column;gap:3px}
-.header-title strong{font-size:17px;line-height:1;font-weight:700;color:#fff}
-.header-title span{font-size:11px;color:#B2DFDB}
-.profile-button{width:40px;height:40px;border:1px solid #4DB6AC;border-radius:50%;background:#087D70;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.profile-button svg{width:19px;height:19px}
-.page{max-width:600px;margin:auto;padding:14px}
-.tenant-card,.section,.summary-card{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.09);margin-bottom:12px}
-.tenant-card{padding:15px;display:flex;align-items:center;gap:13px}
-.tenant-avatar{width:52px;height:52px;border-radius:50%;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center}
-.tenant-avatar svg{width:23px}.tenant-info{flex:1}.tenant-name{font-size:18px;font-weight:700}.tenant-meta{font-size:12px;color:#777;margin-top:4px}
-.summary-card{padding:16px}.summary-title{font-size:17px;font-weight:700;color:#00695C}.summary-text{font-size:12px;color:#777;margin-top:5px}
-.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
-.summary-box{border:1px solid #D7E5E3;border-radius:9px;padding:12px;background:#FAFCFB}
-.summary-box svg{width:19px;color:#00695C;margin-bottom:7px}.summary-value{font-size:20px;font-weight:700}.summary-label{font-size:11px;color:#777;margin-top:3px}
-.section{overflow:hidden}.section-title{color:#00695C;font-size:17px;font-weight:700;padding:14px 15px 11px;border-bottom:1px solid #E4EAEA}
-.plan-row{padding:14px 15px;border-bottom:1px solid #EEF1F0;display:flex;align-items:center;gap:11px}.plan-row:last-child{border-bottom:0}
-.plan-icon{width:42px;height:42px;border-radius:10px;background:#E6F4F2;color:#00695C;display:flex;align-items:center;justify-content:center;flex:none}.plan-icon svg{width:20px}
-.plan-main{flex:1}.plan-name{font-size:14px;font-weight:700}.plan-meta{font-size:11px;color:#777;margin-top:4px}.plan-status{font-size:10px;font-weight:700;margin-top:6px;color:#087532}
-.plan-actions{display:flex;gap:6px}.icon-btn{width:32px;height:32px;border:1px solid #C7DEDB;border-radius:8px;background:#fff;color:#00695C;display:flex;align-items:center;justify-content:center;cursor:pointer}.icon-btn svg{width:16px}
-.form{padding:14px}.field{margin-bottom:12px}.field:last-child{margin-bottom:0}label{display:block;font-size:12px;color:#666;margin-bottom:6px}
-input,select{width:100%;border:1px solid #CFDDDB;border-radius:8px;background:#fff;color:#222;padding:12px 11px;outline:none}input:focus,select:focus{border-color:#00897B}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.primary-btn{width:100%;border:0;border-radius:9px;background:#00695C;color:#fff;padding:13px;font-weight:700;cursor:pointer}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px}.quick-btn{border:1px solid #D7E5E3;background:#fff;border-radius:9px;padding:13px 10px;color:#00695C;cursor:pointer;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}.quick-btn svg{width:19px}
-.empty{padding:25px 15px;text-align:center;color:#777;font-size:13px}.empty svg{width:30px;height:30px;color:#80CBC4;margin-bottom:8px}
-.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:600px;height:72px;background:#00695C;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px 10px;z-index:50;box-shadow:0 -4px 15px rgba(0,77,70,.12)}
-.nav-item{border:0;background:transparent;color:#B2DFDB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:500;cursor:pointer}
-.nav-icon{width:36px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center}.nav-icon svg{width:18px;height:18px;stroke-width:2.6}
-.nav-item.active{color:#fff;font-weight:700}.nav-item.active .nav-icon{background:#80CBC4;color:#004D40}
-@media(max-width:420px){.header{padding:0 16px}.page{padding:12px}.form-grid{grid-template-columns:1fr}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#00695C">
+    <title>Tenant Subscription - Rukmini Hostel</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #E9EEEE;
+            color: #263238;
+        }
+
+        button, input, select {
+            font-family: inherit;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 600px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #F5F7F7;
+        }
+
+        .header {
+            height: 72px;
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #00695C;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .back-button {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: transparent;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .back-button svg {
+            width: 23px;
+            height: 23px;
+            stroke-width: 2.5;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .content {
+            padding: 20px 16px 35px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px 20px;
+            text-align: center;
+            border: 1px solid #E4EAEA;
+            box-shadow: 0 4px 12px rgba(38,50,56,.04);
+            margin-bottom: 16px;
+        }
+
+        .avatar {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 11px;
+            border-radius: 20px;
+            background: #E0F2F1;
+            color: #00695C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .profile-card h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .profile-card p {
+            font-size: 13px;
+            color: #78909C;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #E4EAEA;
+            border-radius: 17px;
+            padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 3px 10px rgba(38,50,56,.035);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #00695C;
+            margin-bottom: 16px;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        .field label {
+            display: block;
+            font-size: 11px;
+            color: #90A4AE;
+            margin-bottom: 6px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            height: 45px;
+            border: 1px solid #DDE5E5;
+            border-radius: 11px;
+            padding: 0 12px;
+            outline: none;
+            background: #FAFCFC;
+            color: #37474F;
+            font-size: 14px;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #80CBC4;
+            box-shadow: 0 0 0 3px rgba(0,137,123,.07);
+        }
+
+        .status-box {
+            background: #E0F2F1;
+            border-radius: 14px;
+            padding: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .status-box span {
+            font-size: 12px;
+            color: #51736F;
+        }
+
+        .status-box strong {
+            display: block;
+            margin-top: 4px;
+            font-size: 20px;
+            color: #00897B;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .save-button,
+        .cancel-button {
+            flex: 1;
+            height: 47px;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .save-button {
+            background: #00695C;
+            color: white;
+        }
+
+        .cancel-button {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .save-button:active,
+        .cancel-button:active {
+            transform: scale(.98);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 35px 20px;
+            color: #78909C;
+            font-size: 14px;
+        }
+
+        .error {
+            background: white;
+            border-radius: 17px;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .error h3 {
+            margin-bottom: 7px;
+            color: #455A64;
+        }
+
+        .error p {
+            color: #90A4AE;
+            font-size: 13px;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            transform: translate(-50%, 20px);
+            background: #263238;
+            color: white;
+            padding: 11px 17px;
+            border-radius: 10px;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* SUBSCRIPTION LIST */
+
+        .subscription-list-toolbar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .subscription-list-toolbar input,
+        .subscription-list-toolbar select {
+            width: 100%;
+            min-width: 0;
+            height: 43px;
+            padding: 0 12px;
+            border: 1px solid #DDE5E5;
+            border-radius: 10px;
+            background: #FAFCFC;
+            color: #37474F;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .subscription-count {
+            font-size: 12px;
+            color: #78909C;
+            margin-bottom: 12px;
+        }
+
+        .subscription-item {
+            padding: 15px;
+            border: 1px solid #E4EAEA;
+            border-radius: 13px;
+            margin-bottom: 11px;
+            background: #FFFFFF;
+        }
+
+        .subscription-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .subscription-item-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .subscription-tenant-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #263238;
+            overflow-wrap: anywhere;
+        }
+
+        .subscription-room {
+            font-size: 11px;
+            color: #78909C;
+            margin-top: 4px;
+        }
+
+        .subscription-badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: capitalize;
+            white-space: nowrap;
+        }
+
+        .subscription-badge.active {
+            background: #E0F2F1;
+            color: #00796B;
+        }
+
+        .subscription-badge.expired {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .subscription-badge.paused {
+            background: #FFF3E0;
+            color: #E65100;
+        }
+
+        .subscription-plan {
+            font-size: 13px;
+            font-weight: 600;
+            color: #455A64;
+            margin-bottom: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .subscription-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 13px;
+        }
+
+        .subscription-meta-label {
+            display: block;
+            font-size: 10px;
+            color: #90A4AE;
+            margin-bottom: 4px;
+        }
+
+        .subscription-meta-value {
+            font-size: 12px;
+            font-weight: 600;
+            color: #37474F;
+            overflow-wrap: anywhere;
+        }
+
+        .subscription-edit-button {
+            width: 100%;
+            height: 38px;
+            border: 1px solid #B2DFDB;
+            border-radius: 9px;
+            background: #E0F2F1;
+            color: #00695C;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .subscription-edit-button:active {
+            transform: scale(.98);
+        }
+
+        .subscription-empty {
+            text-align: center;
+            padding: 25px 12px;
+            color: #78909C;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .subscription-error {
+            color: #C62828;
+            background: #FFEBEE;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
 </head>
+
 <body>
-<header class="header">
-<div class="header-left">
-<button class="back-button" onclick="history.back()"><i data-lucide="arrow-left"></i></button>
-<img src="../../assets/rukminilogo.png" class="header-logo" alt="Rukmini Hostel">
-<div class="header-title"><strong>Tenant Subscription</strong><span>Rent Management</span></div>
+<div class="app">
+    <header class="header">
+        <button class="back-button" onclick="goBack()">
+            <i data-lucide="arrow-left"></i>
+        </button>
+        <div class="header-title">Tenant Subscription</div>
+    </header>
+
+    <main class="content">
+        <div id="loading" class="loading">
+            Loading subscription...
+        </div>
+
+        <div id="tenantContent" style="display:none;">
+            <section class="profile-card">
+                <div class="avatar" id="avatar">TN</div>
+                <h1 id="tenantName">—</h1>
+                <p id="tenantRoom">—</p>
+            </section>
+
+            <section class="card">
+                <div class="card-title">Subscription Status</div>
+
+                <div class="status-box">
+                    <div>
+                        <span>Current Status</span>
+                        <strong id="statusText">Active</strong>
+                    </div>
+                    <i data-lucide="badge-check"
+                       style="width:25px;height:25px;color:#00897B;"></i>
+                </div>
+
+                <div class="field">
+                    <label>Status</label>
+                    <select id="subscriptionStatus">
+                        <option value="active">Active</option>
+                        <option value="expired">Expired</option>
+                        <option value="paused">Paused</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-title">Subscription Details</div>
+
+                <div class="field">
+                    <label>Plan / Subscription Name</label>
+                    <input type="text" id="subscriptionName"
+                           placeholder="e.g. Monthly Hostel Plan">
+                </div>
+
+                <div class="field">
+                    <label>Amount</label>
+                    <input type="number" id="subscriptionAmount"
+                           placeholder="0">
+                </div>
+
+                <div class="field">
+                    <label>Start Date</label>
+                    <input type="date" id="subscriptionStart">
+                </div>
+
+                <div class="field">
+                    <label>Renewal / Expiry Date</label>
+                    <input type="date" id="subscriptionEnd">
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-title">Actions</div>
+                <div class="actions">
+                    <button class="save-button"
+                            onclick="saveSubscription()">Save</button>
+                    <button class="cancel-button"
+                            onclick="clearSubscription()">Cancel</button>
+                </div>
+            </section>
+
+            <!-- ALL SUBSCRIPTIONS -->
+            <section class="card subscription-list-card">
+                <div class="card-title">All Subscriptions</div>
+
+                <div class="subscription-list-toolbar">
+                    <input type="search" id="subscriptionSearch"
+                           placeholder="Search tenant or plan...">
+
+                    <select id="subscriptionFilter">
+                        <option value="all">All Statuses</option>
+                        <option value="active">Active</option>
+                        <option value="expired">Expired</option>
+                        <option value="paused">Paused</option>
+                    </select>
+                </div>
+
+                <div id="subscriptionCount" class="subscription-count">
+                    Loading subscriptions...
+                </div>
+
+                <div id="subscriptionList">
+                    <div class="loading">Loading subscriptions...</div>
+                </div>
+            </section>
+        </div>
+
+        <div id="errorState" class="error" style="display:none;">
+            <h3>Unable to load tenant</h3>
+            <p id="errorMessage">Something went wrong.</p>
+        </div>
+    </main>
 </div>
-<button class="profile-button" onclick="openProfile()"><i data-lucide="user-round"></i></button>
-</header>
 
-<main class="page">
-<section class="tenant-card">
-<div class="tenant-avatar"><i data-lucide="user-round"></i></div>
-<div class="tenant-info"><div class="tenant-name">Tenant Name</div><div class="tenant-meta">Tenant Code: — &nbsp; • &nbsp; Room: —</div></div>
-</section>
+<div class="toast" id="toast"></div>
 
-<section class="summary-card">
-<div class="summary-title">Subscriptions</div>
-<div class="summary-text">Manage recurring services or add-ons linked to this tenant.</div>
-<div class="summary-grid">
-<div class="summary-box"><i data-lucide="repeat-2"></i><div class="summary-value">0</div><div class="summary-label">Active Subscriptions</div></div>
-<div class="summary-box"><i data-lucide="indian-rupee"></i><div class="summary-value">₹0</div><div class="summary-label">Monthly Total</div></div>
-</div>
-</section>
+<script type="module">
+    import { auth, db } from "../js/firebase-config.js";
 
-<section class="section">
-<div class="section-title">Add Subscription</div>
-<div class="form">
-<div class="field"><label for="service">Service</label><select id="service"><option value="">Select service</option><option>Food / Mess</option><option>Wi-Fi</option><option>Laundry</option><option>Cleaning</option><option>Parking</option><option>Other</option></select></div>
-<div class="form-grid">
-<div class="field"><label for="amount">Amount</label><input id="amount" type="number" min="0" placeholder="₹ amount"></div>
-<div class="field"><label for="frequency">Frequency</label><select id="frequency"><option>Monthly</option><option>Weekly</option><option>Daily</option><option>One Time</option></select></div>
-</div>
-<div class="form-grid">
-<div class="field"><label for="start">Start Date</label><input id="start" type="date"></div>
-<div class="field"><label for="status">Status</label><select id="status"><option>Active</option><option>Paused</option><option>Cancelled</option></select></div>
-</div>
-<button class="primary-btn" onclick="saveSubscription()">Save Subscription</button>
-</div>
-</section>
+    import {
+        doc,
+        getDoc,
+        updateDoc,
+        collection,
+        getDocs
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-<section class="section">
-<div class="section-title">Active Subscriptions</div>
-<div class="empty"><i data-lucide="package-open"></i><div>No subscriptions added yet.</div><div style="font-size:11px;margin-top:4px">Added services will appear here.</div></div>
-</section>
+    lucide.createIcons();
 
-<section class="section">
-<div class="section-title">Subscription Actions</div>
-<div class="quick-grid">
-<button class="quick-btn" onclick="alert('Subscription billing will be connected later.')"><i data-lucide="receipt-text"></i>Generate Bill</button>
-<button class="quick-btn" onclick="alert('Subscription payment will be connected later.')"><i data-lucide="indian-rupee"></i>Record Payment</button>
-<button class="quick-btn" onclick="alert('Reminder will be connected later.')"><i data-lucide="bell-ring"></i>Send Reminder</button>
-<button class="quick-btn" onclick="alert('Subscription history will be connected later.')"><i data-lucide="history"></i>View History</button>
-</div>
-</section>
-</main>
+    /* URL / BACK */
 
-<nav class="bottom-nav">
-<button class="nav-item" onclick="goTo('rent-plans')"><span class="nav-icon"><i data-lucide="receipt-text"></i></span><span>Rent Plan</span></button>
-<button class="nav-item active" onclick="goTo('tenants')"><span class="nav-icon"><i data-lucide="users-round"></i></span><span>Tenant</span></button>
-<button class="nav-item" onclick="goTo('summary')"><span class="nav-icon"><i data-lucide="chart-no-axes-combined"></i></span><span>Summary</span></button>
-<button class="nav-item" onclick="goTo('action')"><span class="nav-icon"><i data-lucide="menu"></i></span><span>Action</span></button>
-</nav>
+    const params = new URLSearchParams(window.location.search);
+    const tenantId = params.get("tenant");
 
-<script>
-lucide.createIcons();
-function goTo(page){if(page==="rent-plans")window.location.href="../main/rent-plans.html";if(page==="tenants")window.location.href="../main/tenants.html";if(page==="summary")window.location.href="../main/summary.html";if(page==="action")window.location.href="../main/action.html";}
-function openProfile(){window.location.href="../tools/profile.html";}
-function saveSubscription(){
-const service=document.getElementById("service").value;
-const amount=document.getElementById("amount").value;
-if(!service||!amount||Number(amount)<=0){alert("Please select a service and enter an amount.");return;}
-alert("Subscription saved locally for now. Firebase will handle real records later.");
-}
+    function goBack() {
+        window.location.href =
+            "../tenants/tenant-details.html?tenant=" +
+            encodeURIComponent(tenantId);
+    }
+
+    window.goBack = goBack;
+
+    /* HELPERS */
+
+    function getInitials(name) {
+        if (!name) return "TN";
+
+        const words = name.trim().split(/\s+/).filter(Boolean);
+
+        if (words.length === 1) {
+            return words[0].substring(0, 2).toUpperCase();
+        }
+
+        return (words[0][0] + words[1][0]).toUpperCase();
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 2200);
+    }
+
+    /* LOAD TENANT */
+
+    async function loadTenant() {
+        const loading = document.getElementById("loading");
+        const content = document.getElementById("tenantContent");
+        const errorState = document.getElementById("errorState");
+
+        if (!tenantId) {
+            loading.style.display = "none";
+            errorState.style.display = "block";
+            document.getElementById("errorMessage").textContent =
+                "No tenant ID was provided.";
+            return;
+        }
+
+        const user = auth.currentUser;
+
+        if (!user) {
+            loading.style.display = "none";
+            errorState.style.display = "block";
+            document.getElementById("errorMessage").textContent =
+                "Please log in first.";
+            return;
+        }
+
+        try {
+            const tenantRef = doc(
+                db, "users", user.uid, "tenants", tenantId
+            );
+
+            const snapshot = await getDoc(tenantRef);
+
+            if (!snapshot.exists()) {
+                throw new Error("This tenant does not exist.");
+            }
+
+            const tenant = snapshot.data();
+            const name = tenant.name || "Unnamed Tenant";
+
+            const room = tenant.buildingNumber
+                ? (
+                    tenant.building
+                        ? tenant.building + " • " + tenant.buildingNumber
+                        : tenant.buildingNumber
+                )
+                : (tenant.building || "No room assigned");
+
+            document.getElementById("avatar").textContent =
+                getInitials(name);
+
+            document.getElementById("tenantName").textContent = name;
+            document.getElementById("tenantRoom").textContent = room;
+
+            /* SUBSCRIPTION DATA */
+
+            const subscription = tenant.subscription || {};
+
+            document.getElementById("subscriptionName").value =
+                subscription.name || "";
+
+            document.getElementById("subscriptionAmount").value =
+                subscription.amount ?? "";
+
+            document.getElementById("subscriptionStart").value =
+                subscription.startDate || "";
+
+            document.getElementById("subscriptionEnd").value =
+                subscription.endDate || "";
+
+            const status = subscription.status || "active";
+
+            document.getElementById("subscriptionStatus").value = status;
+            updateStatusText(status);
+
+            loading.style.display = "none";
+            content.style.display = "block";
+
+            await loadSubscriptionList();
+            lucide.createIcons();
+
+        } catch (error) {
+            console.error(error);
+
+            loading.style.display = "none";
+            errorState.style.display = "block";
+
+            document.getElementById("errorMessage").textContent =
+                error.message || "Something went wrong.";
+        }
+    }
+
+    /* STATUS */
+
+    function updateStatusText(status) {
+        const text = document.getElementById("statusText");
+
+        if (status === "expired") {
+            text.textContent = "Expired";
+            text.style.color = "#D84343";
+        } else if (status === "paused") {
+            text.textContent = "Paused";
+            text.style.color = "#EF8C00";
+        } else {
+            text.textContent = "Active";
+            text.style.color = "#00897B";
+        }
+    }
+
+    document.getElementById("subscriptionStatus")
+        .addEventListener("change", function () {
+            updateStatusText(this.value);
+        });
+
+    /* SAVE */
+
+    async function saveSubscription() {
+        const user = auth.currentUser;
+
+        if (!user || !tenantId) {
+            showToast("Unable to save subscription.");
+            return;
+        }
+
+        const subscription = {
+            name: document.getElementById("subscriptionName").value.trim(),
+            amount: Number(
+                document.getElementById("subscriptionAmount").value
+            ) || 0,
+            startDate: document.getElementById("subscriptionStart").value,
+            endDate: document.getElementById("subscriptionEnd").value,
+            status: document.getElementById("subscriptionStatus").value
+        };
+
+        try {
+            const tenantRef = doc(
+                db, "users", user.uid, "tenants", tenantId
+            );
+
+            await updateDoc(tenantRef, {
+                subscription: subscription
+            });
+
+            updateStatusText(subscription.status);
+            showToast("Subscription saved");
+
+            await loadSubscriptionList();
+
+        } catch (error) {
+            console.error("Subscription save error:", error);
+            showToast(error.message || "Unable to save.");
+        }
+    }
+
+    window.saveSubscription = saveSubscription;
+
+    /* CLEAR / CANCEL */
+
+    async function clearSubscription() {
+        const user = auth.currentUser;
+
+        if (!user || !tenantId) return;
+
+        try {
+            const tenantRef = doc(
+                db, "users", user.uid, "tenants", tenantId
+            );
+
+            await updateDoc(tenantRef, {
+                subscription: null
+            });
+
+            document.getElementById("subscriptionName").value = "";
+            document.getElementById("subscriptionAmount").value = "";
+            document.getElementById("subscriptionStart").value = "";
+            document.getElementById("subscriptionEnd").value = "";
+            document.getElementById("subscriptionStatus").value = "active";
+
+            updateStatusText("active");
+            showToast("Subscription removed");
+
+            await loadSubscriptionList();
+
+        } catch (error) {
+            console.error(error);
+            showToast(error.message || "Unable to remove subscription.");
+        }
+    }
+
+    window.clearSubscription = clearSubscription;
+
+    /* ALL SUBSCRIPTIONS LIST */
+
+    let allSubscriptions = [];
+
+    function escapeSubscriptionHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]);
+    }
+
+    function formatSubscriptionDate(value) {
+        if (!value) return "Not set";
+
+        const parts = String(value).split("-");
+
+        if (parts.length !== 3) return value;
+
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+
+    function formatSubscriptionAmount(value) {
+        return "₹" + Number(value || 0).toLocaleString("en-IN");
+    }
+
+    async function loadSubscriptionList() {
+        const list = document.getElementById("subscriptionList");
+        const count = document.getElementById("subscriptionCount");
+
+        if (!list || !count) return;
+
+        const user = auth.currentUser;
+
+        if (!user) {
+            list.innerHTML = `
+                <div class="subscription-empty">
+                    Please log in to view subscriptions.
+                </div>
+            `;
+            count.textContent = "";
+            return;
+        }
+
+        list.innerHTML = `
+            <div class="loading">Loading subscriptions...</div>
+        `;
+
+        try {
+            const tenantsRef = collection(
+                db, "users", user.uid, "tenants"
+            );
+
+            const snapshot = await getDocs(tenantsRef);
+            allSubscriptions = [];
+
+            snapshot.forEach(tenantDoc => {
+                const tenant = tenantDoc.data();
+                const sub = tenant.subscription;
+
+                if (
+                    !sub ||
+                    typeof sub !== "object" ||
+                    !sub.name?.trim()
+                ) {
+                    return;
+                }
+
+                allSubscriptions.push({
+                    id: tenantDoc.id,
+                    tenantName: tenant.name || "Unnamed Tenant",
+
+                    room: tenant.buildingNumber
+                        ? (
+                            tenant.building
+                                ? `${tenant.building} • ${tenant.buildingNumber}`
+                                : tenant.buildingNumber
+                        )
+                        : (tenant.building || "No room assigned"),
+
+                    name: sub.name,
+                    amount: Number(sub.amount || 0),
+                    startDate: sub.startDate || "",
+                    endDate: sub.endDate || "",
+
+                    status: ["active", "expired", "paused"].includes(
+                        String(sub.status || "active").toLowerCase()
+                    )
+                        ? String(sub.status || "active").toLowerCase()
+                        : "active"
+                });
+            });
+
+            allSubscriptions.sort((a, b) => {
+                if (!a.endDate) return 1;
+                if (!b.endDate) return -1;
+                return a.endDate.localeCompare(b.endDate);
+            });
+
+            renderSubscriptionList();
+
+        } catch (error) {
+            console.error("Subscription list error:", error);
+
+            list.innerHTML = `
+                <div class="subscription-error">
+                    Unable to load subscriptions.
+                    ${escapeSubscriptionHTML(error.message)}
+                </div>
+            `;
+
+            count.textContent = "";
+        }
+    }
+
+    function renderSubscriptionList() {
+        const list = document.getElementById("subscriptionList");
+        const count = document.getElementById("subscriptionCount");
+
+        const search = (
+            document.getElementById("subscriptionSearch").value || ""
+        ).trim().toLowerCase();
+
+        const filter =
+            document.getElementById("subscriptionFilter").value;
+
+        const filtered = allSubscriptions.filter(sub => {
+            const matchesSearch =
+                sub.tenantName.toLowerCase().includes(search) ||
+                sub.name.toLowerCase().includes(search) ||
+                String(sub.room).toLowerCase().includes(search);
+
+            const matchesStatus =
+                filter === "all" || sub.status === filter;
+
+            return matchesSearch && matchesStatus;
+        });
+
+        count.textContent =
+            `${filtered.length} subscription${filtered.length === 1 ? "" : "s"}`;
+
+        if (filtered.length === 0) {
+            list.innerHTML = `
+                <div class="subscription-empty">
+                    <strong>No subscriptions found</strong><br>
+                    ${
+                        allSubscriptions.length === 0
+                            ? "Save a subscription using the form above. It will appear here."
+                            : "Try changing your search or status filter."
+                    }
+                </div>
+            `;
+            return;
+        }
+
+        list.innerHTML = filtered.map(sub => `
+            <article class="subscription-item">
+
+                <div class="subscription-item-header">
+                    <div>
+                        <div class="subscription-tenant-name">
+                            ${escapeSubscriptionHTML(sub.tenantName)}
+                        </div>
+
+                        <div class="subscription-room">
+                            ${escapeSubscriptionHTML(sub.room)}
+                        </div>
+                    </div>
+
+                    <span class="subscription-badge ${sub.status}">
+                        ${escapeSubscriptionHTML(sub.status)}
+                    </span>
+                </div>
+
+                <div class="subscription-plan">
+                    ${escapeSubscriptionHTML(sub.name)}
+                </div>
+
+                <div class="subscription-meta">
+                    <div>
+                        <span class="subscription-meta-label">Amount</span>
+                        <span class="subscription-meta-value">
+                            ${formatSubscriptionAmount(sub.amount)}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="subscription-meta-label">Start Date</span>
+                        <span class="subscription-meta-value">
+                            ${escapeSubscriptionHTML(
+                                formatSubscriptionDate(sub.startDate)
+                            )}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="subscription-meta-label">
+                            Renewal / Expiry
+                        </span>
+                        <span class="subscription-meta-value">
+                            ${escapeSubscriptionHTML(
+                                formatSubscriptionDate(sub.endDate)
+                            )}
+                        </span>
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="subscription-edit-button"
+                    data-tenant-id="${escapeSubscriptionHTML(sub.id)}"
+                >
+                    Edit Subscription
+                </button>
+
+            </article>
+        `).join("");
+
+        list.querySelectorAll(".subscription-edit-button")
+            .forEach(button => {
+                button.addEventListener("click", () => {
+                    const id = button.dataset.tenantId;
+                    const url = new URL(window.location.href);
+
+                    url.searchParams.set("tenant", id);
+
+                    window.location.href = url.pathname + url.search;
+                });
+            });
+    }
+
+    document.getElementById("subscriptionSearch")
+        .addEventListener("input", renderSubscriptionList);
+
+    document.getElementById("subscriptionFilter")
+        .addEventListener("change", renderSubscriptionList);
+
+    /* AUTH */
+
+    if (auth.currentUser) {
+        loadTenant();
+    } else {
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                loadTenant();
+            }
+        });
+    }
 </script>
 </body>
 </html>

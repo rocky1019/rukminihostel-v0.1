@@ -2,116 +2,58 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#00695C">
 <title>Tenant Electricity - Rukmini Hostel</title>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#F5F7F6;color:#263238;padding-bottom:84px}
-button,input,select,textarea{font:inherit}
-.header{height:72px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;background:#00695C;border-bottom:1px solid #00574D;position:sticky;top:0;z-index:20}
-.header-left{display:flex;align-items:center;gap:9px}.back-button{width:34px;height:34px;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}.back-button svg{width:21px;height:21px;stroke-width:2.5}
-.header-logo{width:43px;height:43px;border-radius:12px;object-fit:cover;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.12)}
-.header-title{display:flex;flex-direction:column;gap:3px}.header-title strong{font-size:17px;line-height:1;font-weight:700;color:#fff}.header-title span{font-size:11px;color:#B2DFDB}
-.profile-button{width:40px;height:40px;border:1px solid #4DB6AC;border-radius:50%;background:#087D70;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}.profile-button svg{width:19px;height:19px}
-.page{max-width:600px;margin:auto;padding:14px}
-.tenant-card,.section,.summary-card{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.09);margin-bottom:12px}
-.tenant-card{padding:15px;display:flex;align-items:center;gap:13px}.tenant-avatar{width:52px;height:52px;border-radius:50%;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center}.tenant-avatar svg{width:23px}.tenant-info{flex:1}.tenant-name{font-size:18px;font-weight:700}.tenant-meta{font-size:12px;color:#777;margin-top:4px}
-.summary-card{padding:16px}.summary-title{font-size:17px;font-weight:700;color:#00695C}.summary-text{font-size:12px;color:#777;margin-top:5px}
-.reading-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}.reading-box{border:1px solid #D7E5E3;border-radius:9px;padding:12px;background:#FAFCFB}.reading-box svg{width:19px;color:#00695C;margin-bottom:7px}.reading-value{font-size:20px;font-weight:700}.reading-label{font-size:11px;color:#777;margin-top:3px}
-.section{overflow:hidden}.section-title{color:#00695C;font-size:17px;font-weight:700;padding:14px 15px 11px;border-bottom:1px solid #E4EAEA}.form{padding:14px}.field{margin-bottom:12px}.field:last-child{margin-bottom:0}label{display:block;font-size:12px;color:#666;margin-bottom:6px}
-input,select,textarea{width:100%;border:1px solid #CFDDDB;border-radius:8px;background:#fff;color:#222;padding:12px 11px;outline:none}input:focus,select:focus,textarea:focus{border-color:#00897B}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.primary-btn{width:100%;border:0;border-radius:9px;background:#00695C;color:#fff;padding:13px;font-weight:700;cursor:pointer}
-.history-row{padding:14px 15px;border-bottom:1px solid #EEF1F0;display:flex;align-items:center;gap:11px}.history-row:last-child{border-bottom:0}.history-icon{width:40px;height:40px;border-radius:10px;background:#E6F4F2;color:#00695C;display:flex;align-items:center;justify-content:center}.history-icon svg{width:19px}.history-main{flex:1}.history-title{font-size:14px;font-weight:700}.history-meta{font-size:11px;color:#777;margin-top:4px}.history-amount{font-size:14px;font-weight:700;color:#087532}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px}.quick-btn{border:1px solid #D7E5E3;background:#fff;border-radius:9px;padding:13px 10px;color:#00695C;cursor:pointer;display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}.quick-btn svg{width:19px}
-.empty{padding:25px 15px;text-align:center;color:#777;font-size:13px}.empty svg{width:30px;height:30px;color:#80CBC4;margin-bottom:8px}
-.bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:600px;height:72px;background:#00695C;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 8px 10px;z-index:50;box-shadow:0 -4px 15px rgba(0,77,70,.12)}
-.nav-item{border:0;background:transparent;color:#B2DFDB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:500;cursor:pointer}.nav-icon{width:36px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center}.nav-icon svg{width:18px;height:18px;stroke-width:2.6}.nav-item.active{color:#fff;font-weight:700}.nav-item.active .nav-icon{background:#80CBC4;color:#004D40}
-@media(max-width:420px){.header{padding:0 16px}.page{padding:12px}.form-grid{grid-template-columns:1fr}}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{width:100%;min-height:100%}body{font-family:Arial,Helvetica,sans-serif;background:#E9EEEE;color:#263238}button,input,textarea{font:inherit}.app{width:100%;max-width:600px;min-height:100vh;margin:0 auto;background:#F5F7F7;box-shadow:0 0 35px rgba(0,0,0,.05)}.header{height:72px;padding:0 18px;display:flex;align-items:center;gap:12px;background:#00695C;color:white;position:sticky;top:0;z-index:20}.back-button{width:42px;height:42px;border:0;background:transparent;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer}.back-button svg{width:23px;height:23px;stroke-width:2.5}.header-title{font-size:20px;font-weight:700}.content{padding:18px 16px 35px}.profile-card,.card{background:white;border:1px solid #E4EAEA;border-radius:17px;padding:18px;margin-bottom:14px;box-shadow:0 3px 10px rgba(38,50,56,.035)}.profile-card{display:flex;align-items:center;gap:13px}.avatar{width:55px;height:55px;flex-shrink:0;border-radius:17px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}.tenant-name{font-size:17px;font-weight:700;margin-bottom:5px}.tenant-room{font-size:12px;color:#78909C}.summary{background:#E0F2F1;border-radius:14px;padding:17px;margin-bottom:14px}.summary-title{font-size:15px;font-weight:700;color:#00695C}.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.summary-box{background:rgba(255,255,255,.72);padding:12px;border-radius:10px}.summary-label{font-size:11px;color:#607D8B}.summary-value{font-size:20px;font-weight:700;color:#00695C;margin-top:5px;overflow-wrap:anywhere}.card-title{font-size:15px;font-weight:700;color:#00695C;margin-bottom:16px}.detail-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #EDF0F0}.detail-row:last-child{border-bottom:0;padding-bottom:0}.detail-row:first-child{padding-top:0}.detail-label{font-size:12px;color:#90A4AE}.detail-value{font-size:13px;color:#37474F;font-weight:600;text-align:right;word-break:break-word;max-width:60%}.field{margin-bottom:13px}.field:last-child{margin-bottom:0}label{display:block;font-size:12px;color:#607D8B;font-weight:600;margin-bottom:7px}input,textarea{width:100%;border:1px solid #DCE5E5;border-radius:10px;padding:12px;background:#FAFCFC;color:#263238;outline:none}input:focus,textarea:focus{border-color:#00897B}textarea{min-height:65px;resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.primary-btn{width:100%;border:0;border-radius:10px;background:#00695C;color:white;padding:13px;font-weight:700;cursor:pointer}.secondary-btn,.delete-btn{border:0;border-radius:9px;padding:9px 11px;font-size:12px;font-weight:700;cursor:pointer}.secondary-btn{background:#E0F2F1;color:#00695C}.delete-btn{background:#FFEBEE;color:#C62828}.notice{display:none;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5;margin-bottom:14px}.notice.success{display:block;background:#E8F5E9;color:#2E7D32}.notice.error{display:block;background:#FFEBEE;color:#B71C1C}.history-item{padding:13px 0;border-bottom:1px solid #EDF0F0}.history-item:last-child{border-bottom:0;padding-bottom:0}.history-top{display:flex;justify-content:space-between;gap:10px}.history-month{font-size:14px;font-weight:700;color:#37474F}.history-date{font-size:11px;color:#90A4AE;margin-top:4px}.history-amount{font-size:15px;font-weight:700;color:#00695C;white-space:nowrap}.history-meta{font-size:12px;color:#78909C;line-height:1.6;margin-top:8px}.history-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:10px}.empty,.loading{text-align:center;padding:40px 15px;color:#78909C;font-size:13px}.hint{font-size:11px;color:#90A4AE;line-height:1.5;margin-top:10px}@media(max-width:360px){.form-grid{grid-template-columns:1fr}.summary-value{font-size:18px}}
 </style>
 </head>
 <body>
-
-<header class="header">
-<div class="header-left">
-<button class="back-button" onclick="history.back()"><i data-lucide="arrow-left"></i></button>
-<img src="../../assets/rukminilogo.png" class="header-logo" alt="Rukmini Hostel">
-<div class="header-title"><strong>Tenant Electricity</strong><span>Rent Management</span></div>
+<div class="app">
+<header class="header"><button class="back-button" onclick="goBack()" aria-label="Back"><i data-lucide="arrow-left"></i></button><div class="header-title">Tenant Electricity</div></header>
+<main class="content">
+<div id="loading" class="loading">Loading electricity details...</div>
+<div id="tenantContent" style="display:none">
+<section class="profile-card"><div class="avatar" id="avatar">TN</div><div><div class="tenant-name" id="tenantName">—</div><div class="tenant-room" id="tenantRoom">—</div></div></section>
+<div id="notice" class="notice" role="status"></div>
+<section class="summary"><div class="summary-title">Electricity Summary</div><div class="summary-grid"><div class="summary-box"><div class="summary-label">Current Meter Reading</div><div class="summary-value" id="currentReadingSummary">—</div></div><div class="summary-box"><div class="summary-label">Electricity Balance</div><div class="summary-value" id="electricityBalance">₹0</div></div><div class="summary-box"><div class="summary-label">Latest Units Used</div><div class="summary-value" id="unitsUsed">—</div></div><div class="summary-box"><div class="summary-label">Latest Bill Amount</div><div class="summary-value" id="latestAmount">₹0</div></div></div></section>
+<section class="card"><div class="card-title" id="formTitle">Add Electricity Reading</div><form id="readingForm">
+<div class="field"><label for="meterNumberInput">Meter Number (optional)</label><input id="meterNumberInput" placeholder="Enter meter number"></div>
+<div class="field"><label for="month">Billing Month / Label</label><input id="month" placeholder="e.g. October 2026" required></div>
+<div class="form-grid"><div class="field"><label for="previous">Previous Reading</label><input id="previous" type="number" min="0" step="any" placeholder="0" required></div><div class="field"><label for="current">Current Reading</label><input id="current" type="number" min="0" step="any" placeholder="0" required></div></div>
+<div class="form-grid"><div class="field"><label for="rate">Rate Per Unit (₹)</label><input id="rate" type="number" min="0" step="any" value="8" required></div><div class="field"><label for="readingDate">Reading Date</label><input id="readingDate" type="date" required></div></div>
+<div class="field"><label for="notes">Notes (optional)</label><textarea id="notes" placeholder="Additional details"></textarea></div>
+<button class="primary-btn" id="saveButton" type="submit">Save Reading</button><button class="secondary-btn" id="cancelEdit" type="button" onclick="resetForm()" style="display:none;width:100%;margin-top:9px">Cancel Edit</button>
+<p class="hint">Units used = current reading − previous reading. Bill amount = units used × rate per unit. Readings are saved to this tenant's Firestore record.</p>
+</form></section>
+<section class="card"><div class="card-title">Electricity Details</div><div class="detail-row"><span class="detail-label">Meter Number</span><strong class="detail-value" id="meterNumber">—</strong></div><div class="detail-row"><span class="detail-label">Last Reading</span><strong class="detail-value" id="lastReading">—</strong></div><div class="detail-row"><span class="detail-label">Current Reading</span><strong class="detail-value" id="currentReading">—</strong></div><div class="detail-row"><span class="detail-label">Status</span><strong class="detail-value" id="electricityStatus">—</strong></div></section>
+<section class="card"><div class="card-title">Reading History</div><div id="history"><div class="empty">No electricity readings recorded yet.</div></div></section>
 </div>
-<button class="profile-button" onclick="openProfile()"><i data-lucide="user-round"></i></button>
-</header>
-
-<main class="page">
-
-<section class="tenant-card">
-<div class="tenant-avatar"><i data-lucide="user-round"></i></div>
-<div class="tenant-info"><div class="tenant-name">Tenant Name</div><div class="tenant-meta">Tenant Code: — &nbsp; • &nbsp; Room: —</div></div>
-</section>
-
-<section class="summary-card">
-<div class="summary-title">Electricity Summary</div>
-<div class="summary-text">Track meter readings and electricity charges for this tenant.</div>
-<div class="reading-grid">
-<div class="reading-box"><i data-lucide="gauge"></i><div class="reading-value">—</div><div class="reading-label">Current Reading</div></div>
-<div class="reading-box"><i data-lucide="zap"></i><div class="reading-value">—</div><div class="reading-label">Units Used</div></div>
-</div>
-</section>
-
-<section class="section">
-<div class="section-title">Add Electricity Reading</div>
-<div class="form">
-<div class="form-grid">
-<div class="field"><label for="previous">Previous Reading</label><input id="previous" type="number" placeholder="Enter reading"></div>
-<div class="field"><label for="current">Current Reading</label><input id="current" type="number" placeholder="Enter reading"></div>
-</div>
-<div class="form-grid">
-<div class="field"><label for="rate">Rate Per Unit</label><input id="rate" type="number" step="0.01" placeholder="₹ per unit"></div>
-<div class="field"><label for="date">Reading Date</label><input id="date" type="date"></div>
-</div>
-<div class="field"><label for="notes">Notes</label><textarea id="notes" placeholder="Optional notes"></textarea></div>
-<button class="primary-btn" onclick="saveReading()">Save Reading</button>
-</div>
-</section>
-
-<section class="section">
-<div class="section-title">Electricity Actions</div>
-<div class="quick-grid">
-<button class="quick-btn" onclick="alert('Bill generation will be connected later.')"><i data-lucide="receipt-text"></i>Generate Bill</button>
-<button class="quick-btn" onclick="alert('Electricity payment will be connected later.')"><i data-lucide="indian-rupee"></i>Record Payment</button>
-<button class="quick-btn" onclick="alert('Bill sharing will be connected later.')"><i data-lucide="share-2"></i>Share Bill</button>
-<button class="quick-btn" onclick="alert('Meter history will be connected later.')"><i data-lucide="history"></i>View History</button>
-</div>
-</section>
-
-<section class="section">
-<div class="section-title">Reading History</div>
-<div class="empty"><i data-lucide="gauge"></i><div>No electricity readings recorded yet.</div><div style="font-size:11px;margin-top:4px">Saved readings will appear here.</div></div>
-</section>
-
-</main>
-
-<nav class="bottom-nav">
-<button class="nav-item" onclick="goTo('rent-plans')"><span class="nav-icon"><i data-lucide="receipt-text"></i></span><span>Rent Plan</span></button>
-<button class="nav-item active" onclick="goTo('tenants')"><span class="nav-icon"><i data-lucide="users-round"></i></span><span>Tenant</span></button>
-<button class="nav-item" onclick="goTo('summary')"><span class="nav-icon"><i data-lucide="chart-no-axes-combined"></i></span><span>Summary</span></button>
-<button class="nav-item" onclick="goTo('action')"><span class="nav-icon"><i data-lucide="menu"></i></span><span>Action</span></button>
-</nav>
-
-<script>
+<div id="errorState" class="card" style="display:none;text-align:center"><div class="card-title">Unable to load tenant</div><p id="errorMessage" style="font-size:13px;color:#78909C;line-height:1.5"></p></div>
+</main></div>
+<script type="module">
+import {auth,db} from "../js/firebase-config.js";
+import {doc,getDoc,updateDoc} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 lucide.createIcons();
-function goTo(page){
-if(page==="rent-plans")window.location.href="../main/rent-plans.html";
-if(page==="tenants")window.location.href="../main/tenants.html";
-if(page==="summary")window.location.href="../main/summary.html";
-if(page==="action")window.location.href="../main/action.html";
-}
-function openProfile(){window.location.href="../tools/profile.html";}
-function saveReading(){
-const p=Number(document.getElementById("previous").value);
-const c=Number(document.getElementById("current").value);
-if(!document.getElementById("current").value||c<p){alert("Please enter valid meter readings.");return;}
-alert("Electricity reading saved locally for now. Firebase will handle real records later.");
-}
+const params=new URLSearchParams(window.location.search);const tenantId=params.get("tenant");const $=id=>document.getElementById(id);let tenantRef=null,tenantData={},records=[],editingId=null;
+const money=v=>"₹"+(Number(v)||0).toLocaleString("en-IN",{maximumFractionDigits:2});
+const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function getInitials(name){return String(name||"TN").trim().split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join("").toUpperCase()||"TN"}
+function goBack(){window.location.href="tenant-details.html?tenant="+encodeURIComponent(tenantId||"")};window.goBack=goBack;
+function showNotice(msg,type="error"){$("notice").className="notice "+type;$("notice").textContent=msg}function clearNotice(){$("notice").className="notice";$("notice").textContent=""}
+function calculate(){const p=Number($("previous").value),c=Number($("current").value),r=Number($("rate").value);const valid=$("previous").value!==""&&$("current").value!==""&&$("rate").value!==""&&Number.isFinite(p+c+r)&&p>=0&&c>=p&&r>=0;return {valid,previous:p,current:c,rate:r,units:valid?c-p:0,amount:valid?(c-p)*r:0}}
+["previous","current","rate"].forEach(id=>$(id).addEventListener("input",()=>{const x=calculate();$("unitsUsed").textContent=x.units.toLocaleString("en-IN",{maximumFractionDigits:2});$("latestAmount").textContent=money(x.amount)}));
+function resetForm(){editingId=null;$('readingForm').reset();$('rate').value="8";$('readingDate').value=new Date().toISOString().slice(0,10);$('formTitle').textContent="Add Electricity Reading";$('saveButton').textContent="Save Reading";$('cancelEdit').style.display="none";clearNotice();$('unitsUsed').textContent=records.length?Number(records.slice().sort((a,b)=>String(b.readingDate||"").localeCompare(String(a.readingDate||"")))[0].units||0).toLocaleString("en-IN"):"—";$('latestAmount').textContent=money(records.length?records.slice().sort((a,b)=>String(b.readingDate||"").localeCompare(String(a.readingDate||"")))[0].amount:0)}window.resetForm=resetForm;
+function renderHistory(){if(!records.length){$('history').innerHTML='<div class="empty">No electricity readings recorded yet. Saved readings will appear here.</div>';return}const sorted=[...records].sort((a,b)=>String(b.readingDate||"").localeCompare(String(a.readingDate||"")));$('history').innerHTML=sorted.map(r=>`<div class="history-item"><div class="history-top"><div><div class="history-month">${safe(r.month||"Electricity reading")}</div><div class="history-date">${safe(r.readingDate||"No date")}</div></div><div class="history-amount">${money(r.amount)}</div></div><div class="history-meta">Previous: ${Number(r.previous)} · Current: ${Number(r.current)}<br>Units: ${Number(r.units)} · Rate: ${money(r.rate)}/unit${r.notes?'<br>Notes: '+safe(r.notes):''}</div><div class="history-actions"><button class="secondary-btn" data-edit="${safe(r.id)}">Edit</button><button class="delete-btn" data-delete="${safe(r.id)}">Delete</button></div></div>`).join('');$('history').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editRecord(b.dataset.edit));$('history').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteRecord(b.dataset.delete))}
+function editRecord(id){const r=records.find(x=>x.id===id);if(!r)return;editingId=id;$('meterNumberInput').value=r.meterNumber||tenantData.meterNumber||"";$('month').value=r.month||"";$('previous').value=r.previous;$('current').value=r.current;$('rate').value=r.rate;$('readingDate').value=r.readingDate||"";$('notes').value=r.notes||"";$('formTitle').textContent="Edit Electricity Reading";$('saveButton').textContent="Update Reading";$('cancelEdit').style.display="block";clearNotice();window.scrollTo({top:0,behavior:"smooth"})}
+async function saveRecords(nextRecords,successMessage,updatedMeter){$('saveButton').disabled=true;try{const sorted=[...nextRecords].sort((a,b)=>String(b.readingDate||"").localeCompare(String(a.readingDate||"")));const latest=sorted[0]||null;const baseBalance=Number(tenantData.electricityBaseBalance??tenantData.electricityBalance??tenantData.electricityDue??0)||0;const totalBalance=baseBalance+nextRecords.reduce((sum,r)=>sum+(Number(r.amount)||0),0);const update={electricityRecords:nextRecords,electricityBaseBalance:baseBalance,electricityBalance:totalBalance,meterNumber:updatedMeter||tenantData.meterNumber||"",lastElectricityReading:latest?latest.previous:null,currentElectricityReading:latest?latest.current:null};await updateDoc(tenantRef,update);tenantData={...tenantData,...update};records=nextRecords;renderHistory();renderSummary();resetForm();showNotice(successMessage,"success")}catch(e){console.error("Electricity save failed:",e);showNotice(e.code==="permission-denied"?"Firebase denied this update. Check that your rules allow updating users/{uid}/tenants/{tenantId}.":(e.message||"Could not save electricity reading."))}finally{$('saveButton').disabled=false}}
+$('readingForm').addEventListener('submit',async e=>{e.preventDefault();clearNotice();const c=calculate();if(!c.valid){showNotice("Please enter valid readings. Current reading must be at least the previous reading, and rate cannot be negative.");return}const meter=$('meterNumberInput').value.trim();const record={id:editingId||('el'+Date.now()+Math.random().toString(16).slice(2)),month:$('month').value.trim(),...c,readingDate:$('readingDate').value,notes:$('notes').value.trim(),meterNumber:meter,updatedAt:new Date().toISOString()};if(!record.month){showNotice("Please enter a billing month or label.");return}const next=editingId?records.map(r=>r.id===editingId?record:r):[...records,record];await saveRecords(next,editingId?"Electricity reading updated.":"Electricity reading saved.",meter)});
+async function deleteRecord(id){const record=records.find(r=>r.id===id);if(!record||!confirm(`Delete the electricity reading for "${record.month}"?`))return;const next=records.filter(r=>r.id!==id);try{const sorted=[...next].sort((a,b)=>String(b.readingDate||"").localeCompare(String(a.readingDate||"")));const latest=sorted[0]||null;const baseBalance=Number(tenantData.electricityBaseBalance??tenantData.electricityBalance??tenantData.electricityDue??0)||0;const update={electricityRecords:next,electricityBaseBalance:baseBalance,electricityBalance:baseBalance+next.reduce((sum,r)=>sum+(Number(r.amount)||0),0),lastElectricityReading:latest?latest.previous:null,currentElectricityReading:latest?latest.current:null};await updateDoc(tenantRef,update);records=next;tenantData={...tenantData,...update};renderHistory();renderSummary();if(editingId===id)resetForm();showNotice("Electricity reading deleted.","success")}catch(e){console.error(e);showNotice(e.message||"Could not delete reading.")}}
+function renderSummary(){const sorted=[...records].sort((a,b)=>String(b.readingDate||"").localeCompare(String(a.readingDate||"")));const latest=sorted[0];$('meterNumber').textContent=tenantData.meterNumber||'—';$('lastReading').textContent=tenantData.lastElectricityReading??'—';$('currentReading').textContent=tenantData.currentElectricityReading??'—';$('currentReadingSummary').textContent=tenantData.currentElectricityReading??'—';$('electricityBalance').textContent=money(tenantData.electricityBalance??tenantData.electricityDue??0);$('electricityStatus').textContent=(Number(tenantData.electricityBalance??tenantData.electricityDue??0)>0)?'Due':'Paid';$('unitsUsed').textContent=latest?Number(latest.units).toLocaleString('en-IN',{maximumFractionDigits:2}):'—';$('latestAmount').textContent=money(latest?latest.amount:0)}
+async function loadTenant(user){if(!tenantId)throw Error('No tenant ID was provided. Open Electricity from Tenant Details.');tenantRef=doc(db,'users',user.uid,'tenants',tenantId);const snap=await getDoc(tenantRef);if(!snap.exists())throw Error('This tenant does not exist or you do not have access.');tenantData=snap.data();$('tenantName').textContent=tenantData.name||'Unnamed Tenant';$('tenantRoom').textContent=tenantData.buildingNumber?(tenantData.building?(tenantData.building+' • '):'')+tenantData.buildingNumber:(tenantData.building||'No room assigned');$('avatar').textContent=getInitials(tenantData.name);records=Array.isArray(tenantData.electricityRecords)?tenantData.electricityRecords:[];if(!records.length&&tenantData.currentElectricityReading!=null){$('currentReadingSummary').textContent=tenantData.currentElectricityReading}renderSummary();renderHistory();$('meterNumberInput').value=tenantData.meterNumber||'';$('loading').style.display='none';$('tenantContent').style.display='block';$('readingDate').value=new Date().toISOString().slice(0,10);}
+if(!tenantId){$('loading').style.display='none';$('errorState').style.display='block';$('errorMessage').textContent='No tenant ID was provided. Return to Tenant Details and open Electricity again.'}else{auth.onAuthStateChanged(async user=>{if(!user){$('loading').style.display='none';$('errorState').style.display='block';$('errorMessage').textContent='Please log in before viewing tenant electricity details.';return}try{await loadTenant(user)}catch(e){console.error('Error loading electricity:',e);$('loading').style.display='none';$('errorState').style.display='block';$('errorMessage').textContent=e.message||'Something went wrong while loading electricity details.'}})}
 </script>
 </body>
 </html>

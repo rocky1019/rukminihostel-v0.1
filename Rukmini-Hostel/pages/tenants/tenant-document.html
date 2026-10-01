@@ -1,346 +1,1091 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tenant Documents - Rukmini Hostel</title>
-<script src="https://unpkg.com/lucide@latest"></script>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#F5F7F6;color:#263238;padding-bottom:84px}
-button,input,select{font:inherit}
+    <meta charset="UTF-8">
 
-/* MASTER HEADER */
-.header{
-    height:72px;padding:0 20px;display:flex;align-items:center;
-    justify-content:space-between;background:#00695C;border-bottom:1px solid #00574D;
-    position:sticky;top:0;z-index:20
-}
-.header-left{display:flex;align-items:center;gap:9px}
-.back-button{
-    width:34px;height:34px;border:0;background:transparent;color:#fff;
-    display:flex;align-items:center;justify-content:center;cursor:pointer
-}
-.back-button svg{width:21px;height:21px;stroke-width:2.5}
-.header-logo{
-    width:43px;height:43px;border-radius:12px;object-fit:cover;background:#fff;
-    box-shadow:0 4px 12px rgba(0,0,0,.12)
-}
-.header-title{display:flex;flex-direction:column;gap:3px}
-.header-title strong{font-size:17px;line-height:1;font-weight:700;color:#fff}
-.header-title span{font-size:11px;color:#B2DFDB}
-.profile-button{
-    width:40px;height:40px;border:1px solid #4DB6AC;border-radius:50%;
-    background:#087D70;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer
-}
-.profile-button svg{width:19px;height:19px}
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-/* PAGE */
-.page{max-width:600px;margin:auto;padding:14px 14px 25px}
+    <meta name="theme-color" content="#00695C">
 
-/* TENANT */
-.tenant-card{
-    background:#fff;border-radius:12px;padding:15px;
-    box-shadow:0 3px 12px rgba(0,0,0,.10);
-    display:flex;align-items:center;gap:13px;margin-bottom:12px
-}
-.tenant-avatar{
-    width:52px;height:52px;border-radius:50%;background:#E0F2F1;color:#00695C;
-    display:flex;align-items:center;justify-content:center
-}
-.tenant-avatar svg{width:23px}
-.tenant-info{flex:1}
-.tenant-name{font-size:18px;font-weight:700}
-.tenant-meta{font-size:12px;color:#777;margin-top:4px}
+    <title>Tenant Documents - Rukmini Hostel</title>
 
-/* DOCUMENT SUMMARY */
-.summary-card{
-    background:#fff;border-radius:12px;padding:16px;
-    box-shadow:0 3px 12px rgba(0,0,0,.10);margin-bottom:12px
-}
-.summary-title{font-size:17px;font-weight:700;color:#00695C}
-.summary-text{font-size:12px;color:#777;margin-top:5px}
-.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
-.summary-box{
-    border:1px solid #D7E5E3;border-radius:9px;padding:12px;
-    background:#FAFCFB
-}
-.summary-box svg{width:19px;color:#00695C;margin-bottom:7px}
-.summary-number{font-size:20px;font-weight:700}
-.summary-label{font-size:11px;color:#777;margin-top:3px}
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-/* SECTION */
-.section{
-    background:#fff;border-radius:11px;overflow:hidden;
-    box-shadow:0 3px 11px rgba(0,0,0,.09);margin-bottom:12px
-}
-.section-title{
-    color:#00695C;font-size:17px;font-weight:700;
-    padding:14px 15px 11px;border-bottom:1px solid #E4EAEA
-}
+    <style>
 
-/* DOCUMENT ROW */
-.document-row{
-    padding:14px 15px;border-bottom:1px solid #EEF1F0;
-    display:flex;align-items:center;gap:11px
-}
-.document-row:last-child{border-bottom:0}
-.document-icon{
-    width:42px;height:42px;border-radius:10px;background:#E6F4F2;color:#00695C;
-    display:flex;align-items:center;justify-content:center;flex:none
-}
-.document-icon svg{width:20px}
-.document-main{flex:1;min-width:0}
-.document-name{font-size:14px;font-weight:700}
-.document-meta{font-size:11px;color:#777;margin-top:4px}
-.document-status{
-    font-size:10px;font-weight:700;margin-top:6px;
-    color:#087532
-}
-.document-status.missing{color:#B66E00}
-.document-actions{display:flex;gap:6px}
-.icon-btn{
-    width:32px;height:32px;border:1px solid #C7DEDB;border-radius:8px;
-    background:#fff;color:#00695C;display:flex;align-items:center;
-    justify-content:center;cursor:pointer
-}
-.icon-btn svg{width:16px}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* ACTIONS */
-.actions{padding:13px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.action-btn{
-    border:1px solid #D7E5E3;background:#fff;border-radius:9px;
-    padding:13px 10px;color:#00695C;cursor:pointer;
-    display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600
-}
-.action-btn svg{width:19px;flex:none}
-.primary{
-    background:#00695C;color:#fff;border-color:#00695C
-}
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
 
-/* EMPTY */
-.empty{padding:25px 15px;text-align:center;color:#777;font-size:13px}
-.empty svg{width:30px;height:30px;color:#80CBC4;margin-bottom:8px}
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #E9EEEE;
+            color: #263238;
+        }
 
-/* NAV */
-.bottom-nav{
-    position:fixed;left:50%;bottom:0;transform:translateX(-50%);
-    width:100%;max-width:600px;height:72px;background:#00695C;
-    display:grid;grid-template-columns:repeat(4,1fr);
-    padding:8px 8px 10px;z-index:50;
-    box-shadow:0 -4px 15px rgba(0,77,70,.12)
-}
-.nav-item{
-    border:0;background:transparent;color:#B2DFDB;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:4px;font-size:10px;font-weight:500;cursor:pointer
-}
-.nav-icon{
-    width:36px;height:30px;border-radius:10px;
-    display:flex;align-items:center;justify-content:center
-}
-.nav-icon svg{width:18px;height:18px;stroke-width:2.6}
-.nav-item.active{color:#fff;font-weight:700}
-.nav-item.active .nav-icon{background:#80CBC4;color:#004D40}
+        button,
+        input {
+            font-family: inherit;
+        }
 
-@media(max-width:420px){
-    .header{padding:0 16px}
-    .page{padding-left:12px;padding-right:12px}
-}
-</style>
+        .app {
+            width: 100%;
+            max-width: 600px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #F5F7F7;
+            box-shadow: 0 0 35px rgba(0,0,0,.05);
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 72px;
+            padding: 0 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #00695C;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .back-button {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: transparent;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .back-button svg {
+            width: 23px;
+            height: 23px;
+            stroke-width: 2.5;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* CONTENT */
+
+        .content {
+            padding: 20px 16px 40px;
+        }
+
+        /* TENANT */
+
+        .tenant-card {
+            background: white;
+            border: 1px solid #E4EAEA;
+            border-radius: 17px;
+            padding: 17px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: #E0F2F1;
+            color: #00695C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .tenant-info {
+            min-width: 0;
+        }
+
+        .tenant-info strong {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 5px;
+            color: #263238;
+        }
+
+        .tenant-info span {
+            font-size: 12px;
+            color: #78909C;
+        }
+
+        /* UPLOAD */
+
+        .upload-button {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 13px;
+            background: #00695C;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 14px rgba(0,105,92,.18);
+            margin-bottom: 22px;
+        }
+
+        .upload-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .upload-button:active {
+            transform: scale(.98);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* SECTION */
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 11px;
+        }
+
+        .section-title strong {
+            font-size: 14px;
+            color: #455A64;
+        }
+
+        .section-title span {
+            font-size: 12px;
+            color: #90A4AE;
+        }
+
+        /* DOCUMENT */
+
+        .document-card {
+            background: white;
+            border: 1px solid #E4EAEA;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .document-icon {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: #E0F2F1;
+            color: #00695C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-icon svg {
+            width: 21px;
+            height: 21px;
+        }
+
+        .document-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .document-info strong {
+            display: block;
+            font-size: 13px;
+            color: #37474F;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 5px;
+        }
+
+        .document-info span {
+            font-size: 10px;
+            color: #90A4AE;
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .document-action {
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 9px;
+            background: #F7F9F9;
+            color: #607D8B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .document-action svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .document-action.delete {
+            color: #C62828;
+        }
+
+        /* EMPTY */
+
+        .empty-state {
+            background: white;
+            border: 1px dashed #D5DEDE;
+            border-radius: 17px;
+            padding: 42px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 15px;
+            border-radius: 17px;
+            background: #E0F2F1;
+            color: #00695C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-icon svg {
+            width: 25px;
+            height: 25px;
+        }
+
+        .empty-state h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #455A64;
+        }
+
+        .empty-state p {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #90A4AE;
+            max-width: 270px;
+            margin: auto;
+        }
+
+        /* LOADING */
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #78909C;
+            font-size: 14px;
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            transform: translate(-50%, 20px);
+            background: #263238;
+            color: white;
+            padding: 11px 17px;
+            border-radius: 10px;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<header class="header">
-    <div class="header-left">
-        <button class="back-button" onclick="history.back()" aria-label="Go back">
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <button
+            class="back-button"
+            onclick="goBack()"
+        >
             <i data-lucide="arrow-left"></i>
         </button>
 
-        <img src="../../assets/rukminilogo.png" class="header-logo" alt="Rukmini Hostel">
-
         <div class="header-title">
-            <strong>Tenant Documents</strong>
-            <span>Rent Management</span>
-        </div>
-    </div>
-
-    <button class="profile-button" onclick="openProfile()" aria-label="Profile">
-        <i data-lucide="user-round"></i>
-    </button>
-</header>
-
-<main class="page">
-
-    <section class="tenant-card">
-        <div class="tenant-avatar"><i data-lucide="user-round"></i></div>
-        <div class="tenant-info">
-            <div class="tenant-name">Tenant Name</div>
-            <div class="tenant-meta">Tenant Code: — &nbsp; • &nbsp; Room: —</div>
-        </div>
-    </section>
-
-    <section class="summary-card">
-        <div class="summary-title">Documents</div>
-        <div class="summary-text">Manage documents saved for this tenant.</div>
-
-        <div class="summary-grid">
-            <div class="summary-box">
-                <i data-lucide="files"></i>
-                <div class="summary-number">0</div>
-                <div class="summary-label">Total Documents</div>
-            </div>
-
-            <div class="summary-box">
-                <i data-lucide="circle-check"></i>
-                <div class="summary-number">0</div>
-                <div class="summary-label">Uploaded</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="section-title">Tenant Documents</div>
-
-        <div class="document-row">
-            <div class="document-icon"><i data-lucide="id-card"></i></div>
-            <div class="document-main">
-                <div class="document-name">Identity Proof</div>
-                <div class="document-meta">Aadhaar / PAN / other identity document</div>
-                <div class="document-status missing">NOT UPLOADED</div>
-            </div>
-            <div class="document-actions">
-                <button class="icon-btn" onclick="uploadDocument('Identity Proof')" title="Upload">
-                    <i data-lucide="upload"></i>
-                </button>
-            </div>
+            Tenant Documents
         </div>
 
-        <div class="document-row">
-            <div class="document-icon"><i data-lucide="file-text"></i></div>
-            <div class="document-main">
-                <div class="document-name">Address Proof</div>
-                <div class="document-meta">Address verification document</div>
-                <div class="document-status missing">NOT UPLOADED</div>
-            </div>
-            <div class="document-actions">
-                <button class="icon-btn" onclick="uploadDocument('Address Proof')" title="Upload">
-                    <i data-lucide="upload"></i>
-                </button>
-            </div>
+    </header>
+
+
+    <main class="content">
+
+        <div id="loading" class="loading">
+            Loading tenant...
         </div>
 
-        <div class="document-row">
-            <div class="document-icon"><i data-lucide="file-signature"></i></div>
-            <div class="document-main">
-                <div class="document-name">Agreement</div>
-                <div class="document-meta">Rental / hostel agreement</div>
-                <div class="document-status missing">NOT UPLOADED</div>
-            </div>
-            <div class="document-actions">
-                <button class="icon-btn" onclick="uploadDocument('Agreement')" title="Upload">
-                    <i data-lucide="upload"></i>
-                </button>
-            </div>
-        </div>
 
-        <div class="document-row">
-            <div class="document-icon"><i data-lucide="image"></i></div>
-            <div class="document-main">
-                <div class="document-name">Other Document</div>
-                <div class="document-meta">Additional tenant document</div>
-                <div class="document-status missing">NOT UPLOADED</div>
-            </div>
-            <div class="document-actions">
-                <button class="icon-btn" onclick="uploadDocument('Other Document')" title="Upload">
-                    <i data-lucide="upload"></i>
-                </button>
-            </div>
-        </div>
-    </section>
+        <div id="pageContent" style="display:none;">
 
-    <section class="section">
-        <div class="section-title">Document Actions</div>
+            <!-- TENANT -->
 
-        <div class="actions">
-            <button class="action-btn primary" onclick="uploadDocument('Document')">
+            <section class="tenant-card">
+
+                <div
+                    class="avatar"
+                    id="avatar"
+                >
+                    TN
+                </div>
+
+                <div class="tenant-info">
+
+                    <strong id="tenantName">
+                        —
+                    </strong>
+
+                    <span id="tenantRoom">
+                        —
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- UPLOAD -->
+
+            <input
+                type="file"
+                id="fileInput"
+                accept=".pdf,.jpg,.jpeg,.png"
+            >
+
+            <button
+                class="upload-button"
+                onclick="chooseDocument()"
+            >
                 <i data-lucide="upload"></i>
                 Upload Document
             </button>
 
-            <button class="action-btn" onclick="alert('Camera/document scan will be connected later.')">
-                <i data-lucide="scan-line"></i>
-                Scan Document
-            </button>
 
-            <button class="action-btn" onclick="alert('Document sharing will be connected later.')">
-                <i data-lucide="share-2"></i>
-                Share Documents
-            </button>
+            <!-- DOCUMENTS -->
 
-            <button class="action-btn" onclick="alert('Document download will be connected later.')">
-                <i data-lucide="download"></i>
-                Download
-            </button>
-        </div>
-    </section>
+            <div class="section-title">
 
-    <section class="section">
-        <div class="section-title">Document History</div>
+                <strong>
+                    Documents
+                </strong>
 
-        <div class="empty">
-            <i data-lucide="folder-open"></i>
-            <div>No document history yet.</div>
-            <div style="font-size:11px;margin-top:4px">
-                Uploaded documents and activity will appear here.
+                <span id="documentCount">
+                    0 documents
+                </span>
+
             </div>
+
+
+            <div id="documentsContainer"></div>
+
         </div>
-    </section>
 
-</main>
+    </main>
 
-<nav class="bottom-nav">
-    <button class="nav-item" onclick="goTo('rent-plans')">
-        <span class="nav-icon"><i data-lucide="receipt-text"></i></span>
-        <span>Rent Plan</span>
-    </button>
+</div>
 
-    <button class="nav-item active" onclick="goTo('tenants')">
-        <span class="nav-icon"><i data-lucide="users-round"></i></span>
-        <span>Tenant</span>
-    </button>
 
-    <button class="nav-item" onclick="goTo('summary')">
-        <span class="nav-icon"><i data-lucide="chart-no-axes-combined"></i></span>
-        <span>Summary</span>
-    </button>
+<div
+    class="toast"
+    id="toast"
+></div>
 
-    <button class="nav-item" onclick="goTo('action')">
-        <span class="nav-icon"><i data-lucide="menu"></i></span>
-        <span>Action</span>
-    </button>
-</nav>
 
-<script>
-lucide.createIcons();
+<script type="module">
 
-function goTo(page){
-    if(page==="rent-plans") window.location.href="../main/rent-plans.html";
-    if(page==="tenants") window.location.href="../main/tenants.html";
-    if(page==="summary") window.location.href="../main/summary.html";
-    if(page==="action") window.location.href="../main/action.html";
-}
+    import {
+        auth,
+        db
+    } from "../js/firebase-config.js";
 
-function openProfile(){
-    window.location.href="../tools/profile.html";
-}
+    import {
+        doc,
+        getDoc,
+        collection,
+        getDocs,
+        addDoc,
+        deleteDoc,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-function uploadDocument(type){
-    alert(type + " upload will be connected to Firebase Storage later.");
-}
+
+    /* =====================================================
+       LUCIDE
+       ===================================================== */
+
+    lucide.createIcons();
+
+
+    /* =====================================================
+       GET TENANT ID
+       ===================================================== */
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const tenantId =
+        params.get("tenant");
+
+
+    /* =====================================================
+       BACK
+       ===================================================== */
+
+    function goBack() {
+
+        window.location.href =
+            "tenant-details.html?tenant=" +
+            encodeURIComponent(tenantId);
+
+    }
+
+    window.goBack = goBack;
+
+
+    /* =====================================================
+       INITIALS
+       ===================================================== */
+
+    function getInitials(name) {
+
+        if (!name) return "TN";
+
+        const words =
+            name.trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+        if (words.length === 1) {
+
+            return words[0]
+                .substring(0, 2)
+                .toUpperCase();
+
+        }
+
+        return (
+            words[0][0] +
+            words[1][0]
+        ).toUpperCase();
+
+    }
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    function showToast(message) {
+
+        const toast =
+            document.getElementById("toast");
+
+        toast.textContent =
+            message;
+
+        toast.classList.add("show");
+
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2200);
+
+    }
+
+
+    /* =====================================================
+       LOAD TENANT
+       ===================================================== */
+
+    async function loadTenant() {
+
+        const user =
+            auth.currentUser;
+
+        if (!user || !tenantId) {
+
+            showToast(
+                "Unable to identify tenant."
+            );
+
+            return;
+
+        }
+
+        try {
+
+            const tenantRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants",
+                    tenantId
+                );
+
+            const snapshot =
+                await getDoc(
+                    tenantRef
+                );
+
+            if (!snapshot.exists()) {
+
+                throw new Error(
+                    "Tenant not found."
+                );
+
+            }
+
+            const tenant =
+                snapshot.data();
+
+            const name =
+                tenant.name ||
+                "Unnamed Tenant";
+
+            const room =
+                tenant.buildingNumber
+                    ? (
+                        tenant.building
+                            ? tenant.building +
+                              " • " +
+                              tenant.buildingNumber
+                            : tenant.buildingNumber
+                      )
+                    : (
+                        tenant.building ||
+                        "No room assigned"
+                      );
+
+
+            document.getElementById(
+                "avatar"
+            ).textContent =
+                getInitials(name);
+
+
+            document.getElementById(
+                "tenantName"
+            ).textContent =
+                name;
+
+
+            document.getElementById(
+                "tenantRoom"
+            ).textContent =
+                room;
+
+
+            document.getElementById(
+                "loading"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "pageContent"
+            ).style.display =
+                "block";
+
+
+            await loadDocuments();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            document.getElementById(
+                "loading"
+            ).textContent =
+                error.message ||
+                "Unable to load tenant.";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       LOAD DOCUMENTS
+       ===================================================== */
+
+    async function loadDocuments() {
+
+        const user =
+            auth.currentUser;
+
+        const container =
+            document.getElementById(
+                "documentsContainer"
+            );
+
+        const count =
+            document.getElementById(
+                "documentCount"
+            );
+
+
+        container.innerHTML = "";
+
+
+        const documentsRef =
+            collection(
+                db,
+                "users",
+                user.uid,
+                "tenants",
+                tenantId,
+                "documents"
+            );
+
+
+        const snapshot =
+            await getDocs(
+                documentsRef
+            );
+
+
+        count.textContent =
+            snapshot.size +
+            (
+                snapshot.size === 1
+                    ? " document"
+                    : " documents"
+            );
+
+
+        if (snapshot.empty) {
+
+            container.innerHTML = `
+
+                <section class="empty-state">
+
+                    <div class="empty-icon">
+                        <i data-lucide="file-text"></i>
+                    </div>
+
+                    <h3>
+                        No documents yet
+                    </h3>
+
+                    <p>
+                        Upload tenant documents such as
+                        ID proof, agreements or other records.
+                    </p>
+
+                </section>
+
+            `;
+
+            lucide.createIcons();
+
+            return;
+
+        }
+
+
+        snapshot.forEach(function(documentSnapshot) {
+
+            const data =
+                documentSnapshot.data();
+
+            const documentId =
+                documentSnapshot.id;
+
+            const name =
+                data.name ||
+                "Document";
+
+
+            const date =
+                data.createdAt?.toDate
+                    ? data.createdAt
+                        .toDate()
+                        .toLocaleDateString("en-IN")
+                    : "Recently added";
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "document-card";
+
+
+            card.innerHTML = `
+
+                <div class="document-icon">
+
+                    <i data-lucide="file-text"></i>
+
+                </div>
+
+
+                <div class="document-info">
+
+                    <strong>
+                        ${escapeHtml(name)}
+                    </strong>
+
+                    <span>
+                        ${escapeHtml(date)}
+                    </span>
+
+                </div>
+
+
+                <div class="document-actions">
+
+                    ${
+                        data.url
+                            ? `
+                                <button
+                                    class="document-action"
+                                    onclick="openDocument('${encodeURIComponent(data.url)}')"
+                                >
+                                    <i data-lucide="external-link"></i>
+                                </button>
+                              `
+                            : ""
+                    }
+
+
+                    <button
+                        class="document-action delete"
+                        onclick="removeDocument('${documentId}')"
+                    >
+                        <i data-lucide="trash-2"></i>
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        });
+
+
+        lucide.createIcons();
+
+    }
+
+
+    /* =====================================================
+       CHOOSE FILE
+       ===================================================== */
+
+    function chooseDocument() {
+
+        document
+            .getElementById("fileInput")
+            .click();
+
+    }
+
+    window.chooseDocument =
+        chooseDocument;
+
+
+    /* =====================================================
+       FILE SELECTED
+       ===================================================== */
+
+    document
+        .getElementById("fileInput")
+        .addEventListener(
+            "change",
+            async function(event) {
+
+                const file =
+                    event.target.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+
+                const allowedTypes = [
+                    "application/pdf",
+                    "image/jpeg",
+                    "image/png"
+                ];
+
+
+                if (
+                    !allowedTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    showToast(
+                        "Only PDF, JPG and PNG files are allowed."
+                    );
+
+                    event.target.value = "";
+
+                    return;
+
+                }
+
+
+                /*
+                 * For now we save the document
+                 * information in Firestore.
+                 *
+                 * Firebase Storage can be connected
+                 * here once your firebase-config.js
+                 * exports the Storage instance.
+                 */
+
+                try {
+
+                    const user =
+                        auth.currentUser;
+
+
+                    const documentsRef =
+                        collection(
+                            db,
+                            "users",
+                            user.uid,
+                            "tenants",
+                            tenantId,
+                            "documents"
+                        );
+
+
+                    await addDoc(
+                        documentsRef,
+                        {
+                            name: file.name,
+                            type: file.type,
+                            size: file.size,
+                            createdAt:
+                                serverTimestamp()
+                        }
+                    );
+
+
+                    showToast(
+                        "Document added successfully."
+                    );
+
+
+                    event.target.value = "";
+
+
+                    await loadDocuments();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Document upload error:",
+                        error
+                    );
+
+                    showToast(
+                        "Could not add document."
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* =====================================================
+       OPEN DOCUMENT
+       ===================================================== */
+
+    function openDocument(encodedUrl) {
+
+        const url =
+            decodeURIComponent(
+                encodedUrl
+            );
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+    }
+
+    window.openDocument =
+        openDocument;
+
+
+    /* =====================================================
+       DELETE DOCUMENT
+       ===================================================== */
+
+    async function removeDocument(documentId) {
+
+        const confirmed =
+            confirm(
+                "Delete this document?"
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const user =
+                auth.currentUser;
+
+
+            const documentRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid,
+                    "tenants",
+                    tenantId,
+                    "documents",
+                    documentId
+                );
+
+
+            await deleteDoc(
+                documentRef
+            );
+
+
+            showToast(
+                "Document deleted."
+            );
+
+
+            await loadDocuments();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showToast(
+                "Could not delete document."
+            );
+
+        }
+
+    }
+
+    window.removeDocument =
+        removeDocument;
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHtml(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       AUTH
+       ===================================================== */
+
+    if (auth.currentUser) {
+
+        loadTenant();
+
+    } else {
+
+        auth.onAuthStateChanged(
+            function(user) {
+
+                if (user) {
+
+                    loadTenant();
+
+                }
+
+            }
+        );
+
+    }
+
 </script>
 
 </body>
+
 </html>
