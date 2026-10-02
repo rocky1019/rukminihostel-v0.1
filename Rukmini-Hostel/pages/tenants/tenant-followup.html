@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
   <meta name="theme-color" content="#00695C">
   <title>Tenant Follow Up - Rukmini Hostel</title>
   <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
     * {
       margin: 0;
@@ -15,17 +13,14 @@
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
-
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #E9EEEE;
       color: #263238;
     }
-
     button, input, select, textarea {
       font-family: inherit;
     }
-
     .app {
       width: 100%;
       max-width: 600px;
@@ -33,7 +28,6 @@
       margin: auto;
       background: #F5F7F7;
     }
-
     .header {
       height: 72px;
       padding: 0 18px;
@@ -46,7 +40,6 @@
       top: 0;
       z-index: 20;
     }
-
     .back-button {
       width: 42px;
       height: 42px;
@@ -58,28 +51,23 @@
       justify-content: center;
       cursor: pointer;
     }
-
     .header-title {
       font-size: 20px;
       font-weight: 700;
     }
-
     .content {
       padding: 20px 16px 35px;
     }
-
     .profile-card, .card, .empty-card, .error {
       background: white;
       border: 1px solid #E4EAEA;
       border-radius: 17px;
       margin-bottom: 14px;
     }
-
     .profile-card {
       padding: 22px 20px;
       text-align: center;
     }
-
     .avatar {
       width: 68px;
       height: 68px;
@@ -93,17 +81,14 @@
       font-size: 23px;
       font-weight: 700;
     }
-
     .profile-card h1 {
       font-size: 20px;
       margin-bottom: 5px;
     }
-
     .profile-card p {
       font-size: 13px;
       color: #78909C;
     }
-
     .status-card {
       background: #FFF8E1;
       border-radius: 17px;
@@ -114,19 +99,16 @@
       justify-content: space-between;
       gap: 12px;
     }
-
     .status-info span {
       font-size: 12px;
       color: #8D7650;
     }
-
     .status-info strong {
       display: block;
       margin-top: 5px;
       font-size: 22px;
       color: #EF8C00;
     }
-
     .status-icon {
       width: 46px;
       height: 46px;
@@ -137,18 +119,15 @@
       align-items: center;
       justify-content: center;
     }
-
     .card {
       padding: 18px;
     }
-
     .card-title {
       font-size: 15px;
       font-weight: 700;
       color: #00695C;
       margin-bottom: 16px;
     }
-
     .detail-row {
       display: flex;
       justify-content: space-between;
@@ -156,21 +135,17 @@
       padding: 12px 0;
       border-bottom: 1px solid #EDF0F0;
     }
-
     .detail-row:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
-
     .detail-row:first-child {
       padding-top: 0;
     }
-
     .detail-label {
       font-size: 12px;
       color: #90A4AE;
     }
-
     .detail-value {
       font-size: 14px;
       color: #37474F;
@@ -179,11 +154,9 @@
       word-break: break-word;
       max-width: 60%;
     }
-
     .field {
       margin-bottom: 14px;
     }
-
     .field label {
       display: block;
       font-size: 12px;
@@ -191,7 +164,6 @@
       color: #607D8B;
       margin-bottom: 7px;
     }
-
     .field input, .field select, .field textarea {
       width: 100%;
       border: 1px solid #DCE5E5;
@@ -202,18 +174,15 @@
       color: #263238;
       outline: none;
     }
-
     .field textarea {
       min-height: 84px;
       resize: vertical;
     }
-
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
-
     .btn {
       border: none;
       border-radius: 11px;
@@ -226,38 +195,40 @@
       justify-content: center;
       gap: 7px;
     }
-
     .btn-primary {
       background: #00695C;
       color: white;
       width: 100%;
     }
-
     .btn-secondary {
       background: #E0F2F1;
       color: #00695C;
     }
-
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+      width: 100%;
+    }
+    .btn-whatsapp:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
     .btn-danger {
       background: #FFEBEE;
       color: #C62828;
     }
-
     .btn:disabled {
       opacity: .6;
       cursor: wait;
     }
-
     .form-actions {
       display: flex;
       gap: 9px;
       margin-top: 16px;
     }
-
     .form-actions .btn-primary {
       flex: 1;
     }
-
     .notice {
       display: none;
       border-radius: 10px;
@@ -266,32 +237,27 @@
       font-size: 13px;
       line-height: 1.45;
     }
-
     .notice.success {
       display: block;
       background: #E8F5E9;
       color: #2E7D32;
     }
-
     .notice.failure {
       display: block;
       background: #FFEBEE;
       color: #C62828;
     }
-
     .history-list {
       display: flex;
       flex-direction: column;
       gap: 11px;
     }
-
     .history-item {
       border: 1px solid #E6ECEC;
       border-radius: 13px;
       padding: 14px;
       background: #FCFDFD;
     }
-
     .history-top {
       display: flex;
       justify-content: space-between;
@@ -299,13 +265,11 @@
       gap: 10px;
       margin-bottom: 8px;
     }
-
     .history-date {
       font-size: 14px;
       font-weight: 700;
       color: #37474F;
     }
-
     .pill {
       display: inline-block;
       border-radius: 999px;
@@ -314,29 +278,24 @@
       font-weight: 700;
       white-space: nowrap;
     }
-
     .pill.pending {
       background: #FFF3CD;
       color: #946200;
     }
-
     .pill.completed {
       background: #E8F5E9;
       color: #2E7D32;
     }
-
     .pill.cancelled {
       background: #ECEFF1;
       color: #546E7A;
     }
-
     .history-meta {
       font-size: 12px;
       color: #78909C;
       line-height: 1.6;
       overflow-wrap: anywhere;
     }
-
     .history-remark {
       font-size: 13px;
       color: #455A64;
@@ -345,25 +304,21 @@
       white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
-
     .history-actions {
       display: flex;
       gap: 8px;
       margin-top: 12px;
     }
-
     .history-actions .btn {
       padding: 8px 10px;
       font-size: 12px;
     }
-
     .empty-card {
       padding: 28px 20px;
       text-align: center;
       border-style: dashed;
       box-shadow: none;
     }
-
     .empty-icon, .error-icon {
       width: 55px;
       height: 55px;
@@ -375,52 +330,43 @@
       align-items: center;
       justify-content: center;
     }
-
     .empty-card h3, .error h3 {
       font-size: 16px;
       color: #455A64;
       margin-bottom: 7px;
     }
-
     .empty-card p, .error p {
       font-size: 12px;
       line-height: 1.5;
       color: #90A4AE;
     }
-
     .loading {
       text-align: center;
       padding: 70px 20px;
       color: #78909C;
       font-size: 14px;
     }
-
     .error {
       padding: 35px 20px;
       text-align: center;
     }
-
     .error-icon {
       background: #FFEBEE;
       color: #C62828;
     }
-
     .error p {
       font-size: 13px;
     }
-
     @media (max-width: 380px) {
       .grid {
         grid-template-columns: 1fr;
       }
-
       .content {
         padding: 15px 12px 30px;
       }
     }
   </style>
 </head>
-
 <body>
 <div class="app">
   <header class="header">
@@ -450,6 +396,19 @@
         <div class="status-icon">
           <i data-lucide="phone-call"></i>
         </div>
+      </section>
+
+      <!-- WhatsApp rent reminder -->
+      <section class="card">
+        <button type="button" id="whatsappBtn"
+          class="btn btn-whatsapp" onclick="messageTenantOnWhatsApp()">
+          <i data-lucide="message-circle"></i>
+          Message Tenant on WhatsApp
+        </button>
+        <p id="whatsappHelp"
+          style="font-size:12px;color:#78909C;margin-top:9px;text-align:center;">
+          Open WhatsApp with a pre-filled rent reminder.
+        </p>
       </section>
 
       <section class="card">
@@ -482,7 +441,6 @@
               <label for="followUpDateInput">Follow-up date *</label>
               <input type="date" id="followUpDateInput" required>
             </div>
-
             <div class="field">
               <label for="statusInput">Status *</label>
               <select id="statusInput" required>
@@ -498,7 +456,6 @@
               <label for="lastContactInput">Last contact date</label>
               <input type="date" id="lastContactInput">
             </div>
-
             <div class="field">
               <label for="methodInput">Contact method</label>
               <select id="methodInput">
@@ -523,7 +480,6 @@
             <button type="button" id="cancelEditBtn"
               class="btn btn-secondary" style="display:none"
               onclick="resetForm()">Cancel</button>
-
             <button type="submit" id="saveBtn" class="btn btn-primary">
               Save Follow-up
             </button>
@@ -906,6 +862,79 @@
 
   el("followUpForm").addEventListener("submit", saveFollowUp);
 
+  // WhatsApp rent reminder feature
+  let tenantForWhatsApp = null;
+
+  function getTenantPhone(tenant) {
+    return String(
+      tenant.phone ||
+      tenant.phoneNumber ||
+      tenant.mobile ||
+      tenant.contactNumber ||
+      ""
+    ).replace(/\D/g, "");
+  }
+
+  function updateWhatsAppButton(tenant) {
+    tenantForWhatsApp = tenant;
+
+    const phone = getTenantPhone(tenant);
+    const balance = Number(
+      tenant.currentDue ?? tenant.openingBalance ?? 0
+    );
+
+    const validPhone =
+      phone.length === 10 ||
+      (phone.length === 12 && phone.startsWith("91"));
+
+    const button = el("whatsappBtn");
+    const help = el("whatsappHelp");
+
+    if (!validPhone) {
+      button.disabled = true;
+      help.textContent = "A valid registered phone number is required.";
+    } else if (balance <= 0) {
+      button.disabled = true;
+      help.textContent = "This tenant has no outstanding rent.";
+    } else {
+      button.disabled = false;
+      help.textContent = "Open WhatsApp with a pre-filled rent reminder.";
+    }
+  }
+
+  function messageTenantOnWhatsApp() {
+    const tenant = tenantForWhatsApp;
+    if (!tenant) return;
+
+    const rawPhone = getTenantPhone(tenant);
+    const phone = rawPhone.length === 10 ? "91" + rawPhone : rawPhone;
+
+    const balance = Number(
+      tenant.currentDue ?? tenant.openingBalance ?? 0
+    );
+
+    const validPhone =
+      rawPhone.length === 10 ||
+      (rawPhone.length === 12 && rawPhone.startsWith("91"));
+
+    if (!validPhone || balance <= 0) return;
+
+    const name = tenant.name || "Tenant";
+
+    const message =
+      `Hello ${name},\n\n` +
+      `This is a friendly reminder that your hostel rent payment of ₹${balance.toLocaleString("en-IN")} is currently due.\n\n` +
+      `Please make the payment at your earliest convenience. If you have already paid, kindly ignore this message.\n\n` +
+      `Thank you,\nRukmini Hostel`;
+
+    const url =
+      "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+
+    window.open(url, "_blank");
+  }
+
+  window.messageTenantOnWhatsApp = messageTenantOnWhatsApp;
+
   async function loadTenant() {
     if (!tenantId) {
       throw new Error("No tenant ID was provided in the page URL.");
@@ -930,6 +959,9 @@
     }
 
     const tenant = snapshot.data();
+
+    // Enable or disable WhatsApp based on the tenant's details.
+    updateWhatsAppButton(tenant);
 
     tenantNameValue = tenant.name || "Unnamed Tenant";
 
@@ -964,6 +996,7 @@
 
     el("loading").style.display = "none";
     el("tenantContent").style.display = "block";
+
     lucide.createIcons();
   }
 
@@ -997,6 +1030,7 @@
         el("errorState").style.display = "block";
         el("errorMessage").textContent =
           "Please log in before viewing tenant follow-up details.";
+
         lucide.createIcons();
       }
     });
