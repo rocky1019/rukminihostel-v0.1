@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Rent Bill | Rukmini Hostel</title>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <style>
+    :root { --green:#17845b; --green-dark:#116746; --green-soft:#eaf7f0; --ink:#20332b; --muted:#718078; --line:#e2eae5; --bg:#f4f7f5; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .topbar { background:var(--green); color:#fff; padding:17px 20px; display:flex; align-items:center; gap:12px; box-shadow:0 3px 12px #153b2b18; }
+    .back { border:0; background:#ffffff22; color:#fff; width:38px; height:38px; border-radius:12px; font-size:22px; cursor:pointer; }
+    .topbar h1 { font-size:18px; margin:0; font-weight:750; } .topbar p { margin:3px 0 0; font-size:12px; opacity:.85; }
+    .wrap { max-width:900px; margin:24px auto; padding:0 16px 40px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:20px; align-items:start; }
+    .panel { background:#fff; border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 6px 24px #183c2a08; }
+    h2 { font-size:16px; margin:0 0 16px; } .field { margin:0 0 14px; } label { display:block; font-size:12px; color:#5d6d64; margin-bottom:6px; font-weight:650; }
+    input, textarea { width:100%; border:1px solid #dbe5de; border-radius:10px; padding:11px 12px; font:inherit; font-size:14px; color:var(--ink); outline:none; background:#fff; }
+    input:focus, textarea:focus { border-color:var(--green); box-shadow:0 0 0 3px #17845b17; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .btns { display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
+    button.action { border:0; border-radius:11px; padding:12px 15px; font-weight:700; cursor:pointer; background:var(--green); color:#fff; }
+    button.secondary { background:var(--green-soft); color:var(--green-dark); }
+    .hint { font-size:12px; color:var(--muted); line-height:1.5; margin:12px 0 0; }
+    #status { font-size:13px; margin-top:12px; color:var(--green-dark); }
+    .bill { background:#fff; border:1px solid #e3e9e5; border-radius:14px; padding:28px; color:#20332b; }
+    .bill-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; border-bottom:2px solid var(--green); padding-bottom:18px; }
+    .brand { display:flex; align-items:center; gap:11px; min-width:0; }
+    .brand img { width:54px; height:54px; object-fit:contain; }
+    .brand h2 { margin:0 0 4px; font-size:21px; color:var(--green-dark); }
+    .brand p, .bill-meta p { margin:3px 0; color:#66766d; font-size:11px; overflow-wrap:anywhere; }
+    .bill-label { text-align:right; } .bill-label strong { font-size:22px; color:var(--green-dark); letter-spacing:1px; } .bill-label p { font-size:11px; color:#738078; margin:5px 0; }
+    .tenant-block { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:20px 0; }
+    .eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:.8px; color:#829087; font-weight:800; margin-bottom:6px; }
+    .tenant-block strong { font-size:14px; } .tenant-block p { margin:4px 0; font-size:12px; color:#66766d; overflow-wrap:anywhere; }
+    table { width:100%; border-collapse:collapse; margin:8px 0 20px; }
+    th { background:#edf7f1; color:#426352; font-size:11px; text-align:left; padding:11px 10px; }
+    td { padding:13px 10px; border-bottom:1px solid #e7ede9; font-size:12px; }
+    th:last-child, td:last-child { text-align:right; }
+    .totals { width:min(100%,310px); margin-left:auto; }
+    .total-row { display:flex; justify-content:space-between; gap:16px; padding:7px 0; font-size:12px; color:#617067; }
+    .total-row.grand { border-top:1px solid #dbe5de; margin-top:5px; padding-top:13px; font-size:17px; font-weight:800; color:var(--green-dark); }
+    .due-pill { display:inline-block; border-radius:99px; padding:5px 9px; background:#fff2df; color:#9b5a08; font-size:10px; font-weight:800; }
+    .note { margin-top:22px; padding:13px; border-radius:10px; background:#f5f8f6; color:#718078; font-size:11px; line-height:1.5; }
+    .bill-footer { margin-top:24px; padding-top:13px; border-top:1px solid #e7ede9; font-size:10px; color:#839087; display:flex; justify-content:space-between; gap:12px; }
+    @media(max-width:720px) { .wrap { grid-template-columns:1fr; margin-top:16px; } .bill { padding:19px; } }
+    @media print {
+      body { background:#fff; } .topbar, .form-panel, .preview-heading, .preview-actions { display:none !important; }
+      .wrap { display:block; max-width:none; margin:0; padding:0; } .preview-panel { border:0; box-shadow:none; padding:0; }
+      .bill { border:0; border-radius:0; padding:12mm; } @page { size:A4; margin:0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <button class="back" onclick="goBack()" aria-label="Go back">‹</button>
+    <div><h1>Generate Rent Bill</h1><p>Create and share a rent bill for this tenant</p></div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel form-panel">
+      <h2>Bill details</h2>
+      <div class="field"><label>Tenant</label><input id="tenantNameInput" readonly placeholder="Loading tenant..."></div>
+      <div class="grid2">
+        <div class="field"><label>Room</label><input id="roomInput" readonly placeholder="—"></div>
+        <div class="field"><label>Billing period</label><input id="periodInput" placeholder="e.g. October 2026"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Monthly rent (₹)</label><input id="rentInput" type="number" min="0" step="0.01" value="0"></div>
+        <div class="field"><label>Previous outstanding (₹)</label><input id="previousInput" type="number" min="0" step="0.01" value="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Other charges (₹)</label><input id="otherInput" type="number" min="0" step="0.01" value="0"></div>
+        <div class="field"><label>Due date</label><input id="dueDateInput" type="date"></div>
+      </div>
+      <div class="field"><label>Note (optional)</label><textarea id="noteInput" rows="2" placeholder="Any additional information for the tenant"></textarea></div>
+      <div class="btns">
+        <button class="action" id="refreshBtn" type="button">Update preview</button>
+        <button class="action secondary" id="downloadBtn" type="button">Download image</button>
+        <button class="action secondary" id="shareBtn" type="button">Share</button>
+        <button class="action secondary" type="button" onclick="window.print()">Print / Save PDF</button>
+      </div>
+      <p class="hint">This page creates a bill preview only. It does not add a payment or change the tenant's balance. Verify the rent and charges before sharing.</p>
+      <div id="status" role="status"></div>
+    </section>
+
+    <section class="panel preview-panel">
+      <h2 class="preview-heading">Bill preview</h2>
+      <article class="bill" id="billCard">
+        <div class="bill-head">
+          <div class="brand">
+            <img src="../../assets/rukminilogo.png" alt="Rukmini Hostel logo" onerror="this.style.display='none'">
+            <div><h2 id="hostelName">Rukmini Hostel</h2><p id="hostelAddress">Hostel rent management</p><p id="hostelPhone"></p></div>
+          </div>
+          <div class="bill-label"><strong>RENT BILL</strong><p id="billNumber">BILL —</p><p id="billDate"></p></div>
+        </div>
+        <div class="tenant-block">
+          <div><div class="eyebrow">Bill to</div><strong id="previewTenant">Tenant name</strong><p id="previewRoom">Room —</p><p id="previewPhone">Phone —</p></div>
+          <div><div class="eyebrow">Billing details</div><strong id="previewPeriod">Billing period</strong><p>Due date: <span id="previewDueDate">—</span></p><p><span class="due-pill">PAYMENT DUE</span></p></div>
+        </div>
+        <table>
+          <thead><tr><th>Description</th><th>Amount</th></tr></thead>
+          <tbody>
+            <tr><td>Rent — <span id="linePeriod">Billing period</span></td><td id="lineRent">₹0.00</td></tr>
+            <tr><td>Previous outstanding balance</td><td id="linePrevious">₹0.00</td></tr>
+            <tr><td>Other charges</td><td id="lineOther">₹0.00</td></tr>
+          </tbody>
+        </table>
+        <div class="totals">
+          <div class="total-row"><span>Subtotal</span><strong id="subtotal">₹0.00</strong></div>
+          <div class="total-row grand"><span>Total due</span><strong id="totalDue">₹0.00</strong></div>
+        </div>
+        <div class="note"><strong>Note:</strong> <span id="previewNote">Please pay the outstanding amount by the due date. If you have already paid, please ignore this bill.</span></div>
+        <div class="bill-footer"><span>Generated by Rukmini Hostel</span><span id="footerBillDate"></span></div>
+      </article>
+      <div class="btns preview-actions"><button class="action" type="button" onclick="window.print()">Print / Save PDF</button></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { auth, db } from "../js/firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+    const $ = id => document.getElementById(id);
+    let tenant = null, profile = {};
+    const params = new URLSearchParams(location.search);
+    const tenantId = params.get("tenant");
+    const money = n => new Intl.NumberFormat("en-IN", { style:"currency", currency:"INR", minimumFractionDigits:2 }).format(Number(n) || 0);
+    const dateText = value => {
+      if (!value) return "—";
+      const d = value instanceof Date ? value : new Date(value);
+      return Number.isNaN(d.getTime()) ? String(value) : d.toLocaleDateString("en-IN", { day:"2-digit", month:"short", year:"numeric" });
+    };
+    const valueOf = (...values) => values.find(v => v !== undefined && v !== null && v !== "") ?? "";
+    const today = new Date();
+    const monthPeriod = today.toLocaleDateString("en-IN", { month:"long", year:"numeric" });
+    $("periodInput").value = monthPeriod;
+    const due = new Date(today.getFullYear(), today.getMonth(), 10);
+    if (today.getDate() > 10) due.setMonth(due.getMonth() + 1);
+    $("dueDateInput").value = `${due.getFullYear()}-${String(due.getMonth()+1).padStart(2,"0")}-${String(due.getDate()).padStart(2,"0")}`;
+    $("billDate").textContent = `Date: ${dateText(today)}`;
+    $("footerBillDate").textContent = dateText(today);
+    $("billNumber").textContent = `BILL-${today.getFullYear()}${String(today.getMonth()+1).padStart(2,"0")}${String(today.getDate()).padStart(2,"0")}-${(tenantId || "NEW").slice(-5).toUpperCase()}`;
+
+    function updatePreview() {
+      const rent = Math.max(0, Number($("rentInput").value) || 0);
+      const previous = Math.max(0, Number($("previousInput").value) || 0);
+      const other = Math.max(0, Number($("otherInput").value) || 0);
+      const period = $("periodInput").value.trim() || monthPeriod;
+      const dueDate = $("dueDateInput").value;
+      $("previewTenant").textContent = $("tenantNameInput").value || "Tenant name";
+      $("previewRoom").textContent = `Room: ${$("roomInput").value || "—"}`;
+      $("previewPhone").textContent = `Phone: ${valueOf(tenant?.mobile, tenant?.phone, tenant?.phoneNumber, tenant?.contactNumber) || "—"}`;
+      $("previewPeriod").textContent = period;
+      $("linePeriod").textContent = period;
+      $("previewDueDate").textContent = dateText(dueDate);
+      $("lineRent").textContent = money(rent);
+      $("linePrevious").textContent = money(previous);
+      $("lineOther").textContent = money(other);
+      $("subtotal").textContent = money(rent + other);
+      $("totalDue").textContent = money(rent + previous + other);
+      $("previewNote").textContent = $("noteInput").value.trim() || "Please pay the outstanding amount by the due date. If you have already paid, please ignore this bill.";
+    }
+
+    async function loadPage(user) {
+      if (!tenantId) { $("status").textContent = "Missing tenant ID in URL. Open this page from a tenant's details page."; return; }
+      try {
+        const [tenantSnap, profileSnap] = await Promise.all([
+          getDoc(doc(db, "users", user.uid, "tenants", tenantId)),
+          getDoc(doc(db, "users", user.uid))
+        ]);
+        if (!tenantSnap.exists()) { $("status").textContent = "Tenant not found."; return; }
+        tenant = tenantSnap.data();
+        profile = profileSnap.exists() ? profileSnap.data() : {};
+        const name = valueOf(tenant.name, tenant.fullName, "Tenant");
+        const room = valueOf(tenant.room, tenant.roomNumber, tenant.roomNo, "—");
+        $("tenantNameInput").value = name;
+        $("roomInput").value = room;
+        $("hostelName").textContent = valueOf(profile.hostelName, "Rukmini Hostel");
+        $("hostelAddress").textContent = [profile.address, profile.city, profile.state].filter(Boolean).join(", ") || "Hostel rent management";
+        $("hostelPhone").textContent = profile.contactNumber ? `Contact: ${profile.contactNumber}` : "";
+        $("previousInput").value = Math.max(0, Number(valueOf(tenant.currentDue, tenant.openingBalance, 0)) || 0);
+        const rent = valueOf(tenant.monthlyRent, tenant.rentAmount, tenant.rent, tenant.monthlyFee, tenant.planAmount, 0);
+        $("rentInput").value = Number(rent) || 0;
+        updatePreview();
+        $("status").textContent = "Tenant details loaded. Check the amounts and update the preview before sharing.";
+      } catch (error) {
+        console.error(error);
+        $("status").textContent = "Could not load tenant details. Check your connection and Firebase configuration.";
+      }
+    }
+
+    async function waitForAuth() {
+      onAuthStateChanged(auth, user => {
+        if (!user) { location.href = "../auth/login.html"; return; }
+        loadPage(user);
+      });
+    }
+    $("refreshBtn").addEventListener("click", updatePreview);
+    ["periodInput","rentInput","previousInput","otherInput","dueDateInput","noteInput"].forEach(id => $(id).addEventListener("input", updatePreview));
+
+    async function makeImage() {
+      updatePreview();
+      if (!window.html2canvas) throw new Error("Image generator did not load. Check your internet connection.");
+      return await window.html2canvas($("billCard"), { scale:2, backgroundColor:"#ffffff", useCORS:true });
+    }
+    $("downloadBtn").addEventListener("click", async () => {
+      try {
+        $("status").textContent = "Creating bill image…";
+        const canvas = await makeImage();
+        const a = document.createElement("a");
+        a.download = `Rent-Bill-${(tenant?.name || "Tenant").replace(/[^a-z0-9-_]/gi,"-")}.png`;
+        a.href = canvas.toDataURL("image/png"); a.click();
+        $("status").textContent = "Bill image downloaded.";
+      } catch (e) { console.error(e); $("status").textContent = e.message || "Could not create image."; }
+    });
+    $("shareBtn").addEventListener("click", async () => {
+      try {
+        $("status").textContent = "Preparing bill to share…";
+        const canvas = await makeImage();
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+        const file = new File([blob], "Rukmini-Hostel-Rent-Bill.png", { type:"image/png" });
+        if (navigator.canShare && navigator.canShare({ files:[file] }) && navigator.share) {
+          await navigator.share({ files:[file], title:"Rukmini Hostel Rent Bill", text:`Rent bill for ${tenant?.name || "tenant"}` });
+          $("status").textContent = "Share sheet opened. Choose WhatsApp and send the bill.";
+        } else {
+          const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name; a.click();
+          $("status").textContent = "Image sharing isn't supported here, so the bill was downloaded. Attach it in WhatsApp.";
+        }
+      } catch (e) {
+        if (e.name !== "AbortError") { console.error(e); $("status").textContent = e.message || "Could not share bill."; }
+      }
+    });
+    window.goBack = () => history.length > 1 ? history.back() : location.href = `tenant-details.html?tenant=${encodeURIComponent(tenantId || "")}`;
+    waitForAuth();
+  </script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Receipts | Rukmini Hostel</title>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <style>
+    :root { --green:#17845b; --green-dark:#116746; --green-soft:#eaf7f0; --ink:#20332b; --muted:#718078; --line:#e2eae5; --bg:#f4f7f5; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .topbar { background:var(--green); color:#fff; padding:17px 20px; display:flex; align-items:center; gap:12px; box-shadow:0 3px 12px #153b2b18; }
+    .back { border:0; background:#ffffff22; color:#fff; width:38px; height:38px; border-radius:12px; font-size:22px; cursor:pointer; }
+    .topbar h1 { font-size:18px; margin:0; font-weight:750; } .topbar p { margin:3px 0 0; font-size:12px; opacity:.85; }
+    .wrap { max-width:1000px; margin:24px auto; padding:0 16px 40px; display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr); gap:20px; align-items:start; }
+    .panel { background:#fff; border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 6px 24px #183c2a08; }
+    h2 { font-size:16px; margin:0 0 14px; }
+    .tenant-info { background:var(--green-soft); border-radius:12px; padding:13px; margin-bottom:16px; font-size:13px; line-height:1.6; }
+    .tenant-info strong { color:var(--green-dark); }
+    .payment-list { display:flex; flex-direction:column; gap:9px; max-height:430px; overflow:auto; }
+    .payment-item { width:100%; border:1px solid var(--line); background:#fff; border-radius:12px; padding:12px; text-align:left; cursor:pointer; color:var(--ink); }
+    .payment-item.active { border-color:var(--green); background:#f0faf4; box-shadow:0 0 0 2px #17845b12; }
+    .payment-top { display:flex; justify-content:space-between; gap:10px; font-weight:800; font-size:14px; }
+    .payment-meta { color:var(--muted); font-size:11px; margin-top:5px; }
+    .empty { color:var(--muted); font-size:13px; line-height:1.5; padding:12px 0; }
+    .btns { display:flex; flex-wrap:wrap; gap:9px; margin-top:17px; }
+    button.action { border:0; border-radius:11px; padding:12px 14px; font-weight:700; cursor:pointer; background:var(--green); color:#fff; }
+    button.secondary { background:var(--green-soft); color:var(--green-dark); }
+    button:disabled { opacity:.45; cursor:not-allowed; }
+    #status { font-size:13px; margin-top:12px; color:var(--green-dark); }
+    .receipt { background:#fff; border:1px solid #e3e9e5; border-radius:14px; padding:28px; color:#20332b; }
+    .receipt-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; border-bottom:2px solid var(--green); padding-bottom:18px; }
+    .brand { display:flex; align-items:center; gap:11px; min-width:0; }
+    .brand img { width:54px; height:54px; object-fit:contain; }
+    .brand h2 { margin:0 0 4px; font-size:21px; color:var(--green-dark); }
+    .brand p { margin:3px 0; color:#66766d; font-size:11px; overflow-wrap:anywhere; }
+    .receipt-label { text-align:right; } .receipt-label strong { font-size:20px; color:var(--green-dark); letter-spacing:.7px; } .receipt-label p { font-size:11px; color:#738078; margin:5px 0; }
+    .success { display:inline-block; border-radius:99px; padding:5px 9px; background:#e7f7ec; color:#187443; font-size:10px; font-weight:800; }
+    .details { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:20px 0; }
+    .eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:.8px; color:#829087; font-weight:800; margin-bottom:6px; }
+    .details strong { font-size:14px; } .details p { margin:4px 0; font-size:12px; color:#66766d; overflow-wrap:anywhere; }
+    .amount-box { border-radius:12px; background:#edf7f1; padding:18px; text-align:center; margin:4px 0 20px; }
+    .amount-box span { display:block; color:#52705f; font-size:12px; } .amount-box strong { display:block; color:var(--green-dark); font-size:30px; margin-top:5px; }
+    .balance-row { display:flex; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:1px solid #e7ede9; font-size:12px; }
+    .balance-row strong { text-align:right; }
+    .note { margin-top:22px; padding:13px; border-radius:10px; background:#f5f8f6; color:#718078; font-size:11px; line-height:1.5; }
+    .receipt-footer { margin-top:24px; padding-top:13px; border-top:1px solid #e7ede9; font-size:10px; color:#839087; display:flex; justify-content:space-between; gap:12px; }
+    @media(max-width:760px) { .wrap { grid-template-columns:1fr; margin-top:16px; } .receipt { padding:19px; } .payment-list { max-height:280px; } }
+    @media print {
+      body { background:#fff; } .topbar, .list-panel, .preview-heading, .preview-actions { display:none !important; }
+      .wrap { display:block; max-width:none; margin:0; padding:0; } .preview-panel { border:0; box-shadow:none; padding:0; }
+      .receipt { border:0; border-radius:0; padding:12mm; } @page { size:A4; margin:0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <button class="back" onclick="goBack()" aria-label="Go back">‹</button>
+    <div><h1>Payment Receipts</h1><p>Choose a saved payment to generate its receipt</p></div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel list-panel">
+      <h2>Tenant payments</h2>
+      <div class="tenant-info" id="tenantInfo">Loading tenant details…</div>
+      <div id="paymentList" class="payment-list"><div class="empty">Loading saved payments…</div></div>
+      <div id="status" role="status"></div>
+    </section>
+
+    <section class="panel preview-panel">
+      <h2 class="preview-heading">Receipt preview</h2>
+      <article class="receipt" id="receiptCard">
+        <div class="receipt-head">
+          <div class="brand">
+            <img src="../../assets/rukminilogo.png" alt="Rukmini Hostel logo" onerror="this.style.display='none'">
+            <div><h2 id="hostelName">Rukmini Hostel</h2><p id="hostelAddress">Hostel rent management</p><p id="hostelPhone"></p></div>
+          </div>
+          <div class="receipt-label"><strong>PAYMENT<br>RECEIPT</strong><p id="receiptNumber">Receipt —</p><p id="receiptDate">—</p></div>
+        </div>
+        <div class="details">
+          <div><div class="eyebrow">Received from</div><strong id="previewTenant">Tenant name</strong><p id="previewRoom">Room —</p><p id="previewPhone">Phone —</p></div>
+          <div><div class="eyebrow">Payment details</div><strong id="previewPaymentDate">Payment date: —</strong><p>Method: <span id="previewMethod">—</span></p><p><span class="success">PAYMENT RECORDED</span></p></div>
+        </div>
+        <div class="amount-box"><span>Amount received</span><strong id="previewAmount">₹0.00</strong></div>
+        <div class="balance-row"><span>Payment note</span><strong id="previewNote">—</strong></div>
+        <div class="balance-row"><span>Current outstanding balance</span><strong id="previewBalance">—</strong></div>
+        <div class="note">This receipt confirms the saved payment shown above. Please keep it for your records. The outstanding balance shown is the tenant's current balance at the time this receipt is generated, not necessarily the balance immediately after the historical payment.</div>
+        <div class="receipt-footer"><span>Generated by Rukmini Hostel</span><span id="footerDate"></span></div>
+      </article>
+      <div class="btns preview-actions">
+        <button class="action" id="downloadBtn" type="button" disabled>Download image</button>
+        <button class="action secondary" id="shareBtn" type="button" disabled>Share receipt</button>
+        <button class="action secondary" type="button" onclick="window.print()">Print / Save PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { auth, db } from "../js/firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+    import { collection, doc, getDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+    const $ = id => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+    const tenantId = params.get("tenant");
+    let tenant = null, selectedPayment = null, payments = [];
+    const money = n => new Intl.NumberFormat("en-IN", { style:"currency", currency:"INR", minimumFractionDigits:2 }).format(Number(n) || 0);
+    const valueOf = (...values) => values.find(v => v !== undefined && v !== null && v !== "") ?? "";
+    function asDate(value) {
+      if (!value) return null;
+      if (value.toDate) return value.toDate();
+      const date = value instanceof Date ? value : new Date(value);
+      return Number.isNaN(date.getTime()) ? null : date;
+    }
+    function dateText(value) {
+      const date = asDate(value);
+      return date ? date.toLocaleDateString("en-IN", { day:"2-digit", month:"short", year:"numeric" }) : "—";
+    }
+    function paymentDate(p) { return valueOf(p.date, p.paymentDate, p.createdAt, p.timestamp); }
+
+    function renderList() {
+      const list = $("paymentList");
+      list.innerHTML = "";
+      if (!payments.length) {
+        list.innerHTML = '<div class="empty">No saved payments were found for this tenant. Record a payment first, then return here to generate its receipt.</div>';
+        $("downloadBtn").disabled = true; $("shareBtn").disabled = true;
+        return;
+      }
+      payments.forEach(payment => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "payment-item" + (selectedPayment?.id === payment.id ? " active" : "");
+        const top = document.createElement("div"); top.className = "payment-top";
+        const amount = document.createElement("span"); amount.textContent = money(payment.amount);
+        const date = document.createElement("span"); date.textContent = dateText(paymentDate(payment));
+        top.append(amount, date);
+        const meta = document.createElement("div"); meta.className = "payment-meta";
+        meta.textContent = `${valueOf(payment.method, "Payment method not specified")}${payment.note ? " · " + payment.note : ""}`;
+        btn.append(top, meta);
+        btn.addEventListener("click", () => selectPayment(payment));
+        list.appendChild(btn);
+      });
+    }
+
+   
+function selectPayment(payment) {
+    selectedPayment = payment;
+
+    const name = valueOf(tenant.name, tenant.fullName, payment.tenantName, "Tenant");
+    const room = valueOf(tenant.room, tenant.roomNumber, tenant.roomNo, "—");
+    const phone = valueOf(tenant.mobile, tenant.phone, tenant.phoneNumber, tenant.contactNumber, "—");
+
+    // Convert the saved payment date into a valid JavaScript Date
+    const date = asDate(paymentDate(payment));
+
+    $("previewTenant").textContent = name;
+    $("previewRoom").textContent = `Room: ${room}`;
+    $("previewPhone").textContent = `Phone: ${phone}`;
+    $("previewPaymentDate").textContent = `Payment date: ${dateText(date)}`;
+    $("previewMethod").textContent = valueOf(payment.method, "Not specified");
+    $("previewAmount").textContent = money(payment.amount);
+    $("previewNote").textContent = valueOf(payment.note, "—");
+    $("previewBalance").textContent = money(valueOf(tenant.currentDue, tenant.openingBalance, 0));
+
+    $("receiptDate").textContent = `Generated: ${dateText(new Date())}`;
+    $("footerDate").textContent = dateText(new Date());
+
+    const year = date ? date.getFullYear() : new Date().getFullYear();
+    $("receiptNumber").textContent =
+        `RCPT-${year}-${payment.id.slice(-7).toUpperCase()}`;
+
+    $("downloadBtn").disabled = false;
+    $("shareBtn").disabled = false;
+
+    renderList();
+
+    $("status").textContent = "Receipt preview updated from the selected saved payment.";
+}
+
+
+    async function loadPage(user) {
+      if (!tenantId) { $("tenantInfo").textContent = "Missing tenant ID. Open this page from a tenant's details page."; return; }
+      try {
+        const [tenantSnap, profileSnap, paymentSnap] = await Promise.all([
+          getDoc(doc(db, "users", user.uid, "tenants", tenantId)),
+          getDoc(doc(db, "users", user.uid)),
+          getDocs(query(collection(db, "users", user.uid, "payments"), where("tenantId", "==", tenantId)))
+        ]);
+        if (!tenantSnap.exists()) { $("tenantInfo").textContent = "Tenant not found."; return; }
+        tenant = tenantSnap.data();
+        const profile = profileSnap.exists() ? profileSnap.data() : {};
+        $("tenantInfo").innerHTML = "";
+        const strong = document.createElement("strong"); strong.textContent = valueOf(tenant.name, tenant.fullName, "Tenant");
+        const details = document.createElement("div"); details.textContent = `Room: ${valueOf(tenant.room, tenant.roomNumber, tenant.roomNo, "—")} · Current due: ${money(valueOf(tenant.currentDue, tenant.openingBalance, 0))}`;
+        $("tenantInfo").append(strong, details);
+        $("hostelName").textContent = valueOf(profile.hostelName, "Rukmini Hostel");
+        $("hostelAddress").textContent = [profile.address, profile.city, profile.state].filter(Boolean).join(", ") || "Hostel rent management";
+        $("hostelPhone").textContent = profile.contactNumber ? `Contact: ${profile.contactNumber}` : "";
+        payments = paymentSnap.docs.map(snap => ({ id:snap.id, ...snap.data() })).sort((a,b) => {
+          const da = asDate(paymentDate(a))?.getTime() || 0;
+          const db = asDate(paymentDate(b))?.getTime() || 0;
+          return db - da;
+        });
+        renderList();
+        if (payments.length) selectPayment(payments[0]);
+        else $("status").textContent = "No saved payments available to generate a receipt.";
+      } catch (error) {
+        console.error(error);
+        $("paymentList").innerHTML = '<div class="empty">Could not load payments. Check your connection and Firebase configuration.</div>';
+        $("status").textContent = "Could not load payment history.";
+      }
+    }
+
+    async function makeImage() {
+      if (!selectedPayment) throw new Error("Select a saved payment first.");
+      if (!window.html2canvas) throw new Error("Image generator did not load. Check your internet connection.");
+      return await window.html2canvas($("receiptCard"), { scale:2, backgroundColor:"#ffffff", useCORS:true });
+    }
+    $("downloadBtn").addEventListener("click", async () => {
+      try {
+        $("status").textContent = "Creating receipt image…";
+        const canvas = await makeImage();
+        const a = document.createElement("a");
+        a.download = `Payment-Receipt-${selectedPayment.id.slice(-7)}.png`;
+        a.href = canvas.toDataURL("image/png"); a.click();
+        $("status").textContent = "Receipt image downloaded.";
+      } catch (e) { console.error(e); $("status").textContent = e.message || "Could not create receipt."; }
+    });
+    $("shareBtn").addEventListener("click", async () => {
+      try {
+        $("status").textContent = "Preparing receipt to share…";
+        const canvas = await makeImage();
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+        const file = new File([blob], `Rukmini-Receipt-${selectedPayment.id.slice(-7)}.png`, { type:"image/png" });
+        if (navigator.canShare && navigator.canShare({ files:[file] }) && navigator.share) {
+          await navigator.share({ files:[file], title:"Rukmini Hostel Payment Receipt", text:`Payment receipt for ${tenant.name || "tenant"}` });
+          $("status").textContent = "Share sheet opened. Choose WhatsApp and send the receipt.";
+        } else {
+          const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name; a.click();
+          $("status").textContent = "Image sharing isn't supported here, so the receipt was downloaded. Attach it in WhatsApp.";
+        }
+      } catch (e) {
+        if (e.name !== "AbortError") { console.error(e); $("status").textContent = e.message || "Could not share receipt."; }
+      }
+    });
+    window.goBack = () => history.length > 1 ? history.back() : location.href = `tenant-details.html?tenant=${encodeURIComponent(tenantId || "")}`;
+    onAuthStateChanged(auth, user => {
+      if (!user) { location.href = "../auth/login.html"; return; }
+      loadPage(user);
+    });
+  </script>
+</body>
+</html>

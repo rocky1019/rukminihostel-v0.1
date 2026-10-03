@@ -1,47 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
     <meta name="theme-color" content="#00695C">
-
     <title>Tenant Details - Rukmini Hostel</title>
-
     <script src="https://unpkg.com/lucide@latest"></script>
-
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
         html,
         body {
             width: 100%;
             min-height: 100%;
         }
-
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: #E9EEEE;
             color: #263238;
         }
-
         button {
             font-family: inherit;
         }
-
-
         /* APP */
-
         .app {
             width: 100%;
             max-width: 600px;
@@ -50,10 +37,7 @@
             background: #F5F7F7;
             box-shadow: 0 0 35px rgba(0,0,0,.05);
         }
-
-
         /* HEADER */
-
         .header {
             height: 72px;
             padding: 0 18px;
@@ -66,7 +50,6 @@
             top: 0;
             z-index: 20;
         }
-
         .back-button {
             width: 42px;
             height: 42px;
@@ -78,28 +61,20 @@
             justify-content: center;
             cursor: pointer;
         }
-
         .back-button svg {
             width: 23px;
             height: 23px;
             stroke-width: 2.5;
         }
-
         .header-title {
             font-size: 20px;
             font-weight: 700;
         }
-
-
         /* CONTENT */
-
         .content {
             padding: 20px 16px 35px;
         }
-
-
         /* PROFILE */
-
         .profile-card {
             background: white;
             border-radius: 18px;
@@ -109,7 +84,6 @@
             box-shadow: 0 4px 12px rgba(38,50,56,.04);
             margin-bottom: 16px;
         }
-
         .avatar {
             width: 76px;
             height: 76px;
@@ -123,21 +97,16 @@
             font-size: 25px;
             font-weight: 700;
         }
-
         .profile-card h1 {
             font-size: 21px;
             color: #263238;
             margin-bottom: 5px;
         }
-
         .profile-card p {
             font-size: 13px;
             color: #78909C;
         }
-
-
         /* CARDS */
-
         .card {
             background: white;
             border: 1px solid #E4EAEA;
@@ -146,17 +115,13 @@
             margin-bottom: 14px;
             box-shadow: 0 3px 10px rgba(38,50,56,.035);
         }
-
         .card-title {
             font-size: 15px;
             font-weight: 700;
             color: #00695C;
             margin-bottom: 16px;
         }
-
-
         /* DETAIL ROW */
-
         .detail-row {
             display: flex;
             justify-content: space-between;
@@ -164,21 +129,17 @@
             padding: 12px 0;
             border-bottom: 1px solid #EDF0F0;
         }
-
         .detail-row:last-child {
             border-bottom: none;
             padding-bottom: 0;
         }
-
         .detail-row:first-child {
             padding-top: 0;
         }
-
         .detail-label {
             font-size: 12px;
             color: #90A4AE;
         }
-
         .detail-value {
             font-size: 14px;
             color: #37474F;
@@ -187,10 +148,7 @@
             word-break: break-word;
             max-width: 60%;
         }
-
-
         /* BALANCE */
-
         .balance-box {
             background: #E0F2F1;
             border-radius: 14px;
@@ -199,45 +157,35 @@
             align-items: center;
             justify-content: space-between;
         }
-
         .balance-box span {
             font-size: 12px;
             color: #51736F;
         }
-
         .balance-box strong {
             display: block;
             margin-top: 5px;
             font-size: 22px;
             color: #00695C;
         }
-
         .balance-status {
             font-size: 12px;
             font-weight: 700;
             color: #EF8C00;
         }
-
-
         /* LOADING */
-
         .loading {
             text-align: center;
             padding: 70px 20px;
             color: #78909C;
             font-size: 14px;
         }
-
-
         /* ERROR */
-
         .error {
             background: white;
             border-radius: 17px;
             padding: 35px 20px;
             text-align: center;
         }
-
         .error-icon {
             width: 55px;
             height: 55px;
@@ -249,34 +197,26 @@
             align-items: center;
             justify-content: center;
         }
-
         .error h3 {
             margin-bottom: 7px;
             color: #455A64;
         }
-
         .error p {
             color: #90A4AE;
             font-size: 13px;
             line-height: 1.5;
         }
-
-
         @media (min-width: 601px) {
-
             body {
                 background: #E9EEEE;
             }
-
             .app {
                 min-height: 100vh;
             }
-
         }
             /* =====================================================
    TENANT FEATURE BUTTONS
    ===================================================== */
-
 .feature-card {
     background: white;
     border: 1px solid #E4EAEA;
@@ -285,13 +225,11 @@
     margin-bottom: 14px;
     box-shadow: 0 3px 10px rgba(38,50,56,.035);
 }
-
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
-
 .feature-button {
     min-height: 78px;
     border: 1px solid #E4EAEA;
@@ -306,544 +244,546 @@
     cursor: pointer;
     transition: 0.15s ease;
 }
-
 .feature-button svg {
     width: 21px;
     height: 21px;
     color: #00695C;
     stroke-width: 2.4;
 }
-
 .feature-button span {
     font-size: 11px;
     font-weight: 600;
 }
-
 .feature-button:active {
     transform: scale(0.95);
     background: #E0F2F1;
 }
-    </style>
-
+/* PAYMENT REMINDER PREVIEW */
+.reminder-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(15, 30, 28, 0.65);
+    padding: 18px;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+.reminder-dialog {
+    width: 100%;
+    max-width: 440px;
+    max-height: 95vh;
+    overflow-y: auto;
+    background: #F5F7F7;
+    border-radius: 18px;
+    padding: 16px;
+}
+.reminder-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    color: #263238;
+    font-size: 16px;
+    font-weight: 700;
+}
+.reminder-close {
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: #E4EAEA;
+    color: #455A64;
+    font-size: 22px;
+    cursor: pointer;
+}
+.reminder-card {
+    padding: 25px 20px;
+    border-radius: 16px;
+    background: #FFFFFF;
+    border: 1px solid #D8E8E5;
+    color: #263238;
+}
+.reminder-card-top {
+    text-align: center;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed #C7D8D4;
+}
+.reminder-card-mark {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E0F2F1;
+    color: #00695C;
+    font-size: 21px;
+    font-weight: 800;
+}
+.reminder-card-hostel {
+    font-size: 20px;
+    font-weight: 800;
+    color: #00695C;
+    overflow-wrap: anywhere;
+}
+.reminder-card-subtitle {
+    margin-top: 5px;
+    color: #78909C;
+    font-size: 12px;
+}
+.reminder-card-message {
+    margin: 18px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+    color: #546E7A;
+}
+.reminder-card-tenant {
+    font-size: 18px;
+    font-weight: 700;
+    color: #263238;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+.reminder-amount-box {
+    margin: 18px 0;
+    padding: 18px 12px;
+    text-align: center;
+    background: #E0F2F1;
+    border-radius: 13px;
+}
+.reminder-amount-label { color: #51736F; font-size: 12px; }
+.reminder-amount {
+    display: block;
+    margin-top: 6px;
+    color: #00695C;
+    font-size: 30px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+.reminder-card-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #EDF0F0;
+    font-size: 12px;
+}
+.reminder-card-details:last-child { border-bottom: 0; }
+.reminder-card-details span { color: #78909C; }
+.reminder-card-details strong { color: #37474F; text-align: right; overflow-wrap: anywhere; }
+.reminder-card-footer {
+    margin-top: 17px;
+    padding-top: 14px;
+    border-top: 1px dashed #C7D8D4;
+    color: #78909C;
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.5;
+}
+.reminder-actions { display: flex; gap: 10px; margin-top: 14px; }
+.reminder-action-button {
+    flex: 1;
+    min-height: 46px;
+    border: 0;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.reminder-share-button { background: #00695C; color: white; }
+.reminder-cancel-button { background: #E4EAEA; color: #455A64; }
+.reminder-action-button:disabled { opacity: 0.65; cursor: wait; }
+</style>
 </head>
-
-
 <body>
-
 <div class="app">
-
-
     <!-- HEADER -->
-
     <header class="header">
-
         <button
             class="back-button"
             onclick="goBack()"
         >
             <i data-lucide="arrow-left"></i>
         </button>
-
         <div class="header-title">
             Tenant Details
         </div>
-
     </header>
-
-
     <!-- CONTENT -->
-
     <main class="content">
-
         <div id="loading" class="loading">
             Loading tenant...
         </div>
-
-
         <div id="tenantContent" style="display:none;">
-
-
             <!-- PROFILE -->
-
             <section class="profile-card">
-
                 <div
                     class="avatar"
                     id="avatar"
                 >
                     TN
                 </div>
-
                 <h1 id="tenantName">
                     —
                 </h1>
-
                 <p id="tenantRoom">
                     —
                 </p>
-
             </section>
-
-
             <!-- CONTACT -->
-
             <section class="card">
-
                 <div class="card-title">
                     Contact Details
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Mobile Number
                     </span>
-
                     <strong
                         class="detail-value"
                         id="mobile"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Mobile Number 2
                     </span>
-
                     <strong
                         class="detail-value"
                         id="mobile2"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Email
                     </span>
-
                     <strong
                         class="detail-value"
                         id="email"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Address
                     </span>
-
                     <strong
                         class="detail-value"
                         id="address"
                     >
                         —
                     </strong>
-
                 </div>
-
             </section>
-
-
             <!-- HOSTEL -->
-
             <section class="card">
-
                 <div class="card-title">
                     Hostel Details
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Building
                     </span>
-
                     <strong
                         class="detail-value"
                         id="building"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Building Number
                     </span>
-
                     <strong
                         class="detail-value"
                         id="buildingNumber"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Billing Name
                     </span>
-
                     <strong
                         class="detail-value"
                         id="billingName"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Tenant Code
                     </span>
-
                     <strong
                         class="detail-value"
                         id="tenantCode"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Status
                     </span>
-
                     <strong
                         class="detail-value"
                         id="status"
                     >
                         —
                     </strong>
-
                 </div>
-
             </section>
-
-
             <!-- FINANCIAL -->
-
             <section class="card">
-
                 <div class="card-title">
                     Financial Details
                 </div>
-
-
                 <div class="balance-box">
-
                     <div>
-
                         <span id="balanceLabel">
                             Current Due
                         </span>
-
                         <strong id="balance">
                             ₹0
                         </strong>
-
                     </div>
-
                     <div
                         class="balance-status"
                         id="balanceStatus"
                     >
                         Due
                     </div>
-
                 </div>
-
-
                 <div class="detail-row"
                      style="margin-top:12px;">
-
                     <span class="detail-label">
                         Opening Balance
                     </span>
-
                     <strong
                         class="detail-value"
                         id="openingBalance"
                     >
                         ₹0
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Balance Type
                     </span>
-
                     <strong
                         class="detail-value"
                         id="balanceType"
                     >
                         —
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Security Deposit
                     </span>
-
                     <strong
                         class="detail-value"
                         id="securityDeposit"
                     >
                         ₹0
                     </strong>
-
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Start Billing From
                     </span>
-
                     <strong
                         class="detail-value"
                         id="billingDate"
                     >
                         —
                     </strong>
-
                 </div>
-
             </section>
-
              <!-- TENANT FEATURES -->
-
 <section class="feature-card">
-
     <div class="card-title">
         Tenant Management
     </div>
-
     <div class="feature-grid">
-
         <button class="feature-button" onclick="openFeature('balance')">
             <i data-lucide="wallet"></i>
             <span>Balance</span>
         </button>
-
         <button class="feature-button" onclick="documentUnavailable()">
             <i data-lucide="folder-open"></i>
             <span>Documents</span>
         </button>
-
         <button class="feature-button" onclick="openFeature('electricity')">
             <i data-lucide="zap"></i>
             <span>Electricity</span>
         </button>
-
         <button class="feature-button" onclick="openFeature('followup')">
             <i data-lucide="phone-call"></i>
             <span>Follow-up</span>
         </button>
-
         <button class="feature-button" onclick="openFeature('payment')">
             <i data-lucide="credit-card"></i>
             <span>Payment</span>
         </button>
-
         <button class="feature-button" onclick="openFeature('subscription')">
             <i data-lucide="repeat"></i>
             <span>Subscription</span>
         </button>
+        <button class="feature-button" onclick="openPaymentReminder()">
+            <i data-lucide="message-circle"></i>
+            <span>Payment Reminder</span>
+        </button>
+        <button class="feature-button" onclick="openFeature('bill')">
+    <i data-lucide="file-text"></i>
+    <span>Generate Bill</span>
+    </button>
 
+<button class="feature-button" onclick="openFeature('receipts')">
+    <i data-lucide="receipt"></i>
+    <span>Receipts</span>
+</button>
     </div>
-
-</section>   
-
+</section>  &#x20;
             <!-- OTHER -->
-
             <section class="card">
-
                 <div class="card-title">
                     Other Details
                 </div>
-
-
                 <div class="detail-row">
-
                     <span class="detail-label">
                         Remark
                     </span>
-
                     <strong
                         class="detail-value"
                         id="remark"
                     >
                         —
                     </strong>
-
                 </div>
-
             </section>
-
-
         </div>
-
-
         <!-- ERROR -->
-
         <div
             id="errorState"
             class="error"
             style="display:none;"
         >
-
             <div class="error-icon">
-
                 <i data-lucide="alert-circle"></i>
-
             </div>
-
             <h3>
                 Tenant not found
             </h3>
-
             <p id="errorMessage">
                 We couldn't load this tenant.
             </p>
-
         </div>
-
     </main>
-
 </div>
-
+    <!-- PAYMENT REMINDER PREVIEW -->
+    <div id="reminderModal" class="reminder-modal" role="dialog" aria-modal="true" aria-labelledby="reminderDialogTitle">
+        <div class="reminder-dialog">
+            <div class="reminder-dialog-header">
+                <span id="reminderDialogTitle">Payment Reminder Preview</span>
+                <button class="reminder-close" type="button" onclick="closePaymentReminder()" aria-label="Close">&times;</button>
+            </div>
+            <div id="reminderCard" class="reminder-card">
+                <div class="reminder-card-top">
+                    <div class="reminder-card-mark">RH</div>
+                    <div id="reminderHostelName" class="reminder-card-hostel">Rukmini Hostel</div>
+                    <div class="reminder-card-subtitle">RENT PAYMENT REMINDER</div>
+                </div>
+                <div class="reminder-card-message">Dear tenant, this is a friendly reminder that your hostel rent payment is currently due.</div>
+                <div id="reminderTenantName" class="reminder-card-tenant">Tenant Name</div>
+                <div class="reminder-amount-box">
+                    <span class="reminder-amount-label">OUTSTANDING AMOUNT</span>
+                    <strong id="reminderAmount" class="reminder-amount">₹0</strong>
+                </div>
+                <div class="reminder-card-details"><span>Reminder date</span><strong id="reminderDate">—</strong></div>
+                <div class="reminder-card-details"><span>Room / Building</span><strong id="reminderRoom">—</strong></div>
+                <div class="reminder-card-details"><span>Contact</span><strong id="reminderContact">—</strong></div>
+                <div class="reminder-card-footer">If you have already paid, please ignore this reminder. Thank you!</div>
+            </div>
+            <div class="reminder-actions">
+                <button class="reminder-action-button reminder-cancel-button" type="button" onclick="closePaymentReminder()">Cancel</button>
+                <button id="shareReminderButton" class="reminder-action-button reminder-share-button" type="button" onclick="sharePaymentReminder()">Share Image</button>
+            </div>
+        </div>
+    </div>
 
 <script type="module">
-
     import {
         auth,
         db
     } from "../js/firebase-config.js";
-
     import {
         doc,
         getDoc
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
-
     /* =====================================================
        LUCIDE
        ===================================================== */
-
     lucide.createIcons();
-
-
     /* =====================================================
        HELPERS
        ===================================================== */
-
     function formatMoney(value) {
-
         return "₹" +
             (Number(value) || 0)
                 .toLocaleString("en-IN");
-
     }
-
-
     function getInitials(name) {
-
         if (!name) {
             return "TN";
         }
-
         const words =
             name
                 .trim()
                 .split(/\s+/)
                 .filter(Boolean);
-
         if (words.length === 1) {
-
             return words[0]
                 .substring(0, 2)
                 .toUpperCase();
-
         }
-
         return (
             words[0][0] +
             words[1][0]
         ).toUpperCase();
-
     }
-
-
     function valueOrDash(value) {
-
         if (
             value === undefined ||
             value === null ||
             String(value).trim() === ""
         ) {
-
             return "—";
-
         }
-
         return String(value);
-
     }
-
-
     function formatDate(dateString) {
-
         if (!dateString) {
             return "—";
         }
-
         const parts =
             dateString.split("-");
-
         if (parts.length !== 3) {
             return dateString;
         }
-
         return (
             parts[2] +
             "/" +
@@ -851,165 +791,209 @@
             "/" +
             parts[0]
         );
-
     }
-
-
     /* =====================================================
        BACK
        ===================================================== */
-
 function goBack() {
     window.location.href = "../main/tenants.html";
 }
     window.goBack = goBack;
-
 /* =====================================================
    TENANT FEATURES
    ===================================================== */
-
 function openFeature(feature) {
-
     const params =
         new URLSearchParams(
             window.location.search
         );
-
     const tenantId =
         params.get("tenant");
-
     if (!tenantId) {
         return;
     }
+   const pages = {
+    balance:
+        "tenant-balance.html",
+    documents:
+        "tenant-documents.html",
+    electricity:
+        "tenant-electricity.html",
+    followup:
+        "tenant-followup.html",
+    payment:
+        "tenant-payment.html",
+    subscription:
+        "tenant-subscription.html",
 
-    const pages = {
-
-        balance:
-            "tenant-balance.html",
-
-        documents:
-            "tenant-documents.html",
-
-        electricity:
-            "tenant-electricity.html",
-
-        followup:
-            "tenant-followup.html",
-
-        payment:
-            "tenant-payment.html",
-
-        subscription:
-            "tenant-subscription.html"
-
-    };
-
+    // New features
+    bill:
+        "tenant-bill.html",
+    receipts:
+        "tenant-receipts.html"
+};
     if (!pages[feature]) {
         return;
     }
-
     window.location.href =
         pages[feature] +
         "?tenant=" +
         encodeURIComponent(tenantId);
-
 }
-
 window.openFeature = openFeature;
-    /* =====================================================
-       LOAD TENANT
-       ===================================================== */
-
+/* =====================================================
+   PAYMENT REMINDER IMAGE SHARING
+   ===================================================== */
+let reminderTenant = null;
+let reminderHostelProfile = {};
+function openPaymentReminder() {
+    if (!reminderTenant) {
+        alert("Tenant details are still loading. Please try again.");
+        return;
+    }
+    const due = Number(reminderTenant.currentDue ?? reminderTenant.openingBalance ?? 0) || 0;
+    if (due <= 0) {
+        alert("This tenant has no outstanding balance.");
+        return;
+    }
+    const tenantName = reminderTenant.name || "Tenant";
+    const room = reminderTenant.buildingNumber
+        ? (reminderTenant.building ? reminderTenant.building + " • " + reminderTenant.buildingNumber : reminderTenant.buildingNumber)
+        : (reminderTenant.building || "Not specified");
+    const today = new Date();
+    const reminderDate = today.toLocaleDateString("en-IN", {
+        day: "2-digit", month: "short", year: "numeric"
+    });
+    document.getElementById("reminderHostelName").textContent =
+        reminderHostelProfile.hostelName || "Rukmini Hostel";
+    document.getElementById("reminderTenantName").textContent = tenantName;
+    document.getElementById("reminderAmount").textContent = formatMoney(due);
+    document.getElementById("reminderDate").textContent = reminderDate;
+    document.getElementById("reminderRoom").textContent = room;
+    document.getElementById("reminderContact").textContent =
+        reminderHostelProfile.contactNumber || "Not provided";
+    document.getElementById("reminderModal").style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+function closePaymentReminder() {
+    document.getElementById("reminderModal").style.display = "none";
+    document.body.style.overflow = "";
+}
+async function sharePaymentReminder() {
+    const button = document.getElementById("shareReminderButton");
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = "Preparing image...";
+    try {
+        if (typeof html2canvas === "undefined") {
+            throw new Error("Image generator could not load. Check your internet connection and try again.");
+        }
+        const canvas = await html2canvas(document.getElementById("reminderCard"), {
+            scale: 2,
+            backgroundColor: "#FFFFFF",
+            useCORS: true,
+            logging: false
+        });
+        const blob = await new Promise((resolve, reject) => {
+            canvas.toBlob(result => {
+                if (result) resolve(result);
+                else reject(new Error("Could not create the reminder image."));
+            }, "image/png");
+        });
+        const fileName = "Rukmini-Hostel-Payment-Reminder.png";
+        const file = new File([blob], fileName, { type: "image/png" });
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: "Hostel Rent Payment Reminder",
+                text: "Payment reminder from " + (reminderHostelProfile.hostelName || "Rukmini Hostel")
+            });
+        } else {
+            const imageUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = imageUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(imageUrl), 1000);
+            alert("Reminder image downloaded. You can now attach it in WhatsApp.");
+        }
+    } catch (error) {
+        if (error.name !== "AbortError") {
+            console.error("Error sharing payment reminder:", error);
+            alert(error.message || "Could not share the reminder image. Please try again.");
+        }
+    } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+    }
+}
+window.openPaymentReminder = openPaymentReminder;
+window.closePaymentReminder = closePaymentReminder;
+window.sharePaymentReminder = sharePaymentReminder;
+/* =====================================================
+   LOAD TENANT
+   ===================================================== */
     async function loadTenant() {
-
         const loading =
             document.getElementById(
                 "loading"
             );
-
         const content =
             document.getElementById(
                 "tenantContent"
             );
-
         const errorState =
             document.getElementById(
                 "errorState"
             );
-
-
         /* ---------------------------------------------
            GET TENANT ID FROM URL
            --------------------------------------------- */
-
         const params =
             new URLSearchParams(
                 window.location.search
             );
-
         const tenantId =
             params.get("tenant");
-
-
         if (!tenantId) {
-
             loading.style.display =
                 "none";
-
             errorState.style.display =
                 "block";
-
             document.getElementById(
                 "errorMessage"
             ).textContent =
                 "No tenant ID was provided.";
-
             lucide.createIcons();
-
             return;
-
         }
-
-
         /* ---------------------------------------------
            AUTH
            --------------------------------------------- */
-
         const user =
             auth.currentUser;
-
-
         if (!user) {
-
             loading.style.display =
                 "none";
-
             errorState.style.display =
                 "block";
-
             document.getElementById(
                 "errorMessage"
             ).textContent =
                 "Please log in before viewing tenant details.";
-
             lucide.createIcons();
-
             return;
-
         }
-
-
         try {
-
             /* -----------------------------------------
                FIRESTORE PATH
-
                users/
                  UID/
                    tenants/
                      TENANT ID
                ----------------------------------------- */
-
             const tenantRef =
                 doc(
                     db,
@@ -1018,36 +1002,32 @@ window.openFeature = openFeature;
                     "tenants",
                     tenantId
                 );
-
-
             const snapshot =
                 await getDoc(
                     tenantRef
                 );
-
-
             if (!snapshot.exists()) {
-
                 throw new Error(
                     "This tenant does not exist."
                 );
-
             }
-
-
             const tenant =
                 snapshot.data();
-
-
+            reminderTenant = { ...tenant, id: tenantId };
+            // Load hostel profile details for the reminder card.
+            try {
+                const profileSnapshot = await getDoc(doc(db, "users", user.uid));
+                reminderHostelProfile = profileSnapshot.exists() ? profileSnapshot.data() : {};
+            } catch (profileError) {
+                console.warn("Could not load hostel profile for reminder card:", profileError);
+                reminderHostelProfile = {};
+            }
             /* -----------------------------------------
                BASIC
                ----------------------------------------- */
-
             const name =
                 tenant.name ||
                 "Unnamed Tenant";
-
-
             const room =
                 tenant.buildingNumber
                     ? (
@@ -1061,272 +1041,186 @@ window.openFeature = openFeature;
                         tenant.building ||
                         "No room assigned"
                       );
-
-
             document.getElementById(
                 "avatar"
             ).textContent =
                 getInitials(name);
-
-
             document.getElementById(
                 "tenantName"
             ).textContent =
                 name;
-
-
             document.getElementById(
                 "tenantRoom"
             ).textContent =
                 room;
-
-
             /* -----------------------------------------
                CONTACT
                ----------------------------------------- */
-
             document.getElementById(
                 "mobile"
             ).textContent =
                 valueOrDash(
                     tenant.mobile
                 );
-
-
             document.getElementById(
                 "mobile2"
             ).textContent =
                 valueOrDash(
                     tenant.mobile2
                 );
-
-
             document.getElementById(
                 "email"
             ).textContent =
                 valueOrDash(
                     tenant.email
                 );
-
-
             document.getElementById(
                 "address"
             ).textContent =
                 valueOrDash(
                     tenant.address
                 );
-
-
             /* -----------------------------------------
                HOSTEL
                ----------------------------------------- */
-
             document.getElementById(
                 "building"
             ).textContent =
                 valueOrDash(
                     tenant.building
                 );
-
-
             document.getElementById(
                 "buildingNumber"
             ).textContent =
                 valueOrDash(
                     tenant.buildingNumber
                 );
-
-
             document.getElementById(
                 "billingName"
             ).textContent =
                 valueOrDash(
                     tenant.billingName
                 );
-
-
             document.getElementById(
                 "tenantCode"
             ).textContent =
                 valueOrDash(
                     tenant.tenantCode
                 );
-
-
             document.getElementById(
                 "status"
             ).textContent =
                 valueOrDash(
                     tenant.status
                 );
-
-
             /* -----------------------------------------
                FINANCIAL
                ----------------------------------------- */
-
             const openingBalance =
                 Number(
                     tenant.openingBalance
                 ) || 0;
-
-
             const currentDue =
                 Number(
                     tenant.currentDue ??
                     openingBalance
                 ) || 0;
-
-
             const securityDeposit =
                 Number(
                     tenant.securityDeposit
                 ) || 0;
-
-
             document.getElementById(
                 "openingBalance"
             ).textContent =
                 formatMoney(
                     openingBalance
                 );
-
-
             document.getElementById(
                 "balance"
             ).textContent =
                 formatMoney(
                     currentDue
                 );
-
-
             document.getElementById(
                 "securityDeposit"
             ).textContent =
                 formatMoney(
                     securityDeposit
                 );
-
-
             document.getElementById(
                 "billingDate"
             ).textContent =
                 formatDate(
                     tenant.billingDate
                 );
-
-
             document.getElementById(
                 "balanceType"
             ).textContent =
                 tenant.balanceType === "owner"
                     ? "You need to pay tenant"
                     : "Tenant needs to pay you";
-
-
             const balanceStatus =
                 document.getElementById(
                     "balanceStatus"
                 );
-
-
             if (currentDue <= 0) {
-
                 balanceStatus.textContent =
                     "Paid";
-
                 balanceStatus.style.color =
                     "#00897B";
-
             } else {
-
                 balanceStatus.textContent =
                     "Due";
-
                 balanceStatus.style.color =
                     "#EF8C00";
-
             }
-
-
             /* -----------------------------------------
                OTHER
                ----------------------------------------- */
-
             document.getElementById(
                 "remark"
             ).textContent =
                 valueOrDash(
                     tenant.remark
                 );
-
-
             /* -----------------------------------------
                SHOW
                ----------------------------------------- */
-
             loading.style.display =
                 "none";
-
             content.style.display =
                 "block";
-
-
         } catch (error) {
-
             console.error(
                 "Error loading tenant:",
                 error
             );
-
-
             loading.style.display =
                 "none";
-
             errorState.style.display =
                 "block";
-
-
             document.getElementById(
                 "errorMessage"
             ).textContent =
                 error.message ||
                 "Something went wrong while loading this tenant.";
-
-
             lucide.createIcons();
-
         }
-
     }
-
-
     /* =====================================================
        WAIT FOR AUTH
        ===================================================== */
-
     if (auth.currentUser) {
-
         loadTenant();
-
     } else {
-
         auth.onAuthStateChanged(
             function(user) {
-
                 if (user) {
-
                     loadTenant();
-
                 }
-
             }
         );
-
     }
-
 </script>
-
 </body>
-
 </html>
