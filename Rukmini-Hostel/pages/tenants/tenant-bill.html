@@ -78,6 +78,7 @@
         <button class="action" id="refreshBtn" type="button">Update preview</button>
         <button class="action secondary" id="downloadBtn" type="button">Download image</button>
         <button class="action secondary" id="shareBtn" type="button">Share</button>
+        <button class="action secondary" id="whatsappBtn" type="button">Share on WhatsApp</button>
         <button class="action secondary" type="button" onclick="window.print()">Print / Save PDF</button>
       </div>
       <p class="hint">This page creates a bill preview only. It does not add a payment or change the tenant's balance. Verify the rent and charges before sharing.</p>
@@ -230,6 +231,65 @@
         }
       } catch (e) {
         if (e.name !== "AbortError") { console.error(e); $("status").textContent = e.message || "Could not share bill."; }
+      }
+    });
+    $("whatsappBtn").addEventListener("click", async () => {
+      // Open a blank tab immediately so browsers are less likely to block it
+      // while the bill image is being generated.
+      const whatsappTab = window.open("about:blank", "_blank");
+      const button = $("whatsappBtn");
+      button.disabled = true;
+
+      try {
+        $("status").textContent = "Preparing bill and opening WhatsApp…";
+        const canvas = await makeImage();
+        const blob = await new Promise((resolve, reject) => {
+          canvas.toBlob(result => result ? resolve(result) : reject(new Error("Could not create the bill image.")), "image/png");
+        });
+
+        const tenantName = valueOf(tenant?.name, tenant?.fullName, "Tenant");
+        const phoneValue = valueOf(tenant?.mobile, tenant?.phone, tenant?.phoneNumber, tenant?.contactNumber, "");
+        let phone = String(phoneValue).replace(/\D/g, "");
+        if (phone.length === 10) phone = "91" + phone;
+        else if (phone.length === 11 && phone.startsWith("0")) phone = "91" + phone.slice(1);
+        else if (phone.length === 12 && phone.startsWith("91")) { /* already has India's country code */ }
+        else if (phone.startsWith("00")) phone = phone.slice(2);
+
+        const billNumber = $("billNumber").textContent;
+        const total = $("totalDue").textContent;
+        const period = $("previewPeriod").textContent;
+        const dueDate = $("previewDueDate").textContent;
+        const message = `Hello ${tenantName}, your rent bill from ${$("hostelName").textContent} for ${period} is ${total}. Bill number: ${billNumber}. Due date: ${dueDate}. Please see the bill image for the full breakdown.`;
+
+        // Download the generated image so it can be attached manually in WhatsApp.
+        const imageUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = imageUrl;
+        a.download = `Rent-Bill-${tenantName.replace(/[^a-z0-9-_]/gi, "-")}.png`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(imageUrl), 60000);
+
+        const whatsappUrl = phone
+          ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+          : `https://wa.me/?text=${encodeURIComponent(message)}`;
+
+        if (whatsappTab && !whatsappTab.closed) {
+          whatsappTab.location.href = whatsappUrl;
+        } else {
+          window.location.href = whatsappUrl;
+        }
+
+        $("status").textContent = phone
+          ? "Bill image downloaded and WhatsApp opened for the tenant with a prefilled message. Attach the downloaded image before sending."
+          : "Bill image downloaded and WhatsApp opened with a prefilled message, but no valid tenant phone number was found. Choose the recipient manually and attach the image.";
+      } catch (error) {
+        if (whatsappTab && !whatsappTab.closed) whatsappTab.close();
+        console.error(error);
+        $("status").textContent = error.message || "Could not prepare bill for WhatsApp.";
+      } finally {
+        button.disabled = false;
       }
     });
     window.goBack = () => history.length > 1 ? history.back() : location.href = `tenant-details.html?tenant=${encodeURIComponent(tenantId || "")}`;

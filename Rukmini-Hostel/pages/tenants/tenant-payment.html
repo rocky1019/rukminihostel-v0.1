@@ -1,616 +1,409 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#00695C">
-    <title>Tenant Payments - Rukmini Hostel</title>
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-        html,body{width:100%;min-height:100%;}
-        body{font-family:Arial,Helvetica,sans-serif;background:#E9EEEE;color:#263238;}
-        button,input,select,textarea{font-family:inherit;}
-        button{-webkit-appearance:none;}
-        .app{width:100%;max-width:600px;min-height:100vh;margin:0 auto;background:#F5F7F7;box-shadow:0 0 35px rgba(0,0,0,.05);}
-        .header{height:72px;padding:0 18px;display:flex;align-items:center;gap:12px;background:#00695C;color:white;position:sticky;top:0;z-index:20;}
-        .back-button{width:42px;height:42px;border:none;background:transparent;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-        .back-button svg{width:23px;height:23px;stroke-width:2.5;}
-        .header-title{font-size:20px;font-weight:700;}
-        .content{padding:20px 16px 35px;}
-        .tenant-header{background:white;border:1px solid #E4EAEA;border-radius:17px;padding:17px;margin-bottom:15px;display:flex;align-items:center;gap:13px;}
-        .avatar{width:50px;height:50px;border-radius:15px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0;}
-        .tenant-header strong{display:block;font-size:16px;color:#263238;margin-bottom:5px;}
-        .tenant-header span{font-size:12px;color:#78909C;}
-        .balance-box{background:#E0F2F1;border-radius:16px;padding:17px;margin-bottom:17px;display:flex;align-items:center;justify-content:space-between;}
-        .balance-box span{font-size:12px;color:#51736F;}
-        .balance-box strong{display:block;margin-top:5px;font-size:23px;color:#00695C;}
-        .balance-icon{width:43px;height:43px;border-radius:13px;background:white;color:#00695C;display:flex;align-items:center;justify-content:center;}
-        .balance-icon svg{width:21px;height:21px;}
-        .add-button{width:100%;height:48px;border:none;border-radius:13px;background:#00695C;color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-bottom:21px;box-shadow:0 5px 14px rgba(0,105,92,.16);}
-        .add-button svg{width:19px;height:19px;}
-        .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;}
-        .section-title strong{font-size:14px;color:#455A64;}
-        .section-title span{font-size:11px;color:#90A4AE;}
-        .payment-card{background:white;border:1px solid #E4EAEA;border-radius:16px;padding:16px;margin-bottom:11px;box-shadow:0 3px 10px rgba(38,50,56,.035);}
-        .payment-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-        .payment-left{display:flex;align-items:center;gap:11px;min-width:0;}
-        .payment-icon{width:43px;height:43px;border-radius:13px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-        .payment-icon svg{width:20px;height:20px;}
-        .payment-info strong{display:block;font-size:15px;color:#263238;margin-bottom:5px;}
-        .payment-info span{font-size:11px;color:#90A4AE;}
-        .payment-amount{font-size:16px;font-weight:700;color:#00897B;white-space:nowrap;}
-        .payment-note{margin-top:13px;padding-top:12px;border-top:1px solid #EDF0F0;font-size:12px;color:#607D8B;line-height:1.45;}
-        .payment-actions{margin-top:13px;display:flex;gap:8px;justify-content:flex-end;}
-        .action-button{height:34px;padding:0 12px;border:none;border-radius:9px;background:#F5F7F7;color:#607D8B;font-size:11px;font-weight:600;cursor:pointer;}
-        .action-button.delete{color:#C62828;background:#FFEBEE;}
-        .empty-state{background:white;border:1px dashed #D5DEDE;border-radius:17px;padding:40px 20px;text-align:center;}
-        .empty-icon{width:57px;height:57px;margin:0 auto 14px;border-radius:17px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;}
-        .empty-icon svg{width:25px;height:25px;}
-        .empty-state h3{font-size:16px;margin-bottom:6px;color:#455A64;}
-        .empty-state p{font-size:12px;line-height:1.5;color:#90A4AE;}
-        .modal{position:fixed;inset:0;background:rgba(38,50,56,.45);display:none;align-items:flex-end;justify-content:center;z-index:100;}
-        .modal.show{display:flex;}
-        .modal-box{width:100%;max-width:600px;background:#F5F7F7;border-radius:22px 22px 0 0;padding:21px 17px 25px;max-height:90vh;overflow-y:auto;}
-        .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px;}
-        .modal-header strong{font-size:18px;color:#263238;}
-        .close-button{width:35px;height:35px;border:none;border-radius:10px;background:#E8EEEE;color:#607D8B;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-        .close-button svg{width:18px;}
-        .form-group{margin-bottom:14px;}
-        .form-group label{display:block;font-size:11px;color:#78909C;margin-bottom:7px;font-weight:600;}
-        .form-group input,.form-group select,.form-group textarea{width:100%;border:1px solid #DDE5E5;outline:none;background:white;border-radius:11px;padding:12px;font-size:13px;color:#263238;}
-        .form-group textarea{min-height:75px;resize:vertical;}
-        .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#80CBC4;box-shadow:0 0 0 3px rgba(0,137,123,.07);}
-        .save-button{width:100%;height:47px;border:none;border-radius:12px;background:#00695C;color:white;font-size:14px;font-weight:700;cursor:pointer;margin-top:5px;}
-        .save-button:disabled{opacity:.65;cursor:wait;}
-        .loading{text-align:center;padding:70px 20px;color:#78909C;font-size:14px;}
-        .toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#263238;color:white;padding:11px 17px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transition:.25s ease;z-index:200;white-space:nowrap;}
-        .toast.show{opacity:1;transform:translate(-50%,0);}
-        @media (min-width:601px){body{background:#E9EEEE;}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#00695C">
+<title>Tenant Payments - Rukmini Hostel</title>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;min-height:100%;}
+body{font-family:Arial,Helvetica,sans-serif;background:#E9EEEE;color:#263238;}
+button,input,select,textarea{font-family:inherit;}
+button{-webkit-appearance:none;}
+.app{width:100%;max-width:600px;min-height:100vh;margin:0 auto;background:#F5F7F7;box-shadow:0 0 35px rgba(0,0,0,.05);}
+.header{height:72px;padding:0 18px;display:flex;align-items:center;gap:12px;background:#00695C;color:white;position:sticky;top:0;z-index:20;}
+.back-button{width:42px;height:42px;border:none;background:transparent;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.back-button svg{width:23px;height:23px;stroke-width:2.5;}
+.header-title{font-size:20px;font-weight:700;}
+.content{padding:20px 16px 35px;}
+.tenant-header{background:white;border:1px solid #E4EAEA;border-radius:17px;padding:17px;margin-bottom:15px;display:flex;align-items:center;gap:13px;}
+.avatar{width:50px;height:50px;border-radius:15px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0;}
+.tenant-header strong{display:block;font-size:16px;color:#263238;margin-bottom:5px;}
+.tenant-header span{font-size:12px;color:#78909C;}
+.balance-box{background:#E0F2F1;border-radius:16px;padding:17px;margin-bottom:17px;display:flex;align-items:center;justify-content:space-between;}
+.balance-box span{font-size:12px;color:#51736F;}
+.balance-box strong{display:block;margin-top:5px;font-size:23px;color:#00695C;}
+.balance-icon{width:43px;height:43px;border-radius:13px;background:white;color:#00695C;display:flex;align-items:center;justify-content:center;}
+.balance-icon svg{width:21px;height:21px;}
+.add-button{width:100%;height:48px;border:none;border-radius:13px;background:#00695C;color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-bottom:21px;box-shadow:0 5px 14px rgba(0,105,92,.16);}
+.add-button svg{width:19px;height:19px;}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;}
+.section-title strong{font-size:14px;color:#455A64;}
+.section-title span{font-size:11px;color:#90A4AE;}
+.payment-card{background:white;border:1px solid #E4EAEA;border-radius:16px;padding:16px;margin-bottom:11px;box-shadow:0 3px 10px rgba(38,50,56,.035);}
+.payment-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.payment-left{display:flex;align-items:center;gap:11px;min-width:0;}
+.payment-icon{width:43px;height:43px;border-radius:13px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.payment-icon svg{width:20px;height:20px;}
+.payment-info strong{display:block;font-size:15px;color:#263238;margin-bottom:5px;}
+.payment-info span{font-size:11px;color:#90A4AE;}
+.payment-amount{font-size:16px;font-weight:700;color:#00897B;white-space:nowrap;}
+.payment-note{margin-top:13px;padding-top:12px;border-top:1px solid #EDF0F0;font-size:12px;color:#607D8B;line-height:1.45;}
+.payment-actions{margin-top:13px;display:flex;gap:8px;justify-content:flex-end;}
+.action-button{height:34px;padding:0 12px;border:none;border-radius:9px;background:#F5F7F7;color:#607D8B;font-size:11px;font-weight:600;cursor:pointer;}
+.action-button.delete{color:#C62828;background:#FFEBEE;}
+.empty-state{background:white;border:1px dashed #D5DEDE;border-radius:17px;padding:40px 20px;text-align:center;}
+.empty-icon{width:57px;height:57px;margin:0 auto 14px;border-radius:17px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;}
+.empty-icon svg{width:25px;height:25px;}
+.empty-state h3{font-size:16px;margin-bottom:6px;color:#455A64;}
+.empty-state p{font-size:12px;line-height:1.5;color:#90A4AE;}
+.modal{position:fixed;inset:0;background:rgba(38,50,56,.45);display:none;align-items:flex-end;justify-content:center;z-index:100;}
+.modal.show{display:flex;}
+.modal-box{width:100%;max-width:600px;background:#F5F7F7;border-radius:22px 22px 0 0;padding:21px 17px 25px;max-height:90vh;overflow-y:auto;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px;}
+.modal-header strong{font-size:18px;color:#263238;}
+.close-button{width:35px;height:35px;border:none;border-radius:10px;background:#E8EEEE;color:#607D8B;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.close-button svg{width:18px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:11px;color:#78909C;margin-bottom:7px;font-weight:600;}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1px solid #DDE5E5;outline:none;background:white;border-radius:11px;padding:12px;font-size:13px;color:#263238;}
+.form-group textarea{min-height:75px;resize:vertical;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#80CBC4;box-shadow:0 0 0 3px rgba(0,137,123,.07);}
+.save-button{width:100%;height:47px;border:none;border-radius:12px;background:#00695C;color:white;font-size:14px;font-weight:700;cursor:pointer;margin-top:5px;}
+.save-button:disabled{opacity:.65;cursor:wait;}
+.loading{text-align:center;padding:70px 20px;color:#78909C;font-size:14px;}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#263238;color:white;padding:11px 17px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transition:.25s ease;z-index:200;white-space:nowrap;}
+.toast.show{opacity:1;transform:translate(-50%,0);}
+@media (min-width:601px){body{background:#E9EEEE;}}
+</style>
 </head>
-
 <body>
 <div class="app">
-    <header class="header">
-        <button class="back-button" onclick="goBack()">
-            <i data-lucide="arrow-left"></i>
-        </button>
-        <div class="header-title">Tenant Payments</div>
-    </header>
-
-    <main class="content">
-        <div id="loading" class="loading">Loading payments...</div>
-
-        <div id="mainContent" style="display:none;">
-            <section class="tenant-header">
-                <div class="avatar" id="avatar">TN</div>
-                <div>
-                    <strong id="tenantName">—</strong>
-                    <span id="tenantRoom">—</span>
-                </div>
-            </section>
-
-            <section class="balance-box">
-                <div>
-                    <span>Current Due</span>
-                    <strong id="currentDue">₹0</strong>
-                </div>
-                <div class="balance-icon">
-                    <i data-lucide="wallet"></i>
-                </div>
-            </section>
-
-            <button class="add-button" onclick="openPaymentModal()">
-                <i data-lucide="plus"></i>
-                Add Payment
-            </button>
-
-            <div class="section-title">
-                <strong>Payment History</strong>
-                <span id="paymentCount">0 payments</span>
-            </div>
-
-            <div id="paymentsContainer"></div>
-        </div>
-    </main>
+<header class="header">
+<button class="back-button" onclick="goBack()"><i data-lucide="arrow-left"></i></button>
+<div class="header-title">Tenant Payments</div>
+</header>
+<main class="content">
+<div id="loading" class="loading">Loading payments...</div>
+<div id="mainContent" style="display:none;">
+<section class="tenant-header">
+<div class="avatar" id="avatar">TN</div>
+<div><strong id="tenantName">—</strong><span id="tenantRoom">—</span></div>
+</section>
+<section class="balance-box">
+<div><span>Current Due</span><strong id="currentDue">₹0</strong></div>
+<div class="balance-icon"><i data-lucide="wallet"></i></div>
+</section>
+<button class="add-button" onclick="openPaymentModal()"><i data-lucide="plus"></i>Add Payment</button>
+<div class="section-title"><strong>Payment History</strong><span id="paymentCount">0 payments</span></div>
+<div id="paymentsContainer"></div>
+</div>
+</main>
 </div>
 
 <div class="modal" id="paymentModal">
-    <div class="modal-box">
-        <div class="modal-header">
-            <strong id="modalTitle">Add Payment</strong>
-            <button class="close-button" onclick="closePaymentModal()">
-                <i data-lucide="x"></i>
-            </button>
-        </div>
-
-        <form id="paymentForm" onsubmit="savePayment(event)">
-            <div class="form-group">
-                <label>Amount</label>
-                <input type="number" id="paymentAmount" min="0.01"
-                       step="0.01" placeholder="Enter amount" required>
-            </div>
-
-            <div class="form-group">
-                <label>Payment Date</label>
-                <input type="date" id="paymentDate" required>
-            </div>
-
-            <div class="form-group">
-                <label>Payment Method</label>
-                <select id="paymentMethod" required>
-                    <option value="Cash">Cash</option>
-                    <option value="UPI">UPI</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Note</label>
-                <textarea id="paymentNote"
-                          placeholder="Optional note..."></textarea>
-            </div>
-
-            <button class="save-button" type="submit">Save Payment</button>
-        </form>
-    </div>
+<div class="modal-box">
+<div class="modal-header">
+<strong id="modalTitle">Add Payment</strong>
+<button class="close-button" onclick="closePaymentModal()"><i data-lucide="x"></i></button>
 </div>
-
+<form id="paymentForm" onsubmit="savePayment(event)">
+<div class="form-group"><label>Amount</label><input type="number" id="paymentAmount" min="0.01" step="0.01" placeholder="Enter amount" required></div>
+<div class="form-group"><label>Payment Date</label><input type="date" id="paymentDate" required></div>
+<div class="form-group">
+<label>Payment Method</label>
+<select id="paymentMethod" required>
+<option value="Cash">Cash</option>
+<option value="UPI">UPI</option>
+<option value="Bank Transfer">Bank Transfer</option>
+<option value="Other">Other</option>
+</select>
+</div>
+<div class="form-group"><label>Note</label><textarea id="paymentNote" placeholder="Optional note..."></textarea></div>
+<button class="save-button" type="submit">Save Payment</button>
+</form>
+</div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script type="module">
-    import { auth, db } from "../js/firebase-config.js";
+import { auth, db } from "../js/firebase-config.js";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+    serverTimestamp,
+    runTransaction
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
-    import {
-        collection,
-        doc,
-        getDoc,
-        getDocs,
-        query,
-        where,
-        serverTimestamp,
-        runTransaction
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+lucide.createIcons();
+
+let currentTenantId = null;
+let editingPaymentId = null;
+let tenantData = null;
+
+function goBack() {
+    window.location.href = "tenant-details.html?tenant=" + encodeURIComponent(currentTenantId);
+}
+window.goBack = goBack;
+
+function formatMoney(value) {
+    return "₹" + (Number(value) || 0).toLocaleString("en-IN");
+}
+
+function getInitials(name) {
+    if (!name) return "TN";
+    const words = name.trim().split(/\s+/).filter(Boolean);
+    if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
+    return (words[0][0] + words[1][0]).toUpperCase();
+}
+
+function formatDate(date) {
+    if (!date) return "—";
+    const parts = String(date).split("-");
+    if (parts.length !== 3) return date;
+    return parts[2] + "/" + parts[1] + "/" + parts[0];
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2200);
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function getTenantRef(user) {
+    return doc(db, "users", user.uid, "tenants", currentTenantId);
+}
+
+function getPaymentsRef(user) {
+    return collection(db, "users", user.uid, "payments");
+}
+
+function getTenantPaymentsQuery(user) {
+    return query(getPaymentsRef(user), where("tenantId", "==", currentTenantId));
+}
+
+function getCurrentDue(data) {
+    return Number(data.currentDue ?? data.openingBalance ?? 0) || 0;
+}
+
+function openPaymentModal(payment = null) {
+    const modal = document.getElementById("paymentModal");
+    const title = document.getElementById("modalTitle");
+    const amount = document.getElementById("paymentAmount");
+    const date = document.getElementById("paymentDate");
+    const method = document.getElementById("paymentMethod");
+    const note = document.getElementById("paymentNote");
+
+    if (payment) {
+        editingPaymentId = payment.id;
+        title.textContent = "Edit Payment";
+        amount.value = payment.amount ?? "";
+        date.value = payment.date || "";
+        method.value = payment.method || "Cash";
+        note.value = payment.note || "";
+    } else {
+        editingPaymentId = null;
+        title.textContent = "Add Payment";
+        amount.value = "";
+        date.value = new Date().toISOString().split("T")[0];
+        method.value = "Cash";
+        note.value = "";
+    }
+
+    modal.classList.add("show");
+    lucide.createIcons();
+}
+window.openPaymentModal = openPaymentModal;
+
+function closePaymentModal() {
+    document.getElementById("paymentModal").classList.remove("show");
+}
+window.closePaymentModal = closePaymentModal;
+
+async function loadTenant() {
+    const user = auth.currentUser;
+    if (!user) throw new Error("Please log in first.");
+
+    const snapshot = await getDoc(getTenantRef(user));
+    if (!snapshot.exists()) throw new Error("Tenant not found.");
+
+    tenantData = snapshot.data();
+    const name = tenantData.name || "Unnamed Tenant";
+
+    const room = tenantData.buildingNumber
+        ? (tenantData.building
+            ? tenantData.building + " • " + tenantData.buildingNumber
+            : tenantData.buildingNumber)
+        : (tenantData.building || "No room assigned");
+
+    document.getElementById("avatar").textContent = getInitials(name);
+    document.getElementById("tenantName").textContent = name;
+    document.getElementById("tenantRoom").textContent = room;
+    updateBalance();
+}
+
+function updateBalance() {
+    document.getElementById("currentDue").textContent = formatMoney(getCurrentDue(tenantData));
+}
+
+async function loadPayments() {
+    const user = auth.currentUser;
+    if (!user) throw new Error("Please log in first.");
+
+    const container = document.getElementById("paymentsContainer");
+    const snapshot = await getDocs(getTenantPaymentsQuery(user));
+    container.innerHTML = "";
+
+    document.getElementById("paymentCount").textContent =
+        snapshot.size + (snapshot.size === 1 ? " payment" : " payments");
+
+    if (snapshot.empty) {
+        container.innerHTML = `
+            <section class="empty-state">
+                <div class="empty-icon"><i data-lucide="wallet-cards"></i></div>
+                <h3>No payments yet</h3>
+                <p>Add the first payment for this tenant.</p>
+            </section>`;
+        lucide.createIcons();
+        return;
+    }
+
+    const payments = snapshot.docs
+        .map(paymentDoc => ({ id: paymentDoc.id, ...paymentDoc.data() }))
+        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+
+    payments.forEach(payment => {
+        const card = document.createElement("article");
+        card.className = "payment-card";
+
+        const method = payment.method || "Other";
+        const note = payment.note || "";
+        const icon = method === "UPI" ? "smartphone" :
+            method === "Bank Transfer" ? "landmark" :
+            method === "Cash" ? "banknote" : "wallet";
+
+        card.innerHTML = `
+            <div class="payment-top">
+                <div class="payment-left">
+                    <div class="payment-icon"><i data-lucide="${icon}"></i></div>
+                    <div class="payment-info">
+                        <strong>${escapeHtml(method)}</strong>
+                        <span>${formatDate(payment.date)}</span>
+                    </div>
+                </div>
+                <div class="payment-amount">${formatMoney(payment.amount)}</div>
+            </div>
+            ${note ? `<div class="payment-note">${escapeHtml(note)}</div>` : ""}
+            <div class="payment-actions">
+                <button class="action-button" onclick="editPayment('${payment.id}')">Edit</button>
+                <button class="action-button delete" onclick="removePayment('${payment.id}')">Delete</button>
+            </div>`;
+        container.appendChild(card);
+    });
 
     lucide.createIcons();
+}
 
-    let currentTenantId = null;
-    let editingPaymentId = null;
-    let tenantData = null;
-
-    function goBack() {
-        window.location.href =
-            "tenant-details.html?tenant=" +
-            encodeURIComponent(currentTenantId);
-    }
-    window.goBack = goBack;
-
-    function formatMoney(value) {
-        return "₹" + (Number(value) || 0).toLocaleString("en-IN");
+window.editPayment = async function(paymentId) {
+    const user = auth.currentUser;
+    if (!user) {
+        showToast("Please log in first.");
+        return;
     }
 
-    function getInitials(name) {
-        if (!name) return "TN";
+    try {
+        const paymentRef = doc(getPaymentsRef(user), paymentId);
+        const snapshot = await getDoc(paymentRef);
 
-        const words = name.trim().split(/\s+/).filter(Boolean);
-
-        if (words.length === 1) {
-            return words[0].substring(0, 2).toUpperCase();
-        }
-
-        return (words[0][0] + words[1][0]).toUpperCase();
-    }
-
-    function formatDate(date) {
-        if (!date) return "—";
-
-        const parts = String(date).split("-");
-
-        if (parts.length !== 3) return date;
-
-        return parts[2] + "/" + parts[1] + "/" + parts[0];
-    }
-
-    function showToast(message) {
-        const toast = document.getElementById("toast");
-        toast.textContent = message;
-        toast.classList.add("show");
-
-        setTimeout(() => toast.classList.remove("show"), 2200);
-    }
-
-    function escapeHtml(value) {
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
-    function getTenantRef(user) {
-        return doc(db, "users", user.uid, "tenants", currentTenantId);
-    }
-
-    function getPaymentsRef(user) {
-        return collection(db, "users", user.uid, "payments");
-    }
-
-    function getTenantPaymentsQuery(user) {
-        return query(
-            getPaymentsRef(user),
-            where("tenantId", "==", currentTenantId)
-        );
-    }
-
-    function getCurrentDue(data) {
-        return Number(data.currentDue ?? data.openingBalance ?? 0) || 0;
-    }
-
-    function openPaymentModal(payment = null) {
-        const modal = document.getElementById("paymentModal");
-        const title = document.getElementById("modalTitle");
-        const amount = document.getElementById("paymentAmount");
-        const date = document.getElementById("paymentDate");
-        const method = document.getElementById("paymentMethod");
-        const note = document.getElementById("paymentNote");
-
-        if (payment) {
-            editingPaymentId = payment.id;
-            title.textContent = "Edit Payment";
-            amount.value = payment.amount ?? "";
-            date.value = payment.date || "";
-            method.value = payment.method || "Cash";
-            note.value = payment.note || "";
-        } else {
-            editingPaymentId = null;
-            title.textContent = "Add Payment";
-            amount.value = "";
-            date.value = new Date().toISOString().split("T")[0];
-            method.value = "Cash";
-            note.value = "";
-        }
-
-        modal.classList.add("show");
-        lucide.createIcons();
-    }
-    window.openPaymentModal = openPaymentModal;
-
-    function closePaymentModal() {
-        document.getElementById("paymentModal").classList.remove("show");
-    }
-    window.closePaymentModal = closePaymentModal;
-
-    async function loadTenant() {
-        const user = auth.currentUser;
-        if (!user) throw new Error("Please log in first.");
-
-        const snapshot = await getDoc(getTenantRef(user));
-
-        if (!snapshot.exists()) throw new Error("Tenant not found.");
-
-        tenantData = snapshot.data();
-
-        const name = tenantData.name || "Unnamed Tenant";
-
-        const room = tenantData.buildingNumber
-            ? (
-                tenantData.building
-                    ? tenantData.building + " • " + tenantData.buildingNumber
-                    : tenantData.buildingNumber
-            )
-            : (tenantData.building || "No room assigned");
-
-        document.getElementById("avatar").textContent = getInitials(name);
-        document.getElementById("tenantName").textContent = name;
-        document.getElementById("tenantRoom").textContent = room;
-
-        updateBalance();
-    }
-
-    function updateBalance() {
-        document.getElementById("currentDue").textContent =
-            formatMoney(getCurrentDue(tenantData));
-    }
-
-    async function loadPayments() {
-        const user = auth.currentUser;
-        if (!user) throw new Error("Please log in first.");
-
-        const container = document.getElementById("paymentsContainer");
-        const snapshot = await getDocs(getTenantPaymentsQuery(user));
-
-        container.innerHTML = "";
-
-        document.getElementById("paymentCount").textContent =
-            snapshot.size + (snapshot.size === 1 ? " payment" : " payments");
-
-        if (snapshot.empty) {
-            container.innerHTML = `
-                <section class="empty-state">
-                    <div class="empty-icon">
-                        <i data-lucide="wallet-cards"></i>
-                    </div>
-                    <h3>No payments yet</h3>
-                    <p>Add the first payment for this tenant.</p>
-                </section>
-            `;
-            lucide.createIcons();
+        if (!snapshot.exists() || snapshot.data().tenantId !== currentTenantId) {
+            showToast("Payment not found for this tenant.");
             return;
         }
 
-        const payments = snapshot.docs
-            .map(paymentDoc => ({
-                id: paymentDoc.id,
-                ...paymentDoc.data()
-            }))
-            .sort((a, b) =>
-                String(b.date || "").localeCompare(String(a.date || ""))
-            );
+        openPaymentModal({ id: paymentId, ...snapshot.data() });
+    } catch (error) {
+        console.error(error);
+        showToast(error.message || "Could not open payment.");
+    }
+};
 
-        payments.forEach(payment => {
-            const card = document.createElement("article");
-            card.className = "payment-card";
+async function savePayment(event) {
+    event.preventDefault();
 
-            const method = payment.method || "Other";
-            const note = payment.note || "";
-
-            const icon = method === "UPI" ? "smartphone" :
-                method === "Bank Transfer" ? "landmark" :
-                method === "Cash" ? "banknote" : "wallet";
-
-            card.innerHTML = `
-                <div class="payment-top">
-                    <div class="payment-left">
-                        <div class="payment-icon">
-                            <i data-lucide="${icon}"></i>
-                        </div>
-                        <div class="payment-info">
-                            <strong>${escapeHtml(method)}</strong>
-                            <span>${formatDate(payment.date)}</span>
-                        </div>
-                    </div>
-                    <div class="payment-amount">
-                        ${formatMoney(payment.amount)}
-                    </div>
-                </div>
-
-                ${note ? `
-                    <div class="payment-note">${escapeHtml(note)}</div>
-                ` : ""}
-
-                <div class="payment-actions">
-                    <button class="action-button"
-                        onclick="editPayment('${payment.id}')">Edit</button>
-
-                    <button class="action-button delete"
-                        onclick="removePayment('${payment.id}')">Delete</button>
-                </div>
-            `;
-
-            container.appendChild(card);
-        });
-
-        lucide.createIcons();
+    const user = auth.currentUser;
+    if (!user) {
+        showToast("Please log in first.");
+        return;
     }
 
-    window.editPayment = async function(paymentId) {
-        const user = auth.currentUser;
+    const amount = Number(document.getElementById("paymentAmount").value);
+    const date = document.getElementById("paymentDate").value;
+    const method = document.getElementById("paymentMethod").value;
+    const note = document.getElementById("paymentNote").value.trim();
 
-        if (!user) {
-            showToast("Please log in first.");
-            return;
-        }
+    if (!Number.isFinite(amount) || amount <= 0) {
+        showToast("Enter a valid amount.");
+        return;
+    }
 
-        try {
-            const paymentRef = doc(getPaymentsRef(user), paymentId);
-            const snapshot = await getDoc(paymentRef);
+    if (!date) {
+        showToast("Choose a payment date.");
+        return;
+    }
 
-            if (
-                !snapshot.exists() ||
-                snapshot.data().tenantId !== currentTenantId
-            ) {
-                showToast("Payment not found for this tenant.");
-                return;
-            }
-
-            openPaymentModal({ id: paymentId, ...snapshot.data() });
-        } catch (error) {
-            console.error(error);
-            showToast(error.message || "Could not open payment.");
-        }
+    const paymentData = {
+        tenantId: currentTenantId,
+        tenantName: tenantData.name || "Unnamed Tenant",
+        amount,
+        date,
+        method,
+        note,
+        updatedAt: serverTimestamp()
     };
 
-    async function savePayment(event) {
-        event.preventDefault();
+    const form = document.getElementById("paymentForm");
+    const saveButton = form.querySelector(".save-button");
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
 
-        const user = auth.currentUser;
-        if (!user) {
-            showToast("Please log in first.");
-            return;
-        }
+    try {
+        const tenantRef = getTenantRef(user);
+        const paymentsRef = getPaymentsRef(user);
 
-        const amount = Number(
-            document.getElementById("paymentAmount").value
-        );
-        const date = document.getElementById("paymentDate").value;
-        const method = document.getElementById("paymentMethod").value;
-        const note = document.getElementById("paymentNote").value.trim();
-
-        if (!Number.isFinite(amount) || amount <= 0) {
-            showToast("Enter a valid amount.");
-            return;
-        }
-
-        if (!date) {
-            showToast("Choose a payment date.");
-            return;
-        }
-
-        const paymentData = {
-            tenantId: currentTenantId,
-            tenantName: tenantData.name || "Unnamed Tenant",
-            amount,
-            date,
-            method,
-            note,
-            updatedAt: serverTimestamp()
-        };
-
-        const form = document.getElementById("paymentForm");
-        const saveButton = form.querySelector(".save-button");
-
-        saveButton.disabled = true;
-        saveButton.textContent = "Saving...";
-
-        try {
-            const tenantRef = getTenantRef(user);
-            const paymentsRef = getPaymentsRef(user);
-
-            if (editingPaymentId) {
-                const paymentRef = doc(paymentsRef, editingPaymentId);
-
-                await runTransaction(db, async transaction => {
-                    // Transactions read individual documents only.
-                    const tenantSnapshot = await transaction.get(tenantRef);
-                    const paymentSnapshot = await transaction.get(paymentRef);
-
-                    if (!tenantSnapshot.exists()) {
-                        throw new Error("Tenant not found.");
-                    }
-
-                    if (
-                        !paymentSnapshot.exists() ||
-                        paymentSnapshot.data().tenantId !== currentTenantId
-                    ) {
-                        throw new Error("Payment not found for this tenant.");
-                    }
-
-                    const tenant = tenantSnapshot.data();
-                    const oldPayment = paymentSnapshot.data();
-                    const oldAmount = Number(oldPayment.amount) || 0;
-                    const currentDue = getCurrentDue(tenant);
-                    const oldWasApplied = oldPayment.balanceApplied === true;
-
-                    // If this payment was already applied, adjust by the
-                    // difference. Otherwise, deduct the new amount once.
-                    const newDue = oldWasApplied
-                        ? currentDue + oldAmount - amount
-                        : currentDue - amount;
-
-                    // Maintain Total Paid for payment changes made here.
-                    const oldTotalPaid = Number(tenant.totalPaid) || 0;
-                    const newTotalPaid = oldWasApplied
-                        ? Math.max(0, oldTotalPaid + amount - oldAmount)
-                        : oldTotalPaid + amount;
-
-                    transaction.update(tenantRef, {
-                        currentDue: newDue,
-                        totalPaid: newTotalPaid,
-                        updatedAt: serverTimestamp()
-                    });
-
-                    transaction.update(paymentRef, {
-                        ...paymentData,
-                        balanceApplied: true
-                    });
-                });
-
-                showToast("Payment updated.");
-            } else {
-                // Create a stable payment document reference before retryable
-                // transaction execution.
-                const paymentRef = doc(paymentsRef);
-
-                await runTransaction(db, async transaction => {
-                    const tenantSnapshot = await transaction.get(tenantRef);
-
-                    if (!tenantSnapshot.exists()) {
-                        throw new Error("Tenant not found.");
-                    }
-
-                    const tenant = tenantSnapshot.data();
-                    const currentDue = getCurrentDue(tenant);
-                    const oldTotalPaid = Number(tenant.totalPaid) || 0;
-
-                    transaction.update(tenantRef, {
-                        currentDue: currentDue - amount,
-                        totalPaid: oldTotalPaid + amount,
-                        updatedAt: serverTimestamp()
-                    });
-
-                    transaction.set(paymentRef, {
-                        ...paymentData,
-                        balanceApplied: true,
-                        createdAt: serverTimestamp()
-                    });
-                });
-
-                showToast("Payment added.");
-            }
-
-            closePaymentModal();
-
-            await loadTenant();
-            await loadPayments();
-
-        } catch (error) {
-            console.error(error);
-            showToast(error.message || "Could not save payment.");
-        } finally {
-            saveButton.disabled = false;
-            saveButton.textContent = "Save Payment";
-        }
-    }
-    window.savePayment = savePayment;
-
-    window.removePayment = async function(paymentId) {
-        if (!confirm("Delete this payment?")) return;
-
-        const user = auth.currentUser;
-
-        if (!user) {
-            showToast("Please log in first.");
-            return;
-        }
-
-        try {
-            const tenantRef = getTenantRef(user);
-            const paymentRef = doc(getPaymentsRef(user), paymentId);
+        if (editingPaymentId) {
+            const paymentRef = doc(paymentsRef, editingPaymentId);
 
             await runTransaction(db, async transaction => {
                 const tenantSnapshot = await transaction.get(tenantRef);
                 const paymentSnapshot = await transaction.get(paymentRef);
 
-                if (!tenantSnapshot.exists()) {
-                    throw new Error("Tenant not found.");
-                }
+                if (!tenantSnapshot.exists()) throw new Error("Tenant not found.");
 
-                if (
-                    !paymentSnapshot.exists() ||
-                    paymentSnapshot.data().tenantId !== currentTenantId
-                ) {
+                if (!paymentSnapshot.exists() ||
+                    paymentSnapshot.data().tenantId !== currentTenantId) {
                     throw new Error("Payment not found for this tenant.");
                 }
 
                 const tenant = tenantSnapshot.data();
-                const payment = paymentSnapshot.data();
-                const amount = Number(payment.amount) || 0;
-                const wasApplied = payment.balanceApplied === true;
+                const oldPayment = paymentSnapshot.data();
+                const oldAmount = Number(oldPayment.amount) || 0;
+                const currentDue = getCurrentDue(tenant);
+                const oldWasApplied = oldPayment.balanceApplied === true;
 
-                let newDue = getCurrentDue(tenant);
-                let newTotalPaid = Number(tenant.totalPaid) || 0;
+                const newDue = oldWasApplied
+                    ? currentDue + oldAmount - amount
+                    : currentDue - amount;
 
-                // Restore only payments that actually reduced the balance.
-                if (wasApplied) {
-                    newDue += amount;
-                    newTotalPaid = Math.max(0, newTotalPaid - amount);
-                }
+                const oldTotalPaid = Number(tenant.totalPaid) || 0;
+                const newTotalPaid = oldWasApplied
+                    ? Math.max(0, oldTotalPaid + amount - oldAmount)
+                    : oldTotalPaid + amount;
 
                 transaction.update(tenantRef, {
                     currentDue: newDue,
@@ -618,61 +411,156 @@
                     updatedAt: serverTimestamp()
                 });
 
-                transaction.delete(paymentRef);
+                transaction.update(paymentRef, {
+                    ...paymentData,
+                    balanceApplied: true
+                });
             });
 
-            showToast("Payment deleted.");
+            showToast("Payment updated.");
+        } else {
+            // Create a stable reference before the transaction.
+            const paymentRef = doc(paymentsRef);
 
-            await loadTenant();
-            await loadPayments();
+            await runTransaction(db, async transaction => {
+                const tenantSnapshot = await transaction.get(tenantRef);
+                if (!tenantSnapshot.exists()) throw new Error("Tenant not found.");
 
-        } catch (error) {
-            console.error(error);
-            showToast(error.message || "Could not delete payment.");
-        }
-    };
+                const tenant = tenantSnapshot.data();
+                const currentDue = getCurrentDue(tenant);
+                const oldTotalPaid = Number(tenant.totalPaid) || 0;
 
-    async function init() {
-        const loading = document.getElementById("loading");
-        const mainContent = document.getElementById("mainContent");
+                transaction.update(tenantRef, {
+                    currentDue: currentDue - amount,
+                    totalPaid: oldTotalPaid + amount,
+                    updatedAt: serverTimestamp()
+                });
 
-        const params = new URLSearchParams(window.location.search);
-        currentTenantId = params.get("tenant");
+                transaction.set(paymentRef, {
+                    ...paymentData,
+                    balanceApplied: true,
+                    createdAt: serverTimestamp()
+                });
+            });
 
-        if (!currentTenantId) {
-            loading.textContent = "No tenant selected.";
+            // NEW: Open the receipt for this exact saved payment.
+            // The receipt page only reads the payment and won't change the balance.
+            closePaymentModal();
+            window.location.href =
+                "tenant-receipts.html?tenant=" +
+                encodeURIComponent(currentTenantId) +
+                "&payment=" +
+                encodeURIComponent(paymentRef.id);
             return;
         }
 
-        async function loadPage(user) {
-            if (!user) {
-                loading.textContent = "Please log in first.";
-                return;
+        closePaymentModal();
+        await loadTenant();
+        await loadPayments();
+    } catch (error) {
+        console.error(error);
+        showToast(error.message || "Could not save payment.");
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = "Save Payment";
+    }
+}
+window.savePayment = savePayment;
+
+window.removePayment = async function(paymentId) {
+    if (!confirm("Delete this payment?")) return;
+
+    const user = auth.currentUser;
+    if (!user) {
+        showToast("Please log in first.");
+        return;
+    }
+
+    try {
+        const tenantRef = getTenantRef(user);
+        const paymentRef = doc(getPaymentsRef(user), paymentId);
+
+        await runTransaction(db, async transaction => {
+            const tenantSnapshot = await transaction.get(tenantRef);
+            const paymentSnapshot = await transaction.get(paymentRef);
+
+            if (!tenantSnapshot.exists()) throw new Error("Tenant not found.");
+
+            if (!paymentSnapshot.exists() ||
+                paymentSnapshot.data().tenantId !== currentTenantId) {
+                throw new Error("Payment not found for this tenant.");
             }
 
-            try {
-                await loadTenant();
-                await loadPayments();
+            const tenant = tenantSnapshot.data();
+            const payment = paymentSnapshot.data();
+            const amount = Number(payment.amount) || 0;
+            const wasApplied = payment.balanceApplied === true;
 
-                loading.style.display = "none";
-                mainContent.style.display = "block";
-            } catch (error) {
-                console.error(error);
-                loading.textContent =
-                    error.message || "Could not load payments.";
+            let newDue = getCurrentDue(tenant);
+            let newTotalPaid = Number(tenant.totalPaid) || 0;
+
+            if (wasApplied) {
+                newDue += amount;
+                newTotalPaid = Math.max(0, newTotalPaid - amount);
             }
+
+            transaction.update(tenantRef, {
+                currentDue: newDue,
+                totalPaid: newTotalPaid,
+                updatedAt: serverTimestamp()
+            });
+
+            transaction.delete(paymentRef);
+        });
+
+        showToast("Payment deleted.");
+        await loadTenant();
+        await loadPayments();
+    } catch (error) {
+        console.error(error);
+        showToast(error.message || "Could not delete payment.");
+    }
+};
+
+async function init() {
+    const loading = document.getElementById("loading");
+    const mainContent = document.getElementById("mainContent");
+
+    const params = new URLSearchParams(window.location.search);
+    currentTenantId = params.get("tenant");
+
+    if (!currentTenantId) {
+        loading.textContent = "No tenant selected.";
+        return;
+    }
+
+    async function loadPage(user) {
+        if (!user) {
+            loading.textContent = "Please log in first.";
+            return;
         }
 
-        if (auth.currentUser) {
-            await loadPage(auth.currentUser);
-        } else {
-            auth.onAuthStateChanged(user => {
-                loadPage(user);
-            });
+        try {
+            await loadTenant();
+            await loadPayments();
+            loading.style.display = "none";
+            mainContent.style.display = "block";
+        } catch (error) {
+            console.error(error);
+            loading.textContent = error.message || "Could not load payments.";
         }
     }
 
-    init();
+    if (auth.currentUser) {
+        await loadPage(auth.currentUser);
+    } else {
+        auth.onAuthStateChanged(user => {
+            loadPage(user);
+        });
+    }
+}
+
+init();
 </script>
 </body>
 </html>
