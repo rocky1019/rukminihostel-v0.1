@@ -1,1853 +1,4020 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
+
 
 <head>
 
+
+
     <meta charset="UTF-8">
 
+
+
     <meta name="viewport"
+
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+
+
     <meta name="theme-color" content="#00695C">
+
+
 
     <title>Tenants - Rukmini Hostel</title>
 
 
+
+
+
     <!-- =====================================================
+
          LUCIDE ICONS
+
          ===================================================== -->
+
+
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
 
+
+
+
     <style>
 
+
+
         /* =====================================================
+
            RUKMINI HOSTEL
+
            MASTER APP UI
+
            TENANTS
+
            ===================================================== */
+
+
+
 
 
         /* =====================================================
+
            RESET
+
            ===================================================== */
+
+
 
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
 
+
+
             -webkit-tap-highlight-color: transparent;
+
         }
+
+
+
 
 
         html,
+
         body {
+
             width: 100%;
+
             min-height: 100%;
+
         }
 
 
+
+
+
         body {
+
             font-family: Arial, Helvetica, sans-serif;
+
+
 
             background: #E9EEEE;
 
+
+
             color: #263238;
 
+
+
             overflow-x: hidden;
+
         }
+
+
+
 
 
         button,
+
         input {
+
             font-family: inherit;
+
         }
+
+
+
 
 
         button {
+
             -webkit-appearance: none;
+
         }
 
 
+
+
+
         /* =====================================================
+
            APP
+
            ===================================================== */
+
+
 
         .app {
 
+
+
             width: 100%;
+
             max-width: 600px;
+
+
 
             min-height: 100vh;
 
+
+
             margin: 0 auto;
+
+
 
             background: #F5F7F7;
 
+
+
             position: relative;
 
+
+
             box-shadow:
+
                 0 0 35px rgba(0, 0, 0, 0.04);
+
         }
+
+
+
 
 
         /* =====================================================
+
            HEADER
+
            ===================================================== */
+
+
 
         .header {
 
+
+
             height: 72px;
+
+
 
             padding: 0 20px;
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             justify-content: space-between;
+
+
 
             background: #00695C;
 
+
+
             border-bottom: 1px solid #00574D;
+
+
 
             position: sticky;
 
+
+
             top: 0;
 
+
+
             z-index: 20;
+
         }
+
+
+
 
 
         .header-left {
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             gap: 11px;
+
         }
+
+
+
 
 
         .header-logo {
 
+
+
             width: 43px;
+
             height: 43px;
+
+
 
             border-radius: 12px;
 
+
+
             object-fit: cover;
+
+
 
             display: block;
 
+
+
             background: #FFFFFF;
 
+
+
             box-shadow:
+
                 0 4px 12px rgba(0, 0, 0, 0.12);
+
         }
+
+
+
 
 
         .header-title {
 
+
+
             display: flex;
+
+
 
             flex-direction: column;
 
+
+
             gap: 3px;
+
         }
+
+
+
 
 
         .header-title strong {
 
+
+
             font-size: 17px;
+
+
 
             line-height: 1;
 
+
+
             font-weight: 700;
 
+
+
             color: #FFFFFF;
+
         }
+
+
+
 
 
         .header-title span {
 
+
+
             font-size: 11px;
 
+
+
             color: #B2DFDB;
+
         }
+
+
+
 
 
         /* =====================================================
+
            PROFILE BUTTON
+
            ===================================================== */
+
+
 
         .profile-button {
 
+
+
             width: 40px;
+
             height: 40px;
+
+
 
             border: 1px solid #4DB6AC;
 
+
+
             border-radius: 50%;
+
+
 
             background: #087D70;
 
+
+
             color: #FFFFFF;
+
+
 
             display: flex;
 
+
+
             align-items: center;
+
+
 
             justify-content: center;
 
+
+
             cursor: pointer;
 
+
+
             transition: 0.15s ease;
+
         }
+
+
+
 
 
         .profile-button svg {
 
+
+
             width: 19px;
+
             height: 19px;
 
+
+
             stroke-width: 2.6;
+
         }
+
+
+
 
 
         .profile-button:active {
 
+
+
             transform: scale(0.94);
+
         }
 
 
+
+
+
         /* =====================================================
+
            CONTENT
+
            ===================================================== */
+
+
 
         .content {
 
+
+
             padding: 24px 18px 105px;
+
         }
+
+
+
 
 
         /* =====================================================
+
            PAGE HEADING
+
            ===================================================== */
+
+
 
         .page-heading {
 
+
+
             display: flex;
+
+
 
             align-items: flex-end;
 
+
+
             justify-content: space-between;
 
+
+
             margin-bottom: 20px;
+
         }
+
+
+
 
 
         .heading-text h1 {
 
+
+
             font-size: 25px;
+
+
 
             line-height: 1.15;
 
+
+
             font-weight: 700;
+
+
 
             color: #263238;
 
+
+
             letter-spacing: -0.3px;
+
         }
+
+
+
 
 
         .heading-text p {
 
+
+
             margin-top: 7px;
+
+
 
             font-size: 13px;
 
+
+
             color: #78909C;
 
+
+
             line-height: 1.4;
+
         }
+
+
+
 
 
         /* =====================================================
+
            ADD BUTTON
+
            ===================================================== */
+
+
 
         .add-button {
 
+
+
             width: 44px;
+
             height: 44px;
+
+
 
             border: none;
 
+
+
             border-radius: 13px;
+
+
 
             background: #00695C;
 
+
+
             color: #FFFFFF;
+
+
 
             display: flex;
 
+
+
             align-items: center;
+
+
 
             justify-content: center;
 
+
+
             cursor: pointer;
 
+
+
             box-shadow:
+
                 0 6px 15px rgba(0, 105, 92, 0.20);
 
+
+
             transition: 0.15s ease;
+
         }
+
+
+
 
 
         .add-button svg {
 
+
+
             width: 22px;
+
             height: 22px;
 
+
+
             stroke-width: 2.8;
+
         }
+
+
+
 
 
         .add-button:active {
 
+
+
             transform: scale(0.93);
+
         }
+
+
+
 
 
         /* =====================================================
+
            SEARCH
+
            ===================================================== */
+
+
 
         .search-box {
 
+
+
             width: 100%;
+
             height: 50px;
+
+
 
             background: #FFFFFF;
 
+
+
             border: 1px solid #E0E7E7;
+
+
 
             border-radius: 13px;
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             padding: 0 14px;
+
+
 
             margin-bottom: 18px;
 
+
+
             transition: 0.2s ease;
+
         }
+
+
+
 
 
         .search-box:focus-within {
 
+
+
             border-color: #80CBC4;
 
+
+
             box-shadow:
+
                 0 0 0 3px rgba(0, 137, 123, 0.08);
+
         }
+
+
+
 
 
         .search-icon {
 
+
+
             color: #90A4AE;
+
+
 
             display: flex;
 
+
+
             align-items: center;
 
+
+
             margin-right: 10px;
+
         }
+
+
+
 
 
         .search-icon svg {
 
+
+
             width: 18px;
+
             height: 18px;
 
+
+
             stroke-width: 2.5;
+
         }
+
+
+
 
 
         .search-input {
 
+
+
             width: 100%;
+
+
 
             border: none;
 
+
+
             outline: none;
+
+
 
             background: transparent;
 
+
+
             font-size: 14px;
 
+
+
             color: #263238;
+
         }
+
+
+
 
 
         .search-input::placeholder {
 
+
+
             color: #B0BEC5;
+
         }
+
+
+
 
 
         /* =====================================================
+
            SUMMARY CARD
+
            ===================================================== */
+
+
 
         .summary-card {
 
+
+
             background: #E0F2F1;
+
+
 
             border-radius: 16px;
 
+
+
             padding: 17px 18px;
+
+
 
             margin-bottom: 23px;
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             justify-content: space-between;
+
         }
+
+
+
 
 
         .summary-info {
 
+
+
             display: flex;
+
+
 
             flex-direction: column;
 
+
+
             gap: 4px;
+
         }
+
+
+
 
 
         .summary-info span {
 
+
+
             font-size: 12px;
 
+
+
             color: #51736F;
+
         }
+
+
+
 
 
         .summary-info strong {
 
+
+
             font-size: 23px;
+
+
 
             line-height: 1;
 
+
+
             color: #00695C;
 
+
+
             font-weight: 700;
+
         }
+
+
+
 
 
         .summary-icon {
 
+
+
             width: 44px;
+
             height: 44px;
+
+
 
             border-radius: 13px;
 
+
+
             background: #FFFFFF;
+
+
 
             color: #00695C;
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             justify-content: center;
+
         }
+
+
+
 
 
         .summary-icon svg {
 
+
+
             width: 21px;
+
             height: 21px;
 
+
+
             stroke-width: 2.5;
+
         }
+
+
+
 
 
         /* =====================================================
+
            SECTION TITLE
+
            ===================================================== */
+
+
 
         .section-title {
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             justify-content: space-between;
 
+
+
             margin-bottom: 11px;
+
         }
+
+
+
 
 
         .section-title strong {
 
+
+
             font-size: 14px;
 
+
+
             color: #455A64;
+
         }
+
+
+
 
 
         .section-title span {
 
+
+
             font-size: 12px;
 
+
+
             color: #90A4AE;
+
         }
+
+
+
 
 
         /* =====================================================
+
            TENANT CARD
-           
+
+
+
            FIREBASE WILL GENERATE THESE CARDS LATER
+
            ===================================================== */
+
+
 
         .tenant-card {
 
+
+
             background: #FFFFFF;
+
+
 
             border: 1px solid #E4EAEA;
 
+
+
             border-radius: 17px;
+
+
 
             padding: 18px;
 
+
+
             margin-bottom: 12px;
 
+
+
             box-shadow:
+
                 0 3px 10px rgba(38, 50, 56, 0.035);
+
+
 
             cursor: pointer;
 
+
+
             transition:
+
                 transform 0.15s ease,
+
                 box-shadow 0.15s ease;
+
         }
+
+
+
 
 
         .tenant-card:active {
 
+
+
             transform: scale(0.985);
 
+
+
             box-shadow:
+
                 0 2px 6px rgba(38, 50, 56, 0.04);
+
         }
+
+
+
 
 
         /* =====================================================
+
            TENANT TOP
+
            ===================================================== */
+
+
 
         .tenant-top {
 
+
+
             display: flex;
+
+
 
             align-items: flex-start;
 
+
+
             justify-content: space-between;
+
+
 
             gap: 12px;
 
+
+
             margin-bottom: 17px;
+
         }
+
+
+
 
 
         .tenant-info {
 
+
+
             display: flex;
 
+
+
             align-items: center;
+
+
 
             gap: 12px;
 
+
+
             min-width: 0;
+
         }
+
+
+
 
 
         /* =====================================================
+
            TENANT AVATAR
+
            ===================================================== */
+
+
 
         .tenant-avatar {
 
+
+
             width: 46px;
+
             height: 46px;
+
+
 
             flex-shrink: 0;
 
+
+
             border-radius: 14px;
+
+
 
             background: #E0F2F1;
 
+
+
             color: #00695C;
+
+
 
             display: flex;
 
+
+
             align-items: center;
+
+
 
             justify-content: center;
 
+
+
             font-size: 16px;
 
+
+
             font-weight: 700;
+
         }
+
+
+
 
 
         .tenant-avatar svg {
 
+
+
             width: 21px;
+
             height: 21px;
 
+
+
             stroke-width: 2.5;
+
         }
+
+
+
 
 
         /* =====================================================
+
            TENANT NAME
+
            ===================================================== */
+
+
 
         .tenant-name {
 
+
+
             display: flex;
+
+
 
             flex-direction: column;
 
+
+
             gap: 5px;
 
+
+
             min-width: 0;
+
         }
+
+
+
 
 
         .tenant-name strong {
 
+
+
             font-size: 15px;
+
+
 
             color: #263238;
 
+
+
             white-space: nowrap;
+
+
 
             overflow: hidden;
 
+
+
             text-overflow: ellipsis;
+
         }
+
+
+
 
 
         .tenant-name span {
 
+
+
             font-size: 11px;
 
+
+
             color: #78909C;
+
         }
+
+
+
 
 
         /* =====================================================
+
            MORE BUTTON
+
            ===================================================== */
+
+
 
         .menu-button {
 
+
+
             width: 33px;
+
             height: 33px;
+
+
 
             flex-shrink: 0;
 
+
+
             border: none;
+
+
 
             background: #F7F9F9;
 
+
+
             border-radius: 9px;
+
+
 
             color: #78909C;
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             justify-content: center;
 
+
+
             cursor: pointer;
+
         }
+
+
+
 
 
         .menu-button svg {
 
+
+
             width: 18px;
+
             height: 18px;
 
+
+
             stroke-width: 2.5;
+
         }
+
+
+
 
 
         /* =====================================================
+
            TENANT DETAILS
+
            ===================================================== */
+
+
 
         .tenant-details {
 
+
+
             display: grid;
 
+
+
             grid-template-columns:
+
                 repeat(3, 1fr);
+
+
 
             border-top: 1px solid #EDF0F0;
 
+
+
             padding-top: 15px;
+
         }
+
+
+
 
 
         .detail {
 
+
+
             display: flex;
+
+
 
             flex-direction: column;
 
+
+
             gap: 5px;
+
+
 
             padding-left: 10px;
 
+
+
             border-left: 1px solid #EDF0F0;
+
         }
+
+
+
 
 
         .detail:first-child {
 
+
+
             border-left: none;
 
+
+
             padding-left: 0;
+
         }
+
+
+
 
 
         .detail span {
 
+
+
             font-size: 10px;
 
+
+
             color: #90A4AE;
+
         }
+
+
+
 
 
         .detail strong {
 
+
+
             font-size: 14px;
 
+
+
             color: #455A64;
+
         }
+
+
+
 
 
         /* =====================================================
+
            PAYMENT STATUS
+
            ===================================================== */
+
+
 
         .status-paid {
 
+
+
             color: #00897B !important;
+
         }
+
+
+
 
 
         .status-due {
 
+
+
             color: #EF8C00 !important;
+
         }
+
+
+
 
 
         .status-overdue {
 
+
+
             color: #D84343 !important;
+
         }
+
+
+
 
 
         /* =====================================================
+
            EMPTY STATE
+
            ===================================================== */
+
+
 
         .empty-state {
 
+
+
             background: #FFFFFF;
+
+
 
             border: 1px dashed #D5DEDE;
 
+
+
             border-radius: 17px;
+
+
 
             padding: 42px 20px;
 
+
+
             text-align: center;
+
         }
+
+
+
 
 
         .empty-icon {
 
+
+
             width: 58px;
+
             height: 58px;
+
+
 
             margin: 0 auto 15px;
 
+
+
             border-radius: 17px;
+
+
 
             background: #E0F2F1;
 
+
+
             color: #00695C;
+
+
 
             display: flex;
 
+
+
             align-items: center;
 
+
+
             justify-content: center;
+
         }
+
+
+
 
 
         .empty-icon svg {
 
+
+
             width: 25px;
+
             height: 25px;
 
+
+
             stroke-width: 2.5;
+
         }
+
+
+
 
 
         .empty-state h3 {
 
+
+
             font-size: 16px;
+
+
 
             margin-bottom: 6px;
 
+
+
             color: #455A64;
+
         }
+
+
+
 
 
         .empty-state p {
 
+
+
             font-size: 12px;
+
+
 
             line-height: 1.5;
 
+
+
             color: #90A4AE;
+
+
 
             max-width: 260px;
 
+
+
             margin: 0 auto 18px;
+
         }
+
+
+
 
 
         .empty-add {
 
+
+
             border: none;
+
+
 
             border-radius: 10px;
 
+
+
             background: #00695C;
+
+
 
             color: #FFFFFF;
 
+
+
             padding: 11px 18px;
+
+
 
             font-size: 12px;
 
+
+
             font-weight: 600;
 
+
+
             cursor: pointer;
+
         }
+
+
+
 
 
         /* =====================================================
+
            BOTTOM NAVIGATION
+
            ===================================================== */
+
+
 
         .bottom-nav {
 
+
+
             position: fixed;
+
+
 
             bottom: 0;
 
+
+
             left: 50%;
+
+
 
             transform: translateX(-50%);
 
+
+
             width: 100%;
+
+
 
             max-width: 600px;
 
+
+
             height: 76px;
+
+
 
             background: #00695C;
 
+
+
             border-top: 1px solid #00574D;
+
+
 
             display: grid;
 
+
+
             grid-template-columns:
+
                 repeat(4, 1fr);
+
+
 
             padding: 8px 8px 10px;
 
+
+
             z-index: 50;
 
+
+
             box-shadow:
+
                 0 -4px 15px rgba(0, 77, 70, 0.12);
+
         }
+
+
+
 
 
         .nav-item {
 
+
+
             border: none;
+
+
 
             background: transparent;
 
+
+
             color: #B2DFDB;
+
+
 
             display: flex;
 
+
+
             flex-direction: column;
+
+
 
             align-items: center;
 
+
+
             justify-content: center;
+
+
 
             gap: 4px;
 
+
+
             font-size: 10px;
+
+
 
             font-weight: 500;
 
+
+
             cursor: pointer;
+
         }
+
+
+
 
 
         .nav-icon {
 
+
+
             width: 36px;
+
             height: 30px;
+
+
 
             border-radius: 10px;
 
+
+
             display: flex;
+
+
 
             align-items: center;
 
+
+
             justify-content: center;
 
+
+
             transition: 0.15s ease;
+
         }
+
+
+
 
 
         .nav-icon svg {
 
+
+
             width: 18px;
+
             height: 18px;
 
+
+
             stroke-width: 2.6;
+
         }
+
+
+
 
 
         .nav-item.active {
 
+
+
             color: #FFFFFF;
 
+
+
             font-weight: 700;
+
         }
+
+
+
 
 
         .nav-item.active .nav-icon {
 
+
+
             background: #80CBC4;
 
+
+
             color: #004D40;
+
         }
+
+
+
 
 
         /* =====================================================
+
            TOAST
+
            ===================================================== */
+
+
 
         .toast {
 
+
+
             position: fixed;
+
+
 
             left: 50%;
 
+
+
             bottom: 92px;
 
+
+
             transform:
+
                 translate(-50%, 20px);
+
+
 
             background: #263238;
 
+
+
             color: #FFFFFF;
+
+
 
             padding: 11px 17px;
 
+
+
             border-radius: 10px;
+
+
 
             font-size: 12px;
 
+
+
             opacity: 0;
+
+
 
             pointer-events: none;
 
+
+
             transition: 0.25s ease;
+
+
 
             z-index: 100;
 
+
+
             white-space: nowrap;
+
         }
+
+
+
 
 
         .toast.show {
 
+
+
             opacity: 1;
 
+
+
             transform:
+
                 translate(-50%, 0);
+
         }
 
 
+
+
+
         /* =====================================================
+
            DESKTOP
+
            ===================================================== */
+
+
 
         @media (min-width: 601px) {
 
+
+
             body {
 
+
+
                 background: #E9EEEE;
+
             }
+
+
+
 
 
             .app {
 
+
+
                 min-height: 100vh;
 
+
+
                 box-shadow:
+
                     0 0 35px rgba(0, 0, 0, 0.07);
+
             }
+
+
 
         }
 
 
+
+
+
         /* =====================================================
+
            SMALL PHONES
+
            ===================================================== */
+
+
 
         @media (max-width: 360px) {
 
+
+
             .content {
+
+
 
                 padding-left: 14px;
 
+
+
                 padding-right: 14px;
+
             }
+
+
+
 
 
             .header {
 
+
+
                 padding: 0 15px;
+
             }
+
+
+
 
 
             .header-title strong {
 
+
+
                 font-size: 15px;
+
             }
+
+
+
 
 
             .detail strong {
 
+
+
                 font-size: 12px;
+
             }
+
+
 
         }
 
-    </style>
+
+
+    
+/* TENANTS REFERENCE UI - UI ONLY */
+.content {
+    padding: 0 0 105px;
+    background: #FFFFFF;
+}
+
+.page-heading,
+.search-box,
+.summary-card,
+.section-title {
+    display: none;
+}
+
+.rento-filters {
+    display: flex;
+    gap: 12px;
+    padding: 8px 7px 7px;
+    overflow-x: auto;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E5E5E5;
+    scrollbar-width: none;
+}
+
+.rento-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.rento-filter {
+    flex: 0 0 auto;
+    min-height: 48px;
+    padding: 0 27px;
+    border-radius: 25px;
+    background: #EDEAE7;
+    color: #222222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.rento-filter.active {
+    background: #777777;
+    color: #FFFFFF;
+}
+
+.rento-hostel-title {
+    padding: 15px 24px 7px;
+    background: #FFFFFF;
+    color: #00695C;
+    font-size: 21px;
+    font-weight: 400;
+}
+
+#tenantsContainer {
+    background: #FFFFFF;
+}
+
+.tenant-card {
+    position: relative;
+    min-height: 111px;
+    margin: 0;
+    padding: 18px 12px 17px 7px;
+    border: 0;
+    border-top: 1px solid #E5E5E5;
+    border-radius: 0;
+    background: #FFFFFF;
+    box-shadow: none;
+}
+
+.tenant-card:active {
+    transform: none;
+    box-shadow: none;
+    background: #FAFAFA;
+}
+
+.tenant-top {
+    margin: 0;
+    align-items: center;
+}
+
+.tenant-info {
+    gap: 16px;
+}
+
+.tenant-avatar {
+    width: 66px;
+    height: 66px;
+    flex: 0 0 66px;
+    border-radius: 50%;
+    background: #FFC400;
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.tenant-name {
+    gap: 3px;
+}
+
+.tenant-name strong {
+    font-size: 21px;
+    line-height: 1.15;
+    font-weight: 400;
+    color: #303030;
+}
+
+.tenant-name span {
+    margin-top: 2px;
+    font-size: 16px;
+    color: #777777;
+}
+
+.tenant-due-date {
+    margin-left: 82px;
+    margin-top: -12px;
+    color: #777777;
+    font-size: 16px;
+}
+
+.tenant-due-date::before {
+    content: "o ";
+    color: #00695C;
+    font-weight: 700;
+}
+
+.tenant-payment-status {
+    margin-left: 82px;
+    margin-top: 2px;
+    color: #C62828;
+    font-size: 16px;
+}
+
+.tenant-payment-status.paid {
+    color: #087A27;
+}
+
+.tenant-details {
+    position: absolute;
+    top: 19px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border: 0;
+    padding: 0;
+}
+
+.tenant-details .detail {
+    display: none;
+}
+
+.tenant-details .detail:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    padding: 0;
+    border: 0;
+}
+
+.tenant-details .detail:nth-child(2) strong {
+    display: block;
+    padding: 4px 8px 5px;
+    border-radius: 16px;
+    background: #087A27;
+    color: #FFFFFF !important;
+    font-size: 19px;
+    line-height: 1;
+    font-weight: 400;
+}
+
+.tenant-details .detail:nth-child(2)::after {
+    content: "Due";
+    color: #333333;
+    font-size: 14px;
+}
+
+.menu-button {
+    width: 28px;
+    height: 30px;
+    margin-left: 4px;
+    border: 0;
+    background: transparent;
+    color: #777777;
+}
+
+.menu-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.rento-add-tenant {
+    position: fixed;
+    right: 14px;
+    bottom: 105px;
+    z-index: 45;
+    height: 72px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 38px;
+    background: #FF9800;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 400;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.rento-add-tenant svg {
+    width: 29px;
+    height: 29px;
+    stroke-width: 2;
+}
+
+@media (max-width: 360px) {
+    .rento-filter {
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 15px;
+    }
+
+    .tenant-name strong {
+        font-size: 19px;
+    }
+
+    .tenant-avatar {
+        width: 58px;
+        height: 58px;
+        flex-basis: 58px;
+        font-size: 25px;
+    }
+
+    .tenant-due-date,
+    .tenant-payment-status {
+        margin-left: 74px;
+        font-size: 14px;
+    }
+
+    .rento-add-tenant {
+        right: 10px;
+        bottom: 105px;
+        height: 64px;
+        padding: 0 20px;
+        font-size: 18px;
+    }
+}
+
+</style>
+
+
 
 </head>
+
+
+
 
 
 <body>
 
 
+
+
+
 <div class="app">
 
 
+
+
+
     <!-- =====================================================
+
          HEADER
+
          ===================================================== -->
+
+
 
     <header class="header">
 
+
+
         <div class="header-left">
 
+
+
             <img
+
                 src="../../assets/rukminilogo.png"
+
                 alt="Rukmini Hostel"
+
                 class="header-logo"
+
             >
+
+
+
 
 
             <div class="header-title">
 
+
+
                 <strong>
+
                     Rukmini Hostel
+
                 </strong>
 
+
+
                 <span>
+
                     Rent Management
+
                 </span>
 
+
+
             </div>
+
+
 
         </div>
 
 
+
+
+
         <button
+
             class="profile-button"
+
             onclick="openProfile()"
+
             aria-label="Profile"
+
         >
+
+
 
             <i data-lucide="user-round"></i>
 
+
+
         </button>
+
+
 
     </header>
 
 
 
+
+
+
+
     <!-- =====================================================
+
          CONTENT
+
          ===================================================== -->
 
+
+
     <main class="content">
+
+    <div class="rento-filters">
+        <div class="rento-filter active">Unpaid</div>
+        <div class="rento-filter">Today's Follow up</div>
+        <div class="rento-filter">Paid</div>
+        <div class="rento-filter">Advance</div>
+    </div>
+
+    <div class="rento-hostel-title">Rukmini Hostel</div>
+
+
+
+
 
 
         <!-- PAGE HEADING -->
 
+
+
         <section class="page-heading">
+
+
 
             <div class="heading-text">
 
+
+
                 <h1>
+
                     Tenants
+
                 </h1>
 
+
+
                 <p>
+
                     Manage your hostel tenants
+
                 </p>
+
+
 
             </div>
 
 
+
+
+
             <button
+
                 class="add-button"
+
                 onclick="addTenant()"
+
                 aria-label="Add tenant"
+
             >
+
+
 
                 <i data-lucide="plus"></i>
 
+
+
             </button>
 
+
+
         </section>
+
+
+
+
 
 
 
         <!-- SEARCH -->
 
+
+
         <div class="search-box">
+
+
 
             <span class="search-icon">
 
+
+
                 <i data-lucide="search"></i>
+
+
 
             </span>
 
 
+
+
+
             <input
+
                 type="search"
+
                 id="searchInput"
+
                 class="search-input"
+
                 placeholder="Search tenants..."
+
                 oninput="searchTenants()"
+
             >
+
+
 
         </div>
 
 
 
+
+
+
+
         <!-- SUMMARY -->
+
+
 
         <section class="summary-card">
 
+
+
             <div class="summary-info">
 
+
+
                 <span>
+
                     Total Tenants
+
                 </span>
+
+
 
                 <!-- Firebase will update this -->
 
+
+
                 <strong id="tenantCount">
+
                     0
+
                 </strong>
 
+
+
             </div>
+
+
+
 
 
             <div class="summary-icon">
 
+
+
                 <i data-lucide="users-round"></i>
 
+
+
             </div>
+
+
 
         </section>
 
 
 
+
+
+
+
         <!-- SECTION TITLE -->
+
+
 
         <div class="section-title">
 
+
+
             <strong>
+
                 Your Tenants
+
             </strong>
 
+
+
             <span id="tenantLabel">
+
                 0 tenants
+
             </span>
 
+
+
         </div>
+
+
+
+
 
 
 
         <!-- =================================================
+
              TENANT CONTAINER
 
+
+
              Firebase will insert tenant cards here.
+
              ================================================= -->
+
+
 
         <div id="tenantsContainer">
 
 
+
+
+
             <!-- =================================================
+
                  EMPTY STATE
+
                  ================================================= -->
 
+
+
             <section
+
                 class="empty-state"
+
                 id="emptyState"
+
             >
+
+
 
                 <div class="empty-icon">
 
+
+
                     <i data-lucide="users-round"></i>
+
+
 
                 </div>
 
 
+
+
+
                 <h3>
+
                     No tenants yet
+
                 </h3>
 
 
+
+
+
                 <p>
+
                     Add your first tenant to start
+
                     managing hostel rent and payments.
+
                 </p>
 
 
+
+
+
                 <button
+
                     class="empty-add"
+
                     onclick="addTenant()"
+
                 >
+
                     Add Tenant
+
                 </button>
 
+
+
             </section>
+
+
 
         </div>
 
 
-    </main>
+
+
+
+    
+    <button
+        class="rento-add-tenant"
+        type="button"
+        onclick="addTenant()"
+        aria-label="Add tenant"
+    >
+        <i data-lucide="plus"></i>
+        <span>Add Tenant</span>
+    </button>
+
+</main>
+
+
+
+
 
 
 
     <!-- =====================================================
+
          BOTTOM NAVIGATION
+
          ===================================================== -->
+
+
 
     <nav class="bottom-nav">
 
 
+
+
+
         <!-- RENT PLANS -->
 
+
+
         <button
+
             class="nav-item"
+
             onclick="goTo('rent-plans')"
+
         >
+
+
 
             <span class="nav-icon">
 
+
+
                 <i data-lucide="receipt-text"></i>
 
+
+
             </span>
+
+
 
             <span>
+
                 Rent Plan
+
             </span>
 
+
+
         </button>
+
+
+
+
 
 
 
         <!-- TENANTS - ACTIVE -->
 
+
+
         <button
+
             class="nav-item active"
+
             onclick="goTo('tenants')"
+
         >
+
+
 
             <span class="nav-icon">
 
+
+
                 <i data-lucide="users-round"></i>
 
+
+
             </span>
+
+
 
             <span>
+
                 Tenant
+
             </span>
 
+
+
         </button>
+
+
+
+
 
 
 
         <!-- SUMMARY -->
 
+
+
         <button
+
             class="nav-item"
+
             onclick="goTo('summary')"
+
         >
+
+
 
             <span class="nav-icon">
 
+
+
                 <i data-lucide="chart-no-axes-combined"></i>
 
+
+
             </span>
+
+
 
             <span>
+
                 Summary
+
             </span>
 
+
+
         </button>
+
+
+
+
 
 
 
         <!-- ACTION -->
 
+
+
         <button
+
             class="nav-item"
+
             onclick="goTo('action')"
+
         >
+
+
 
             <span class="nav-icon">
 
+
+
                 <i data-lucide="menu"></i>
 
+
+
             </span>
 
+
+
             <span>
+
                 Action
+
             </span>
+
+
 
         </button>
 
 
+
+
+
     </nav>
+
+
+
 
 
 </div>
 
 
 
+
+
+
+
 <!-- =========================================================
+
      TOAST
+
      ========================================================= -->
 
+
+
 <div
+
     class="toast"
+
     id="toast"
+
 ></div>
+
+
+
+
 
 
 
 <script type="module">
 
-    import {
-        auth,
-        db
-    } from "../js/firebase-config.js";
+
 
     import {
+
+        auth,
+
+        db
+
+    } from "../js/firebase-config.js";
+
+
+
+    import {
+
         collection,
+
         getDocs,
+
         query,
+
         orderBy
+
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 
+
+
+
     /* =====================================================
+
        INITIALIZE LUCIDE
+
        ===================================================== */
+
+
 
     lucide.createIcons();
 
 
+
+
+
     /* =====================================================
+
        NAVIGATION
+
        ===================================================== */
+
+
 
     function goTo(page) {
 
+
+
         if (page === "rent-plans") {
+
             window.location.href = "rent-plans.html";
+
             return;
+
         }
+
+
 
         if (page === "tenants") {
+
             return;
+
         }
+
+
 
         if (page === "summary") {
+
             window.location.href = "summary.html";
+
             return;
+
         }
+
+
 
         if (page === "action") {
+
             window.location.href = "action.html";
+
             return;
+
         }
 
+
+
     }
+
+
 
     window.goTo = goTo;
 
 
+
+
+
     /* =====================================================
+
        ADD TENANT
+
        ===================================================== */
+
+
 
     function addTenant() {
 
+
+
         window.location.href =
+
             "../tenants/add-tenant.html";
 
+
+
     }
+
+
 
     window.addTenant = addTenant;
 
 
+
+
+
     /* =====================================================
+
        OPEN TENANT
+
        ===================================================== */
+
+
 
     function openTenant(tenantId) {
 
+
+
         window.location.href =
+
             "../tenants/tenant-details.html?tenant="
+
             + encodeURIComponent(tenantId);
 
+
+
     }
+
+
 
     window.openTenant = openTenant;
 
 
+
+
+
     /* =====================================================
+
        TENANT MENU
+
        ===================================================== */
+
+
 
     function openTenantMenu(tenantId, event) {
 
+
+
         if (event) {
+
             event.stopPropagation();
+
         }
 
+
+
         showToast(
+
             "Tenant options will be available here."
+
         );
 
+
+
     }
+
+
 
     window.openTenantMenu = openTenantMenu;
 
 
+
+
+
     /* =====================================================
+
        PROFILE
+
        ===================================================== */
+
+
 
     function openProfile() {
 
+
+
         window.location.href =
+
             "../tools/profile.html";
 
+
+
     }
+
+
 
     window.openProfile = openProfile;
 
 
+
+
+
     /* =====================================================
+
        INITIALS
+
        ===================================================== */
+
+
 
     function getInitials(name) {
 
+
+
         if (!name) {
+
             return "TN";
+
         }
 
+
+
         const words =
+
             name
+
                 .trim()
+
                 .split(/\s+/)
+
                 .filter(Boolean);
+
+
 
         if (words.length === 1) {
 
+
+
             return words[0]
+
                 .substring(0, 2)
+
                 .toUpperCase();
+
+
 
         }
 
+
+
         return (
+
             words[0][0] +
+
             words[1][0]
+
         ).toUpperCase();
+
+
 
     }
 
 
+
+
+
     /* =====================================================
+
        FORMAT MONEY
+
        ===================================================== */
+
+
 
     function formatMoney(amount) {
 
+
+
         const number =
+
             Number(amount) || 0;
 
-        return "₹" +
+
+
+        return "Rs. " +
+
             number.toLocaleString("en-IN");
+
+
 
     }
 
 
+
+
+
     /* =====================================================
+
        PAYMENT STATUS
+
        ===================================================== */
+
+
 
     function getPaymentStatus(tenant) {
 
+
+
         const balance =
+
             Number(
+
                 tenant.currentDue ??
+
                 tenant.openingBalance ??
+
                 0
+
             );
+
+
 
         if (balance <= 0) {
 
+
+
             return {
+
                 text: "Paid",
+
                 className: "status-paid"
+
             };
+
+
 
         }
 
+
+
         return {
+
             text: "Due",
+
             className: "status-due"
+
         };
+
+
 
     }
 
 
+
+
+
     /* =====================================================
+
        LOAD TENANTS FROM FIRESTORE
+
        ===================================================== */
+
+
 
     async function loadTenants() {
 
+
+
         const container =
+
             document.getElementById(
+
                 "tenantsContainer"
+
             );
+
+
 
         const emptyState =
+
             document.getElementById(
+
                 "emptyState"
+
             );
+
+
 
         const tenantCount =
+
             document.getElementById(
+
                 "tenantCount"
+
             );
 
+
+
         const tenantLabel =
+
             document.getElementById(
+
                 "tenantLabel"
+
             );
+
+
+
 
 
         /* ---------------------------------------------
+
            WAIT FOR FIREBASE AUTH
+
            --------------------------------------------- */
 
+
+
         const user =
+
             auth.currentUser;
+
+
+
 
 
         if (!user) {
 
+
+
             console.log(
+
                 "No logged-in user."
+
             );
+
+
 
             container.innerHTML = "";
 
+
+
             emptyState.style.display =
+
                 "block";
 
+
+
             tenantCount.textContent =
+
                 "0";
 
+
+
             tenantLabel.textContent =
+
                 "0 tenants";
 
+
+
             return;
+
+
 
         }
 
 
+
+
+
         try {
 
+
+
             /* -----------------------------------------
+
                FIRESTORE PATH
 
+
+
                users/
+
                  UID/
+
                    tenants/
+
                ----------------------------------------- */
 
+
+
             const tenantsRef =
+
                 collection(
+
                     db,
+
                     "users",
+
                     user.uid,
+
                     "tenants"
+
                 );
+
+
+
 
 
             let snapshot;
 
 
+
+
+
             try {
 
+
+
                 const orderedQuery =
+
                     query(
+
                         tenantsRef,
+
                         orderBy(
+
                             "createdAt",
+
                             "desc"
+
                         )
+
                     );
 
+
+
                 snapshot =
+
                     await getDocs(
+
                         orderedQuery
+
                     );
+
+
 
             } catch (orderError) {
 
+
+
                 /*
+
                    If some older documents don't have
+
                    createdAt, load normally instead.
+
                 */
 
+
+
                 console.warn(
+
                     "Ordered tenant query failed. Loading normally.",
+
                     orderError
+
                 );
 
+
+
                 snapshot =
+
                     await getDocs(
+
                         tenantsRef
+
                     );
+
+
 
             }
 
 
+
+
+
             /* -----------------------------------------
+
                REMOVE OLD CARDS
+
                ----------------------------------------- */
+
+
 
             container.innerHTML = "";
 
 
+
+
+
             /* -----------------------------------------
+
                NO TENANTS
+
                ----------------------------------------- */
+
+
 
             if (snapshot.empty) {
 
+
+
                 container.appendChild(
+
                     emptyState
+
                 );
 
+
+
                 emptyState.style.display =
+
                     "block";
 
+
+
                 tenantCount.textContent =
+
                     "0";
 
+
+
                 tenantLabel.textContent =
+
                     "0 tenants";
+
+
 
                 lucide.createIcons();
 
+
+
                 return;
+
+
 
             }
 
 
+
+
+
             /* -----------------------------------------
+
                TENANT COUNT
+
                ----------------------------------------- */
 
+
+
             const total =
+
                 snapshot.size;
 
+
+
             tenantCount.textContent =
+
                 total;
 
+
+
             tenantLabel.textContent =
+
                 total === 1
+
                     ? "1 tenant"
+
                     : total + " tenants";
 
 
+
+
+
             /* -----------------------------------------
+
                CREATE TENANT CARDS
+
                ----------------------------------------- */
+
+
 
             snapshot.forEach(function(doc) {
 
+
+
                 const tenant =
+
                     doc.data();
 
+
+
                 const tenantId =
+
                     doc.id;
 
 
+
+
+
                 const name =
+
                     tenant.name ||
+
                     "Unnamed Tenant";
 
 
+
+
+
                 const room =
+
                     tenant.buildingNumber
+
                         ? (
+
                             tenant.building
+
                                 ? tenant.building +
-                                  " • " +
+
+                                  "  /  " +
+
                                   tenant.buildingNumber
+
                                 : tenant.buildingNumber
+
                           )
+
                         : (
+
                             tenant.building ||
+
                             "No room assigned"
+
                           );
 
 
+
+
+
                 const rent =
+
                     Number(
+
                         tenant.rent ??
+
                         tenant.monthlyRent ??
+
                         tenant.openingBalance ??
+
                         0
+
                     );
+
+
+
 
 
                 const balance =
+
                     Number(
+
                         tenant.currentDue ??
+
                         tenant.openingBalance ??
+
                         0
+
                     );
+
+
+
 
 
                 const status =
+
                     getPaymentStatus(
+
                         tenant
+
                     );
+
+
+
 
 
                 /* -------------------------------------
+
                    CARD
+
                    ------------------------------------- */
 
+
+
                 const card =
+
                     document.createElement(
+
                         "article"
+
                     );
 
+
+
                 card.className =
+
                     "tenant-card";
 
 
+
+
+
                 card.setAttribute(
+
                     "data-name",
+
                     name
+
                 );
 
 
+
+
+
                 card.setAttribute(
+
                     "data-room",
+
                     room
+
                 );
+
+
+
 
 
                 card.setAttribute(
+
                     "data-tenant-id",
+
                     tenantId
+
                 );
+
+
+
 
 
                 card.onclick =
+
                     function() {
 
+
+
                         openTenant(
+
                             tenantId
+
                         );
+
+
 
                     };
 
 
+
+
+
                 /* -------------------------------------
+
                    CARD HTML
+
                    ------------------------------------- */
+
+
+
+                const dueDateValue =
+                    tenant.dueDate ||
+                    tenant.paymentDueDate ||
+                    tenant.rentDueDate ||
+                    tenant.nextDueDate ||
+                    "";
+
+                let dueDateText = "";
+
+                if (dueDateValue) {
+                    try {
+                        let dueDateObject =
+                            typeof dueDateValue.toDate === "function"
+                                ? dueDateValue.toDate()
+                                : new Date(dueDateValue);
+
+                        if (!isNaN(dueDateObject.getTime())) {
+                            const months = [
+                                "Jan", "Feb", "Mar", "Apr",
+                                "May", "Jun", "Jul", "Aug",
+                                "Sep", "Oct", "Nov", "Dec"
+                            ];
+
+                            dueDateText =
+                                String(dueDateObject.getDate()).padStart(2, "0") +
+                                "-" +
+                                months[dueDateObject.getMonth()] +
+                                "-" +
+                                String(dueDateObject.getFullYear()).slice(-2);
+                        }
+                    } catch (error) {
+                        dueDateText = "";
+                    }
+                }
+
+                const totalPaid = Number(tenant.totalPaid || 0);
+
+                const paymentStatusText =
+                    balance > 0 && totalPaid > 0
+                        ? "Partial Paid"
+                        : balance > 0
+                            ? "Due"
+                            : "Paid";
 
                 card.innerHTML = `
 
@@ -1873,326 +4040,576 @@
 
                         </div>
 
-
                         <button
                             class="menu-button"
                             type="button"
                             aria-label="Tenant options"
                         >
-
                             <i data-lucide="more-vertical"></i>
-
                         </button>
 
                     </div>
 
+                    ${
+                        dueDateText
+                            ? `<div class="tenant-due-date">Due Date: ${escapeHtml(dueDateText)}</div>`
+                            : ""
+                    }
+
+                    <div class="tenant-payment-status ${paymentStatusText === "Paid" ? "paid" : ""}">
+                        ${paymentStatusText}
+                    </div>
 
                     <div class="tenant-details">
 
                         <div class="detail">
-
-                            <span>
-                                Rent
-                            </span>
-
-                            <strong>
-                                ${formatMoney(rent)}
-                            </strong>
-
+                            <span>Rent</span>
+                            <strong>${formatMoney(rent)}</strong>
                         </div>
 
-
                         <div class="detail">
-
-                            <span>
-                                Balance
-                            </span>
-
-                            <strong>
-                                ${formatMoney(balance)}
-                            </strong>
-
+                            <span>Balance</span>
+                            <strong>${formatMoney(balance)}</strong>
                         </div>
 
-
                         <div class="detail">
-
-                            <span>
-                                Status
-                            </span>
-
+                            <span>Status</span>
                             <strong class="${status.className}">
                                 ${status.text}
                             </strong>
-
                         </div>
 
                     </div>
-
                 `;
 
 
+
+
+
                 /* -------------------------------------
+
                    MENU BUTTON
+
                    ------------------------------------- */
 
+
+
                 const menuButton =
+
                     card.querySelector(
+
                         ".menu-button"
+
                     );
 
 
+
+
+
                 menuButton.onclick =
+
                     function(event) {
 
+
+
                         openTenantMenu(
+
                             tenantId,
+
                             event
+
                         );
+
+
 
                     };
 
 
+
+
+
                 container.appendChild(
+
                     card
+
                 );
+
+
 
             });
 
 
+
+
+
             /* -----------------------------------------
+
                HIDE EMPTY STATE
+
                ----------------------------------------- */
 
+
+
             emptyState.style.display =
+
                 "none";
+
+
+
 
 
             lucide.createIcons();
 
 
+
+
+
         } catch (error) {
 
+
+
             console.error(
+
                 "Error loading tenants:",
+
                 error
+
             );
+
+
+
 
 
             container.innerHTML = "";
 
+
+
             emptyState.style.display =
+
                 "block";
 
+
+
             emptyState.querySelector(
+
                 "h3"
+
             ).textContent =
+
                 "Unable to load tenants";
 
 
+
+
+
             emptyState.querySelector(
+
                 "p"
+
             ).textContent =
+
                 error.message ||
+
                 "Something went wrong while loading tenants.";
+
+
 
         }
 
+
+
     }
 
 
+
+
+
     /* =====================================================
+
        ESCAPE HTML
+
        ===================================================== */
+
+
 
     function escapeHtml(value) {
 
+
+
         return String(value)
+
             .replace(/&/g, "&amp;")
+
             .replace(/</g, "&lt;")
+
             .replace(/>/g, "&gt;")
+
             .replace(/"/g, "&quot;")
+
             .replace(/'/g, "&#039;");
+
+
 
     }
 
 
+
+
+
     /* =====================================================
+
        SEARCH TENANTS
+
        ===================================================== */
+
+
 
     function searchTenants() {
 
+
+
         const query =
+
             document
+
                 .getElementById(
+
                     "searchInput"
+
                 )
+
                 .value
+
                 .toLowerCase()
+
                 .trim();
 
 
+
+
+
         const cards =
+
             document.querySelectorAll(
+
                 ".tenant-card"
+
             );
+
+
+
 
 
         let visible = 0;
 
 
+
+
+
         cards.forEach(function(card) {
 
+
+
             const name =
+
                 (
+
                     card.getAttribute(
+
                         "data-name"
+
                     ) || ""
+
                 ).toLowerCase();
+
+
+
 
 
             const room =
+
                 (
+
                     card.getAttribute(
+
                         "data-room"
+
                     ) || ""
+
                 ).toLowerCase();
 
 
+
+
+
             if (
+
                 name.includes(query) ||
+
                 room.includes(query)
+
             ) {
 
+
+
                 card.style.display =
+
                     "block";
+
+
 
                 visible++;
 
+
+
             } else {
 
+
+
                 card.style.display =
+
                     "none";
 
+
+
             }
+
+
 
         });
 
 
+
+
+
         const emptyState =
+
             document.getElementById(
+
                 "emptyState"
+
             );
+
+
+
 
 
         if (cards.length === 0) {
 
+
+
             emptyState.style.display =
+
                 "block";
 
+
+
         }
+
+
 
         else if (visible === 0) {
 
+
+
             emptyState.style.display =
+
                 "block";
 
+
+
         }
+
+
 
         else {
 
+
+
             emptyState.style.display =
+
                 "none";
+
+
 
         }
 
 
+
+
+
         document
+
             .getElementById(
+
                 "tenantLabel"
+
             )
+
             .textContent =
+
                 visible +
+
                 (
+
                     visible === 1
+
                         ? " tenant"
+
                         : " tenants"
+
                 );
+
+
 
     }
 
+
+
     window.searchTenants =
+
         searchTenants;
 
 
+
+
+
     /* =====================================================
+
        TOAST
+
        ===================================================== */
+
+
 
     function showToast(message) {
 
+
+
         const toast =
+
             document.getElementById(
+
                 "toast"
+
             );
 
 
+
+
+
         toast.textContent =
+
             message;
 
 
+
+
+
         toast.classList.add(
+
             "show"
+
         );
+
+
+
 
 
         setTimeout(function() {
 
+
+
             toast.classList.remove(
+
                 "show"
+
             );
+
+
 
         }, 2200);
 
+
+
     }
+
+
+
 
 
     /* =====================================================
+
        WAIT FOR AUTH + LOAD
+
        ===================================================== */
 
+
+
     if (
+
         auth.currentUser
+
     ) {
+
+
 
         loadTenants();
 
+
+
     } else {
 
+
+
         auth.onAuthStateChanged(
+
             function(user) {
+
+
 
                 if (user) {
 
+
+
                     loadTenants();
+
+
 
                 } else {
 
+
+
                     console.log(
+
                         "User is not logged in."
+
                     );
+
+
 
                 }
 
+
+
             }
+
         );
 
+
+
     }
+
+
 
 </script>
 
 
+
+
+
 </body>
+
+
 
 </html>

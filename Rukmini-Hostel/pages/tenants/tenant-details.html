@@ -1775,10 +1775,59 @@ function showTab(tab) {
     }
 }
 function messageTenant() {
-    const phone = (reminderTenant?.mobile || reminderTenant?.phone || reminderTenant?.phoneNumber || "").toString().replace(/\D/g, "");
-    if (!phone) { alert("No mobile number is saved for this tenant."); return; }
-    const normalized = phone.length === 10 ? "91" + phone : phone;
-    window.open("https://wa.me/" + normalized, "_blank");
+    const phone = (
+        reminderTenant?.mobile ||
+        reminderTenant?.phone ||
+        reminderTenant?.phoneNumber ||
+        reminderTenant?.contactNumber ||
+        ""
+    ).toString().replace(/\D/g, "");
+
+    if (!phone) {
+        alert("No mobile number is saved for this tenant.");
+        return;
+    }
+
+    let normalized = phone;
+
+    if (normalized.length === 10) {
+        normalized = "91" + normalized;
+    } else if (normalized.length === 11 && normalized.startsWith("0")) {
+        normalized = "91" + normalized.slice(1);
+    } else if (!(normalized.length === 12 && normalized.startsWith("91"))) {
+        alert("The tenant's saved phone number is not a valid Indian mobile number.");
+        return;
+    }
+
+    const tenantName =
+        reminderTenant?.name ||
+        reminderTenant?.fullName ||
+        "Tenant";
+
+    const balance = Number(
+        reminderTenant?.currentDue ??
+        reminderTenant?.openingBalance ??
+        0
+    ) || 0;
+
+    const amount = balance.toLocaleString("en-IN");
+
+    const message =
+        "Hello " + tenantName + "\n\n" +
+        "This is a friendly reminder that your hostel rent payment of Rs. " +
+        amount +
+        " is currently due.\n\n" +
+        "Please make the payment at your earliest convenience. " +
+        "If you have already paid, kindly ignore this message.\n\n" +
+        "Thank you,\nRukmini Hostel";
+
+    const whatsappUrl =
+        "https://wa.me/" +
+        normalized +
+        "?text=" +
+        encodeURIComponent(message);
+
+    window.open(whatsappUrl, "_blank");
 }
 
 // These handlers are called by inline onclick attributes in the HTML.
