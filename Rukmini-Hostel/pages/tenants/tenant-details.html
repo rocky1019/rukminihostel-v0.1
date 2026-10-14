@@ -980,74 +980,153 @@
 
 .reminder-action-button:disabled { opacity: 0.65; cursor: wait; }
 
-
 /* Screenshot-matched Rento-style tenant details */
 
 .reference-details { width:100%; }
+
 .reference-row { display:grid; grid-template-columns: 39% 12px 1fr; gap:5px; align-items:start; font-size:18px; line-height:1.48; }
+
 .reference-row span { grid-column:1; }
+
 .reference-row span:after { content:''; }
+
 .reference-row b { grid-column:3; font-weight:400; overflow-wrap:anywhere; }
+
 .reference-row b:before { content:': '; }
+
 .show-more { display:block; border:0; background:transparent; color:#1595c5; font-weight:700; font-size:14px; padding:10px 0 0; }
+
 .last-bill-actions { display:flex; gap:10px; margin:8px 0 0; }
+
 .last-bill-actions button { flex:1; min-height:50px; border:0; border-radius:28px; color:white; background:linear-gradient(#008b78,#00695c); font-size:17px; box-shadow:0 2px 0 #b8c6c3; }
+
 .financial-more { padding-top:24px; }
 
 body { background:#f0eee6 !important; color:#222 !important; }
+
 .app { max-width:600px; background:#f0eee6 !important; box-shadow:none; padding-bottom:78px; }
+
 .header { height:76px; background:#006257 !important; padding:0 16px; gap:12px; position:relative; }
+
 .header-title { flex:1; min-width:0; font-size:23px !important; font-weight:400 !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
 .header-icon { width:36px; height:42px; border:0; background:transparent; color:#fff; display:flex; align-items:center; justify-content:center; }
+
 .header-icon svg { width:26px; height:26px; stroke-width:1.8; }
+
 .more-menu { display:none; position:absolute; right:8px; top:62px; z-index:50; min-width:175px; padding:6px; background:#fff; box-shadow:0 4px 14px #0003; border-radius:4px; }
+
 .more-menu.open { display:block; }
+
 .more-menu button { display:block; width:100%; text-align:left; border:0; background:#fff; padding:12px; color:#263238; font-size:14px; }
+
 .tabs { height:56px; display:flex; background:#006257; }
+
 .tab { flex:1; border:0; background:transparent; color:#fff; font-size:16px; font-weight:500; position:relative; }
+
 .tab.active { color:#ff9800; font-weight:700; }
+
 .tab.active:after { content:''; position:absolute; height:3px; left:0; right:0; bottom:0; background:#ff9800; }
+
 .content { padding:22px 15px 26px !important; }
+
 #tenantContent { display:flex; flex-direction:column; gap:0; }
+
 #tenantContent > .profile-card { order:1; }
+
 #tenantContent > .feature-card { order:2; }
+
 #tenantContent > section.card:nth-of-type(4) { order:3; }
-#tenantContent > section.card:nth-of-type(2), #tenantContent > section.card:nth-of-type(3), #tenantContent > section.card:nth-of-type(6) { display:none !important; }
+
+#tenantContent > section.card:nth-of-type(2), #tenantContent > section.card:nth-of-type(3), #tenantContent > section.card:nth-of-type(6) { display:none; }
+
 .profile-card { display:block; text-align:left; background:#fff; border:0; border-left:4px solid #00695c; border-radius:3px; padding:22px 12px 18px; margin:0 0 10px; box-shadow:0 3px 7px #0002; }
+
 .profile-card .avatar { width:114px; height:114px; margin:0 auto 14px; border-radius:50%; background:#edf1f1; color:#b8c0c0; font-size:0; border:6px solid #c4cccc; position:relative; }
+
 .profile-card .avatar:before { content:''; width:36px; height:40px; position:absolute; top:18px; left:33px; border-radius:50% 50% 44% 44%; background:#b8c0c0; }
+
 .profile-card .avatar:after { content:''; width:66px; height:38px; position:absolute; bottom:0; left:18px; border-radius:48% 48% 35% 35%; background:#b8c0c0; }
+
 .profile-card h1 { display:none; }
+
 .profile-card p { display:none; }
+
 .profile-card:after { content:''; display:block; }
+
 .profile-card { min-height:325px; }
+
 .profile-card .avatar { margin-bottom:16px; }
+
 /* Details are displayed as compact key/value rows within the first card. */
+
 .profile-card:has(#tenantName) { position:relative; }
+
 .profile-card .reference-details { display:block; }
+
 .feature-card { order:2; background:#fff; border:0; border-left:4px solid #00695c; border-radius:3px; padding:7px 8px; margin:0 0 10px; box-shadow:0 3px 7px #0002; }
+
 .feature-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:2px; }
+
 .feature-button { min-width:0; min-height:86px; padding:4px 1px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; border:0; border-radius:0; background:#fff; color:#222; }
+
 .feature-button svg { width:35px; height:35px; color:#f39800; stroke-width:2.4; }
+
 .feature-button span { font-size:12px; line-height:1.15; font-weight:400; text-align:center; white-space:normal; }
+
 #tenantContent > .card { background:#fff; border:0; border-left:4px solid #00695c; border-radius:3px; padding:16px 12px; margin:0 0 10px; box-shadow:0 3px 7px #0002; }
+
 #tenantContent > .card .card-title { color:#e99a32; font-size:18px; font-weight:400; margin-bottom:12px; }
+
 .balance-box { display:block; text-align:center; background:transparent; padding:0 0 8px; border-radius:0; }
+
 .balance-box span { display:block; color:#222; font-size:18px; }
+
 .balance-box strong { display:block; color:#13b34a; font-size:31px; font-weight:400; margin-top:5px; }
+
 .balance-status { display:none; }
+
 #tenantContent > section.card:nth-of-type(4) .detail-row { display:none; }
+
 #tenantContent > section.card:nth-of-type(4) .balance-box:after { content:'Expiring On : '; display:block; font-size:17px; margin-top:4px; }
+
 #tenantContent > section.card:nth-of-type(4) .card-title { margin-bottom:10px; }
+
 #tenantContent > section.card:nth-of-type(4) .balance-box { position:relative; }
+
 #tenantContent > section.card:nth-of-type(4) .balance-box:after { content:''; }
+
 #tenantContent > section.card:nth-of-type(4) .balance-box:before { content:''; }
+
 .bottom-history { position:fixed; bottom:0; left:0; right:0; height:76px; background:#006257; color:#c5e4df; z-index:30; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; font-size:14px; }
+
 .bottom-history svg { width:28px; height:28px; }
+
 @media(min-width:601px) { .bottom-history { left:50%; right:auto; width:600px; transform:translateX(-50%); } }
+
 @media(max-width:380px) { .content { padding:16px 10px 26px !important; } .feature-button svg { width:29px;height:29px; } .feature-button span { font-size:10px; } }
 
-</style>
+
+        /* Edit tenant form layout fix */
+        #editTenantModal { box-sizing: border-box; }
+        #editTenantModal * { box-sizing: border-box; }
+        #editTenantModal > div { width: min(100%, 500px); margin: auto; padding: 20px; }
+        #editTenantForm { display: block; width: 100%; }
+        #editTenantForm .form-group { display: block; width: 100%; margin: 0 0 13px; }
+        #editTenantForm .form-group label { display: block; width: 100%; margin: 0 0 6px; font-size: 12px; line-height: 1.35; color: #607D8B; font-weight: 600; }
+        #editTenantForm .form-group input,
+        #editTenantForm .form-group textarea,
+        #editTenantForm .form-group select { display: block; width: 100%; min-width: 0; min-height: 42px; margin: 0; padding: 11px 12px; border: 1px solid #DDE5E5; border-radius: 9px; background: #fff; color: #263238; font: 14px Arial, Helvetica, sans-serif; line-height: 1.35; }
+        #editTenantForm .form-group textarea { min-height: 76px; resize: vertical; }
+        #editTenantForm #saveTenantDetailsButton { display: block; width: 100%; min-height: 47px; margin-top: 5px; }
+        @media (max-width: 480px) {
+          #editTenantModal { padding: 12px !important; align-items: center; }
+          #editTenantModal > div { max-height: 92dvh; padding: 16px; border-radius: 14px; }
+          #editTenantTitle { font-size: 17px !important; }
+          #editTenantForm .form-group { margin-bottom: 11px; }
+        }
+
+    </style>
 
 </head>
 
@@ -1056,13 +1135,21 @@ body { background:#f0eee6 !important; color:#222 !important; }
 <div class="app">
 
     <!-- RENTO-STYLE HEADER -->
+
     <header class="header">
+
         <button class="back-button" onclick="goBack()" aria-label="Go back"><i data-lucide="arrow-left"></i></button>
+
         <div class="header-title" id="headerTenantName">Tenant</div>
+
         <button class="header-icon" type="button" onclick="openFeature('payment')" aria-label="Add payment"><i data-lucide="circle-plus"></i></button>
+
         <button class="header-icon" type="button" onclick="toggleMoreMenu()" aria-label="More options"><i data-lucide="more-vertical"></i></button>
+
         <div class="more-menu" id="moreMenu"><button onclick="openFeature('balance')">Balance history</button><button onclick="openFeature('bill')">Generate bill</button><button onclick="openFeature('receipts')">Receipts</button></div>
+
     </header>
+
     <div class="tabs"><button class="tab active" type="button" onclick="showTab('main')">MAIN</button><button class="tab" type="button" onclick="showTab('details')">DETAILS</button></div>
 
     <!-- CONTENT -->
@@ -1094,11 +1181,18 @@ body { background:#f0eee6 !important; color:#222 !important; }
                 </div>
 
                 <div class="reference-details">
+
                     <div class="reference-row"><span>Bill Name</span><b id="refBillName">—</b></div>
+
                     <div class="reference-row"><span>Building Name</span><b id="refBuildingName">—</b></div>
+
                     <div class="reference-row"><span>Billing Number</span><b id="refBillingNumber">—</b></div>
+
                     <div class="reference-row"><span>Security Deposit</span><b id="refSecurityDeposit">₹0</b></div>
+
                     <button class="show-more" type="button" onclick="showTab('details')">Show more...</button>
+                    <button type="button" onclick="openEditTenant()" style="display:block;width:100%;margin-top:10px;padding:11px;border:1px solid #00695C;border-radius:8px;background:#E0F2F1;color:#00695C;font-size:13px;font-weight:700;cursor:pointer">Edit Tenant Details</button>
+
                 </div>
 
                 <h1 id="tenantName">
@@ -1378,10 +1472,15 @@ body { background:#f0eee6 !important; color:#222 !important; }
                     </div>
 
                 </div>
+
                 <div class="last-bill-actions">
+
                     <button type="button" onclick="openFeature('payment')">Collect Payment</button>
+
                     <button type="button" onclick="openFeature('balance')">Add Balance</button>
+
                 </div>
+
                 <button class="show-more financial-more" type="button" onclick="showTab('details')">Show more...</button>
 
                 <div class="detail-row"
@@ -1479,13 +1578,21 @@ body { background:#f0eee6 !important; color:#222 !important; }
              <!-- TENANT FEATURES -->
 
 <section class="feature-card" aria-label="Tenant actions">
+
     <div class="feature-grid">
+
         <button class="feature-button" onclick="messageTenant()"><i data-lucide="mail"></i><span>Message</span></button>
+
         <button class="feature-button" onclick="openFeature('payment')"><i data-lucide="link"></i><span>Payment Link</span></button>
+
         <button class="feature-button" onclick="openFeature('payment')"><i data-lucide="smartphone"></i><span>Advance<br>Payment Link</span></button>
+
         <button class="feature-button" onclick="openFeature('bill')"><i data-lucide="file-text"></i><span>Bill Share</span></button>
+
         <button class="feature-button" onclick="openFeature('receipts')"><i data-lucide="wallet"></i><span>Receipt Share</span></button>
+
     </div>
+
 </section>  
 
             <!-- OTHER -->
@@ -1622,6 +1729,28 @@ body { background:#f0eee6 !important; color:#222 !important; }
 
     </div>
 
+<div id="editTenantModal" role="dialog" aria-modal="true" aria-labelledby="editTenantTitle" style="display:none;position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.5);padding:16px;align-items:center;justify-content:center;overflow:auto;">
+  <div style="width:100%;max-width:500px;max-height:92vh;overflow:auto;background:#fff;border-radius:16px;padding:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;"><strong id="editTenantTitle" style="font-size:18px;color:#00695C;">Edit Tenant Details</strong><button type="button" onclick="closeEditTenant()" aria-label="Close edit form" style="border:0;background:#eef3f3;border-radius:9px;padding:9px;cursor:pointer">✕</button></div>
+    <form id="editTenantForm" onsubmit="saveTenantDetails(event)">
+      <div class="form-group"><label for="editName">Tenant Name</label><input id="editName" required maxlength="120"></div>
+      <div class="form-group"><label for="editMobile">Mobile Number</label><input id="editMobile" type="tel" inputmode="tel"></div>
+      <div class="form-group"><label for="editMobile2">Mobile Number 2</label><input id="editMobile2" type="tel" inputmode="tel"></div>
+      <div class="form-group"><label for="editEmail">Email</label><input id="editEmail" type="email"></div>
+      <div class="form-group"><label for="editAddress">Address</label><textarea id="editAddress"></textarea></div>
+      <div class="form-group"><label for="editBuilding">Building</label><input id="editBuilding"></div>
+      <div class="form-group"><label for="editBuildingNumber">Building / Room Number</label><input id="editBuildingNumber"></div>
+      <div class="form-group"><label for="editBillingName">Billing Name</label><input id="editBillingName"></div>
+      <div class="form-group"><label for="editTenantCode">Tenant Code / Billing Number</label><input id="editTenantCode"></div>
+      <div class="form-group"><label for="editStatus">Status</label><input id="editStatus"></div>
+      <div class="form-group"><label for="editSecurityDeposit">Security Deposit</label><input id="editSecurityDeposit" type="number" min="0" step="0.01"></div>
+      <div class="form-group"><label for="editBillingDate">Start Billing From</label><input id="editBillingDate" type="date"></div>
+      <div class="form-group"><label for="editRemark">Remark</label><textarea id="editRemark"></textarea></div>
+      <button id="saveTenantDetailsButton" type="submit" style="width:100%;min-height:47px;border:0;border-radius:11px;background:#00695C;color:#fff;font-weight:700;cursor:pointer">Save Changes</button>
+    </form>
+  </div>
+</div>
+
 <script type="module">
 
     import {
@@ -1636,7 +1765,11 @@ body { background:#f0eee6 !important; color:#222 !important; }
 
         doc,
 
-        getDoc
+        getDoc,
+
+        updateDoc,
+
+        serverTimestamp
 
     } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
@@ -1763,77 +1896,132 @@ body { background:#f0eee6 !important; color:#222 !important; }
        ===================================================== */
 
 function toggleMoreMenu() {
+
     const menu = document.getElementById("moreMenu");
+
     if (menu) menu.classList.toggle("open");
+
 }
+
 function showTab(tab) {
-    document.querySelectorAll(".tab").forEach((el, index) => el.classList.toggle("active", (tab === "main" && index === 0) || (tab === "details" && index === 1)));
-    if (tab === "details") {
-        document.querySelectorAll("#tenantContent > section.card").forEach(el => { if (!el.matches(":nth-of-type(4)")) el.style.display = "block"; });
-    } else {
-        document.querySelectorAll("#tenantContent > section.card").forEach(el => { if (el.matches(":nth-of-type(2), :nth-of-type(3), :nth-of-type(6)")) el.style.display = "none"; });
-    }
+    const isDetails = tab === "details";
+    document.querySelectorAll(".tab").forEach((el, index) => {
+        el.classList.toggle("active", (isDetails && index === 1) || (!isDetails && index === 0));
+    });
+    document.querySelectorAll("#tenantContent > section.card").forEach(el => {
+        const hiddenOnMain = el.matches(":nth-of-type(2), :nth-of-type(3), :nth-of-type(6)");
+        el.style.display = (isDetails || !hiddenOnMain) ? "block" : "none";
+    });
+    document.querySelectorAll("#tenantContent > section.card:nth-of-type(4) .detail-row").forEach(row => {
+        row.style.display = isDetails ? "block" : "none";
+    });
+    document.querySelectorAll(".show-more").forEach(button => {
+        button.textContent = isDetails ? "Show less..." : "Show more...";
+        button.setAttribute("aria-expanded", isDetails ? "true" : "false");
+        button.onclick = () => showTab(isDetails ? "main" : "details");
+    });
 }
+
 function messageTenant() {
+
     const phone = (
+
         reminderTenant?.mobile ||
+
         reminderTenant?.phone ||
+
         reminderTenant?.phoneNumber ||
+
         reminderTenant?.contactNumber ||
+
         ""
+
     ).toString().replace(/\D/g, "");
 
     if (!phone) {
+
         alert("No mobile number is saved for this tenant.");
+
         return;
+
     }
 
     let normalized = phone;
 
     if (normalized.length === 10) {
+
         normalized = "91" + normalized;
+
     } else if (normalized.length === 11 && normalized.startsWith("0")) {
+
         normalized = "91" + normalized.slice(1);
+
     } else if (!(normalized.length === 12 && normalized.startsWith("91"))) {
+
         alert("The tenant's saved phone number is not a valid Indian mobile number.");
+
         return;
+
     }
 
     const tenantName =
+
         reminderTenant?.name ||
+
         reminderTenant?.fullName ||
+
         "Tenant";
 
     const balance = Number(
+
         reminderTenant?.currentDue ??
+
         reminderTenant?.openingBalance ??
+
         0
+
     ) || 0;
 
     const amount = balance.toLocaleString("en-IN");
 
     const message =
+
         "Hello " + tenantName + "\n\n" +
+
         "This is a friendly reminder that your hostel rent payment of Rs. " +
+
         amount +
+
         " is currently due.\n\n" +
+
         "Please make the payment at your earliest convenience. " +
+
         "If you have already paid, kindly ignore this message.\n\n" +
+
         "Thank you,\nRukmini Hostel";
 
     const whatsappUrl =
+
         "https://wa.me/" +
+
         normalized +
+
         "?text=" +
+
         encodeURIComponent(message);
 
-    window.open(whatsappUrl, "_blank");
+    window.open(whatsappUrl, "\_blank");
+
 }
 
 // These handlers are called by inline onclick attributes in the HTML.
+
 // Because this is a type="module" script, expose them on window explicitly.
+
 window.toggleMoreMenu = toggleMoreMenu;
+
 window.showTab = showTab;
+
 window.messageTenant = messageTenant;
 
 function goBack() {
@@ -1933,6 +2121,8 @@ window.openFeature = openFeature;
    ===================================================== */
 
 let reminderTenant = null;
+let currentTenantId = null;
+let currentTenantData = null;
 
 let reminderHostelProfile = {};
 
@@ -2157,6 +2347,7 @@ window.sharePaymentReminder = sharePaymentReminder;
         const tenantId =
 
             params.get("tenant");
+        currentTenantId = tenantId;
 
         if (!tenantId) {
 
@@ -2269,7 +2460,7 @@ window.sharePaymentReminder = sharePaymentReminder;
             const tenant =
 
                 snapshot.data();
-
+            currentTenantData = { ...tenant, id: tenantId };
             reminderTenant = { ...tenant, id: tenantId };
 
             // Load hostel profile details for the reminder card.
@@ -2301,6 +2492,7 @@ window.sharePaymentReminder = sharePaymentReminder;
                 "Unnamed Tenant";
 
             const headerName = document.getElementById("headerTenantName");
+
             if (headerName) headerName.textContent = tenant.name || "Tenant";
 
             const room =
@@ -2450,8 +2642,11 @@ window.sharePaymentReminder = sharePaymentReminder;
                 );
 
             document.getElementById("refBillName").textContent = tenant.billingName || tenant.name || "—";
+
             document.getElementById("refBuildingName").textContent = tenant.building || tenant.buildingName || "—";
+
             document.getElementById("refBillingNumber").textContent = tenant.tenantCode || tenant.billingNumber || "—";
+
             document.getElementById("refSecurityDeposit").textContent = formatMoney(tenant.securityDeposit || 0);
 
             document.getElementById(
@@ -2693,6 +2888,53 @@ window.sharePaymentReminder = sharePaymentReminder;
         );
 
     }
+
+
+window.openEditTenant = function () {
+    if (!currentTenantData) { alert("Tenant details are still loading. Please try again."); return; }
+    const fields = {
+        editName: currentTenantData.name, editMobile: currentTenantData.mobile,
+        editMobile2: currentTenantData.mobile2, editEmail: currentTenantData.email,
+        editAddress: currentTenantData.address, editBuilding: currentTenantData.building,
+        editBuildingNumber: currentTenantData.buildingNumber, editBillingName: currentTenantData.billingName,
+        editTenantCode: currentTenantData.tenantCode || currentTenantData.billingNumber,
+        editStatus: currentTenantData.status, editSecurityDeposit: currentTenantData.securityDeposit ?? 0,
+        editBillingDate: currentTenantData.billingDate, editRemark: currentTenantData.remark
+    };
+    Object.entries(fields).forEach(([id, value]) => { const field = document.getElementById(id); if (field) field.value = value ?? ""; });
+    document.getElementById("editTenantModal").style.display = "flex";
+    document.body.style.overflow = "hidden";
+};
+window.closeEditTenant = function () {
+    document.getElementById("editTenantModal").style.display = "none";
+    document.body.style.overflow = "";
+};
+window.saveTenantDetails = async function (event) {
+    event.preventDefault();
+    const user = auth.currentUser;
+    if (!user || !currentTenantId) { alert("Please log in again before saving tenant details."); return; }
+    const button = document.getElementById("saveTenantDetailsButton");
+    const value = id => document.getElementById(id).value.trim();
+    const depositRaw = value("editSecurityDeposit");
+    const deposit = depositRaw === "" ? 0 : Number(depositRaw);
+    if (!Number.isFinite(deposit) || deposit < 0) { alert("Enter a valid security deposit."); return; }
+    const updated = {
+        name: value("editName"), mobile: value("editMobile"), mobile2: value("editMobile2"),
+        email: value("editEmail"), address: value("editAddress"), building: value("editBuilding"),
+        buildingNumber: value("editBuildingNumber"), billingName: value("editBillingName"),
+        tenantCode: value("editTenantCode"), status: value("editStatus"), securityDeposit: deposit,
+        billingDate: value("editBillingDate"), remark: value("editRemark"), updatedAt: serverTimestamp()
+    };
+    if (!updated.name) { alert("Tenant name is required."); return; }
+    button.disabled = true; button.textContent = "Saving...";
+    try {
+        await updateDoc(doc(db, "users", user.uid, "tenants", currentTenantId), updated);
+        closeEditTenant(); alert("Tenant details updated successfully."); window.location.reload();
+    } catch (error) {
+        console.error("Could not update tenant details:", error);
+        alert(error.message || "Could not save tenant details. Please try again.");
+    } finally { button.disabled = false; button.textContent = "Save Changes"; }
+};
 
 </script>
 

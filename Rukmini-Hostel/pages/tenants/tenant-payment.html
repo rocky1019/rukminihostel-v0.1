@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,85 +8,92 @@
 <title>Tenant Payments - Rukmini Hostel</title>
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{width:100%;min-height:100%;}
-body{font-family:Arial,Helvetica,sans-serif;background:#E9EEEE;color:#263238;}
-button,input,select,textarea{font-family:inherit;}
-button{-webkit-appearance:none;}
-.app{width:100%;max-width:600px;min-height:100vh;margin:0 auto;background:#F5F7F7;box-shadow:0 0 35px rgba(0,0,0,.05);}
-.header{height:72px;padding:0 18px;display:flex;align-items:center;gap:12px;background:#00695C;color:white;position:sticky;top:0;z-index:20;}
-.back-button{width:42px;height:42px;border:none;background:transparent;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.back-button svg{width:23px;height:23px;stroke-width:2.5;}
-.header-title{font-size:20px;font-weight:700;}
-.content{padding:20px 16px 35px;}
-.tenant-header{background:white;border:1px solid #E4EAEA;border-radius:17px;padding:17px;margin-bottom:15px;display:flex;align-items:center;gap:13px;}
-.avatar{width:50px;height:50px;border-radius:15px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0;}
-.tenant-header strong{display:block;font-size:16px;color:#263238;margin-bottom:5px;}
-.tenant-header span{font-size:12px;color:#78909C;}
-.balance-box{background:#E0F2F1;border-radius:16px;padding:17px;margin-bottom:17px;display:flex;align-items:center;justify-content:space-between;}
-.balance-box span{font-size:12px;color:#51736F;}
-.balance-box strong{display:block;margin-top:5px;font-size:23px;color:#00695C;}
-.balance-icon{width:43px;height:43px;border-radius:13px;background:white;color:#00695C;display:flex;align-items:center;justify-content:center;}
-.balance-icon svg{width:21px;height:21px;}
-.add-button{width:100%;height:48px;border:none;border-radius:13px;background:#00695C;color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-bottom:21px;box-shadow:0 5px 14px rgba(0,105,92,.16);}
-.add-button svg{width:19px;height:19px;}
-.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;}
-.section-title strong{font-size:14px;color:#455A64;}
-.section-title span{font-size:11px;color:#90A4AE;}
-.payment-card{background:white;border:1px solid #E4EAEA;border-radius:16px;padding:16px;margin-bottom:11px;box-shadow:0 3px 10px rgba(38,50,56,.035);}
-.payment-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-.payment-left{display:flex;align-items:center;gap:11px;min-width:0;}
-.payment-icon{width:43px;height:43px;border-radius:13px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.payment-icon svg{width:20px;height:20px;}
-.payment-info strong{display:block;font-size:15px;color:#263238;margin-bottom:5px;}
-.payment-info span{font-size:11px;color:#90A4AE;}
-.payment-amount{font-size:16px;font-weight:700;color:#00897B;white-space:nowrap;}
-.payment-note{margin-top:13px;padding-top:12px;border-top:1px solid #EDF0F0;font-size:12px;color:#607D8B;line-height:1.45;}
-.payment-actions{margin-top:13px;display:flex;gap:8px;justify-content:flex-end;}
-.action-button{height:34px;padding:0 12px;border:none;border-radius:9px;background:#F5F7F7;color:#607D8B;font-size:11px;font-weight:600;cursor:pointer;}
-.action-button.delete{color:#C62828;background:#FFEBEE;}
-.empty-state{background:white;border:1px dashed #D5DEDE;border-radius:17px;padding:40px 20px;text-align:center;}
-.empty-icon{width:57px;height:57px;margin:0 auto 14px;border-radius:17px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;}
-.empty-icon svg{width:25px;height:25px;}
-.empty-state h3{font-size:16px;margin-bottom:6px;color:#455A64;}
-.empty-state p{font-size:12px;line-height:1.5;color:#90A4AE;}
-.modal{position:fixed;inset:0;background:rgba(38,50,56,.45);display:none;align-items:flex-end;justify-content:center;z-index:100;}
-.modal.show{display:flex;}
-.modal-box{width:100%;max-width:600px;background:#F5F7F7;border-radius:22px 22px 0 0;padding:21px 17px 25px;max-height:90vh;overflow-y:auto;}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px;}
-.modal-header strong{font-size:18px;color:#263238;}
-.close-button{width:35px;height:35px;border:none;border-radius:10px;background:#E8EEEE;color:#607D8B;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.close-button svg{width:18px;}
-.form-group{margin-bottom:14px;}
-.form-group label{display:block;font-size:11px;color:#78909C;margin-bottom:7px;font-weight:600;}
-.form-group input,.form-group select,.form-group textarea{width:100%;border:1px solid #DDE5E5;outline:none;background:white;border-radius:11px;padding:12px;font-size:13px;color:#263238;}
-.form-group textarea{min-height:75px;resize:vertical;}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#80CBC4;box-shadow:0 0 0 3px rgba(0,137,123,.07);}
-.save-button{width:100%;height:47px;border:none;border-radius:12px;background:#00695C;color:white;font-size:14px;font-weight:700;cursor:pointer;margin-top:5px;}
-.save-button:disabled{opacity:.65;cursor:wait;}
-.loading{text-align:center;padding:70px 20px;color:#78909C;font-size:14px;}
-.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#263238;color:white;padding:11px 17px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transition:.25s ease;z-index:200;white-space:nowrap;}
-.toast.show{opacity:1;transform:translate(-50%,0);}
-@media (min-width:601px){body{background:#E9EEEE;}}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;min-height:100%}
+body{font-family:Arial,Helvetica,sans-serif;background:#E9EEEE;color:#263238}
+button,input,select,textarea{font-family:inherit}
+button{-webkit-appearance:none}
+.app{width:100%;max-width:600px;min-height:100vh;margin:0 auto;background:#F5F7F7;box-shadow:0 0 35px rgba(0,0,0,.05)}
+.header{height:72px;padding:0 18px;display:flex;align-items:center;gap:12px;background:#00695C;color:#fff;position:sticky;top:0;z-index:20}
+.back-button{width:42px;height:42px;border:none;background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.back-button svg{width:23px;height:23px;stroke-width:2.5}
+.header-title{font-size:20px;font-weight:700}
+.content{padding:20px 16px 35px}
+.tenant-header{background:#fff;border:1px solid #E4EAEA;border-radius:17px;padding:17px;margin-bottom:15px;display:flex;align-items:center;gap:13px}
+.avatar{width:50px;height:50px;border-radius:15px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0}
+.tenant-header strong{display:block;font-size:16px;color:#263238;margin-bottom:5px}
+.tenant-header span{font-size:12px;color:#78909C}
+.balance-box{background:#E0F2F1;border-radius:16px;padding:17px;margin-bottom:17px;display:flex;align-items:center;justify-content:space-between}
+.balance-box span{font-size:12px;color:#51736F}
+.balance-box strong{display:block;margin-top:5px;font-size:23px;color:#00695C}
+.balance-icon{width:43px;height:43px;border-radius:13px;background:#fff;color:#00695C;display:flex;align-items:center;justify-content:center}
+.balance-icon svg{width:21px;height:21px}
+.add-button{width:100%;height:48px;border:none;border-radius:13px;background:#00695C;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-bottom:21px;box-shadow:0 5px 14px rgba(0,105,92,.16)}
+.add-button svg{width:19px;height:19px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.section-title strong{font-size:14px;color:#455A64}
+.section-title span{font-size:11px;color:#90A4AE}
+
+/* Original payment card layout */
+#paymentsContainer{display:block;width:100%}
+.payment-card{display:block;width:100%;height:auto;background:#fff;border:1px solid #E4EAEA;border-radius:16px;padding:12px;margin-bottom:11px;box-shadow:0 3px 10px rgba(38,50,56,.035)}
+.payment-top{display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:10px;width:100%}
+.payment-left{display:flex;flex-direction:row;align-items:center;gap:9px;min-width:0;flex:1}
+.payment-icon{width:34px;height:34px;border-radius:10px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.payment-icon svg{width:17px;height:17px}
+.payment-info{min-width:0;flex:1;text-align:left}
+.payment-info strong{display:block;font-size:12px;color:#263238;margin-bottom:3px;line-height:1.3;text-align:left;overflow-wrap:anywhere}
+.payment-info span{display:block;font-size:9px;color:#90A4AE;line-height:1.3;text-align:left}
+.payment-amount{flex-shrink:0;font-size:13px;font-weight:700;color:#00897B;white-space:nowrap;text-align:right}
+.payment-note{display:block;margin-top:9px;padding-top:8px;border-top:1px solid #EDF0F0;font-size:10px;color:#607D8B;line-height:1.45;overflow-wrap:anywhere}
+.payment-actions{margin-top:9px;display:flex;gap:7px;justify-content:flex-end;align-items:center}
+.action-button{height:29px;padding:0 10px;border:none;border-radius:8px;background:#F5F7F7;color:#607D8B;font-size:10px;font-weight:600;cursor:pointer}
+.action-button.delete{color:#C62828;background:#FFEBEE}
+.empty-state{background:#fff;border:1px dashed #D5DEDE;border-radius:17px;padding:40px 20px;text-align:center}
+.empty-icon{width:57px;height:57px;margin:0 auto 14px;border-radius:17px;background:#E0F2F1;color:#00695C;display:flex;align-items:center;justify-content:center}
+.empty-icon svg{width:25px;height:25px}
+.empty-state h3{font-size:16px;margin-bottom:6px;color:#455A64}
+.empty-state p{font-size:12px;line-height:1.5;color:#90A4AE}
+.modal{position:fixed;inset:0;background:rgba(38,50,56,.45);display:none;align-items:flex-end;justify-content:center;z-index:100}
+.modal.show{display:flex}
+.modal-box{width:100%;max-width:600px;background:#F5F7F7;border-radius:22px 22px 0 0;padding:21px 17px 25px;max-height:90vh;overflow-y:auto}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}
+.modal-header strong{font-size:18px;color:#263238}
+.close-button{width:35px;height:35px;border:none;border-radius:10px;background:#E8EEEE;color:#607D8B;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.close-button svg{width:18px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:11px;color:#78909C;margin-bottom:7px;font-weight:600}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1px solid #DDE5E5;outline:none;background:#fff;border-radius:11px;padding:12px;font-size:13px;color:#263238}
+.form-group textarea{min-height:75px;resize:vertical}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#80CBC4;box-shadow:0 0 0 3px rgba(0,137,123,.07)}
+.save-button{width:100%;height:47px;border:none;border-radius:12px;background:#00695C;color:#fff;font-size:14px;font-weight:700;cursor:pointer;margin-top:5px}
+.save-button:disabled{opacity:.65;cursor:wait}
+.loading{text-align:center;padding:70px 20px;color:#78909C;font-size:14px}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:#263238;color:#fff;padding:11px 17px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;transition:.25s ease;z-index:200;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:601px){body{background:#E9EEEE}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="header">
-<button class="back-button" onclick="goBack()"><i data-lucide="arrow-left"></i></button>
+<button class="back-button" onclick="goBack()" aria-label="Go back"><i data-lucide="arrow-left"></i></button>
 <div class="header-title">Tenant Payments</div>
 </header>
+
 <main class="content">
 <div id="loading" class="loading">Loading payments...</div>
-<div id="mainContent" style="display:none;">
+<div id="mainContent" style="display:none">
 <section class="tenant-header">
 <div class="avatar" id="avatar">TN</div>
-<div><strong id="tenantName">—</strong><span id="tenantRoom">—</span></div>
+<div><strong id="tenantName">-</strong><span id="tenantRoom">-</span></div>
 </section>
+
 <section class="balance-box">
-<div><span>Current Due</span><strong id="currentDue">₹0</strong></div>
+<div><span>Current Due</span><strong id="currentDue">&#8377;0</strong></div>
 <div class="balance-icon"><i data-lucide="wallet"></i></div>
 </section>
+
 <button class="add-button" onclick="openPaymentModal()"><i data-lucide="plus"></i>Add Payment</button>
 <div class="section-title"><strong>Payment History</strong><span id="paymentCount">0 payments</span></div>
 <div id="paymentsContainer"></div>
@@ -97,21 +105,35 @@ button{-webkit-appearance:none;}
 <div class="modal-box">
 <div class="modal-header">
 <strong id="modalTitle">Add Payment</strong>
-<button class="close-button" onclick="closePaymentModal()"><i data-lucide="x"></i></button>
+<button class="close-button" onclick="closePaymentModal()" aria-label="Close"><i data-lucide="x"></i></button>
 </div>
+
 <form id="paymentForm" onsubmit="savePayment(event)">
-<div class="form-group"><label>Amount</label><input type="number" id="paymentAmount" min="0.01" step="0.01" placeholder="Enter amount" required></div>
-<div class="form-group"><label>Payment Date</label><input type="date" id="paymentDate" required></div>
 <div class="form-group">
-<label>Payment Method</label>
+<label for="paymentAmount">Amount</label>
+<input type="number" id="paymentAmount" min="0.01" step="0.01" placeholder="Enter amount" required>
+</div>
+<div class="form-group">
+<label for="paymentDate">Payment Date</label>
+<input type="date" id="paymentDate" required>
+</div>
+<div class="form-group">
+<label for="paymentMethod">Payment Method</label>
 <select id="paymentMethod" required>
 <option value="Cash">Cash</option>
+<option value="Online">Online</option>
+<option value="PhonePe">PhonePe</option>
+<option value="Google Pay">Google Pay</option>
+<option value="Paytm">Paytm</option>
 <option value="UPI">UPI</option>
 <option value="Bank Transfer">Bank Transfer</option>
 <option value="Other">Other</option>
 </select>
 </div>
-<div class="form-group"><label>Note</label><textarea id="paymentNote" placeholder="Optional note..."></textarea></div>
+<div class="form-group">
+<label for="paymentNote">Note</label>
+<textarea id="paymentNote" placeholder="Optional note..."></textarea>
+</div>
 <button class="save-button" type="submit">Save Payment</button>
 </form>
 </div>
@@ -138,25 +160,29 @@ let editingPaymentId = null;
 let tenantData = null;
 
 function goBack() {
+    if (!currentTenantId) {
+        window.history.back();
+        return;
+    }
     window.location.href = "tenant-details.html?tenant=" + encodeURIComponent(currentTenantId);
 }
 window.goBack = goBack;
 
 function formatMoney(value) {
-    return "₹" + (Number(value) || 0).toLocaleString("en-IN");
+    return "\u20B9" + (Number(value) || 0).toLocaleString("en-IN");
 }
 
 function getInitials(name) {
     if (!name) return "TN";
-    const words = name.trim().split(/\s+/).filter(Boolean);
+    const words = String(name).trim().split(/\s+/).filter(Boolean);
     if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
     return (words[0][0] + words[1][0]).toUpperCase();
 }
 
 function formatDate(date) {
-    if (!date) return "—";
+    if (!date) return "-";
     const parts = String(date).split("-");
-    if (parts.length !== 3) return date;
+    if (parts.length !== 3) return String(date);
     return parts[2] + "/" + parts[1] + "/" + parts[0];
 }
 
@@ -168,7 +194,7 @@ function showToast(message) {
 }
 
 function escapeHtml(value) {
-    return String(value)
+    return String(value ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -207,6 +233,14 @@ function openPaymentModal(payment = null) {
         date.value = payment.date || "";
         method.value = payment.method || "Cash";
         note.value = payment.note || "";
+
+        // Preserve previously saved methods not in the standard list.
+        if (payment.method && !Array.from(method.options).some(option => option.value === payment.method)) {
+            const option = document.createElement("option");
+            option.value = payment.method;
+            option.textContent = payment.method;
+            method.appendChild(option);
+        }
     } else {
         editingPaymentId = null;
         title.textContent = "Add Payment";
@@ -235,10 +269,9 @@ async function loadTenant() {
 
     tenantData = snapshot.data();
     const name = tenantData.name || "Unnamed Tenant";
-
     const room = tenantData.buildingNumber
         ? (tenantData.building
-            ? tenantData.building + " • " + tenantData.buildingNumber
+            ? tenantData.building + " / " + tenantData.buildingNumber
             : tenantData.buildingNumber)
         : (tenantData.building || "No room assigned");
 
@@ -284,9 +317,13 @@ async function loadPayments() {
 
         const method = payment.method || "Other";
         const note = payment.note || "";
-        const icon = method === "UPI" ? "smartphone" :
-            method === "Bank Transfer" ? "landmark" :
-            method === "Cash" ? "banknote" : "wallet";
+        const icon = ["UPI", "Online", "PhonePe", "Google Pay", "Paytm"].includes(method)
+            ? "smartphone"
+            : method === "Bank Transfer"
+                ? "landmark"
+                : method === "Cash"
+                    ? "banknote"
+                    : "wallet";
 
         card.innerHTML = `
             <div class="payment-top">
@@ -294,15 +331,15 @@ async function loadPayments() {
                     <div class="payment-icon"><i data-lucide="${icon}"></i></div>
                     <div class="payment-info">
                         <strong>${escapeHtml(method)}</strong>
-                        <span>${formatDate(payment.date)}</span>
+                        <span>${escapeHtml(formatDate(payment.date))}</span>
                     </div>
                 </div>
-                <div class="payment-amount">${formatMoney(payment.amount)}</div>
+                <div class="payment-amount">${escapeHtml(formatMoney(payment.amount))}</div>
             </div>
             ${note ? `<div class="payment-note">${escapeHtml(note)}</div>` : ""}
             <div class="payment-actions">
-                <button class="action-button" onclick="editPayment('${payment.id}')">Edit</button>
-                <button class="action-button delete" onclick="removePayment('${payment.id}')">Delete</button>
+                <button type="button" class="action-button" onclick="editPayment('${escapeHtml(payment.id)}')">Edit</button>
+                <button type="button" class="action-button delete" onclick="removePayment('${escapeHtml(payment.id)}')">Delete</button>
             </div>`;
         container.appendChild(card);
     });
@@ -384,9 +421,7 @@ async function savePayment(event) {
                 const paymentSnapshot = await transaction.get(paymentRef);
 
                 if (!tenantSnapshot.exists()) throw new Error("Tenant not found.");
-
-                if (!paymentSnapshot.exists() ||
-                    paymentSnapshot.data().tenantId !== currentTenantId) {
+                if (!paymentSnapshot.exists() || paymentSnapshot.data().tenantId !== currentTenantId) {
                     throw new Error("Payment not found for this tenant.");
                 }
 
@@ -419,7 +454,6 @@ async function savePayment(event) {
 
             showToast("Payment updated.");
         } else {
-            // Create a stable reference before the transaction.
             const paymentRef = doc(paymentsRef);
 
             await runTransaction(db, async transaction => {
@@ -443,8 +477,6 @@ async function savePayment(event) {
                 });
             });
 
-            // NEW: Open the receipt for this exact saved payment.
-            // The receipt page only reads the payment and won't change the balance.
             closePaymentModal();
             window.location.href =
                 "tenant-receipts.html?tenant=" +
@@ -485,9 +517,7 @@ window.removePayment = async function(paymentId) {
             const paymentSnapshot = await transaction.get(paymentRef);
 
             if (!tenantSnapshot.exists()) throw new Error("Tenant not found.");
-
-            if (!paymentSnapshot.exists() ||
-                paymentSnapshot.data().tenantId !== currentTenantId) {
+            if (!paymentSnapshot.exists() || paymentSnapshot.data().tenantId !== currentTenantId) {
                 throw new Error("Payment not found for this tenant.");
             }
 
@@ -525,7 +555,6 @@ window.removePayment = async function(paymentId) {
 async function init() {
     const loading = document.getElementById("loading");
     const mainContent = document.getElementById("mainContent");
-
     const params = new URLSearchParams(window.location.search);
     currentTenantId = params.get("tenant");
 
